@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>WhyWait</title>
+  <style>
+    :root {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 24%, rgba(42, 205, 255, 0.23), transparent 34%),
+        radial-gradient(circle at 82% 72%, rgba(111, 77, 255, 0.25), transparent 38%),
+        radial-gradient(circle at 52% 48%, rgba(38, 74, 112, 0.18), transparent 44%),
+        linear-gradient(145deg, #071019 0%, #0a101d 46%, #090a14 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 42px 42px;
+      transform: perspective(700px) rotateX(54deg) translateY(24%);
+      mask-image: linear-gradient(to bottom, transparent, black 30%, transparent 82%);
+    }
+
+    a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 250px;
+      min-height: 58px;
+      padding: 0 30px;
+      border: 1px solid rgba(170, 232, 255, 0.42);
+      border-radius: 17px;
+      color: #f5fbff;
+      background: rgba(13, 29, 43, 0.76);
+      box-shadow:
+        0 18px 54px rgba(0, 0, 0, 0.4),
+        inset 0 1px rgba(255, 255, 255, 0.12),
+        0 0 36px rgba(57, 198, 255, 0.1);
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+      font-size: 16px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+    }
+
+    a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(190, 240, 255, 0.78);
+      background: rgba(19, 42, 60, 0.88);
+    }
+
+    a:active { transform: translateY(0); }
+
+    a:focus-visible {
+      outline: 3px solid rgba(84, 211, 255, 0.72);
+      outline-offset: 5px;
+    }
+  </style>
+</head>
+<body>
+  <a href="https://github.com/en-code23/whywait/releases/latest/download/WhyWait-macOS.zip">Download WhyWait for macOS</a>
+</body>
+</html>

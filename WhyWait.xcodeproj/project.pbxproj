@@ -1,0 +1,1030 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		100000000000000000000001 /* WhyWaitApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000001 /* WhyWaitApplication.swift */; };
+		100000000000000000000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000002 /* AppDelegate.swift */; };
+		100000000000000000000003 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000003 /* AppCoordinator.swift */; };
+		100000000000000000000004 /* OverlayWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000004 /* OverlayWindow.swift */; };
+		100000000000000000000005 /* OverlayWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000005 /* OverlayWindowController.swift */; };
+		100000000000000000000006 /* InputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000006 /* InputEvent.swift */; };
+		100000000000000000000007 /* InputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000007 /* InputManager.swift */; };
+		100000000000000000000008 /* Minigame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000008 /* Minigame.swift */; };
+		100000000000000000000009 /* CursorGolfGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000009 /* CursorGolfGame.swift */; };
+		10000000000000000000000A /* CursorGolfScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000A /* CursorGolfScene.swift */; };
+		100000000000000000000101 /* CursorGolfConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000101 /* CursorGolfConfiguration.swift */; };
+		100000000000000000000102 /* CursorGolfState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000102 /* CursorGolfState.swift */; };
+		100000000000000000000103 /* CursorGolfGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000103 /* CursorGolfGeometry.swift */; };
+		100000000000000000000104 /* GolfBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000104 /* GolfBall.swift */; };
+		100000000000000000000105 /* GolfHole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000105 /* GolfHole.swift */; };
+		100000000000000000000106 /* ShotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000106 /* ShotController.swift */; };
+		100000000000000000000107 /* AimIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000107 /* AimIndicator.swift */; };
+		100000000000000000000108 /* CourseGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000108 /* CourseGenerator.swift */; };
+		100000000000000000000109 /* GolfObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000109 /* GolfObstacle.swift */; };
+		10000000000000000000010A /* GolfHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000010A /* GolfHUD.swift */; };
+		100000000000000000000200 /* MinigameRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000200 /* MinigameRegistry.swift */; };
+		100000000000000000000201 /* CursorPongConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000201 /* CursorPongConfiguration.swift */; };
+		100000000000000000000202 /* CursorPongState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000202 /* CursorPongState.swift */; };
+		100000000000000000000203 /* PongPhysics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000203 /* PongPhysics.swift */; };
+		100000000000000000000204 /* PongBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000204 /* PongBall.swift */; };
+		100000000000000000000205 /* PongPaddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000205 /* PongPaddle.swift */; };
+		100000000000000000000206 /* PongBallTrail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000206 /* PongBallTrail.swift */; };
+		100000000000000000000207 /* PlayerPaddleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000207 /* PlayerPaddleController.swift */; };
+		100000000000000000000208 /* CPUPaddleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000208 /* CPUPaddleController.swift */; };
+		100000000000000000000209 /* PongHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000209 /* PongHUD.swift */; };
+		10000000000000000000020A /* CursorPongGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000020A /* CursorPongGame.swift */; };
+		10000000000000000000020B /* CursorPongScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000020B /* CursorPongScene.swift */; };
+		100000000000000000000300 /* FruitSliceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000300 /* FruitSliceConfiguration.swift */; };
+		100000000000000000000301 /* FruitSliceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000301 /* FruitSliceState.swift */; };
+		100000000000000000000302 /* FruitType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000302 /* FruitType.swift */; };
+		100000000000000000000303 /* SliceGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000303 /* SliceGeometry.swift */; };
+		100000000000000000000304 /* BladeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000304 /* BladeTracker.swift */; };
+		100000000000000000000305 /* BladeTrail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000305 /* BladeTrail.swift */; };
+		100000000000000000000306 /* ComboController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000306 /* ComboController.swift */; };
+		100000000000000000000307 /* FruitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000307 /* FruitNode.swift */; };
+		100000000000000000000308 /* BombNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000308 /* BombNode.swift */; };
+		100000000000000000000309 /* FruitSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000309 /* FruitSpawner.swift */; };
+		10000000000000000000030A /* SliceEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000030A /* SliceEffects.swift */; };
+		10000000000000000000030B /* FruitSliceHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000030B /* FruitSliceHUD.swift */; };
+		10000000000000000000030C /* FruitSliceGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000030C /* FruitSliceGame.swift */; };
+		10000000000000000000030D /* FruitSliceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000030D /* FruitSliceScene.swift */; };
+		100000000000000000000400 /* GrappleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000400 /* GrappleConfiguration.swift */; };
+		100000000000000000000401 /* GrappleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000401 /* GrappleState.swift */; };
+		100000000000000000000402 /* GrapplePhysics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000402 /* GrapplePhysics.swift */; };
+		100000000000000000000403 /* GrappleCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000403 /* GrappleCourse.swift */; };
+		100000000000000000000404 /* GrappleCourseGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000404 /* GrappleCourseGenerator.swift */; };
+		100000000000000000000405 /* GrappleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000405 /* GrappleController.swift */; };
+		100000000000000000000406 /* GrapplePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000406 /* GrapplePlayer.swift */; };
+		100000000000000000000407 /* GrappleTrail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000407 /* GrappleTrail.swift */; };
+		100000000000000000000408 /* RopeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000408 /* RopeRenderer.swift */; };
+		100000000000000000000409 /* GrappleCheckpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000409 /* GrappleCheckpoint.swift */; };
+		10000000000000000000040A /* GrappleObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000040A /* GrappleObstacle.swift */; };
+		10000000000000000000040B /* GrappleHazard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000040B /* GrappleHazard.swift */; };
+		10000000000000000000040C /* GrappleGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000040C /* GrappleGoal.swift */; };
+		10000000000000000000040D /* GrappleHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000040D /* GrappleHUD.swift */; };
+		10000000000000000000040E /* GrappleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000040E /* GrappleGame.swift */; };
+		10000000000000000000040F /* GrappleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000040F /* GrappleScene.swift */; };
+		100000000000000000000500 /* FishingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000500 /* FishingConfiguration.swift */; };
+		100000000000000000000501 /* FishingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000501 /* FishingState.swift */; };
+		100000000000000000000502 /* FishingRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000502 /* FishingRandom.swift */; };
+		100000000000000000000503 /* FishingEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000503 /* FishingEquipment.swift */; };
+		100000000000000000000504 /* FishDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000504 /* FishDefinition.swift */; };
+		100000000000000000000505 /* FishCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000505 /* FishCatalog.swift */; };
+		100000000000000000000506 /* TreasureDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000506 /* TreasureDefinition.swift */; };
+		100000000000000000000507 /* CatchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000507 /* CatchResult.swift */; };
+		100000000000000000000508 /* CatchGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000508 /* CatchGenerator.swift */; };
+		100000000000000000000509 /* FishingProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000509 /* FishingProfile.swift */; };
+		10000000000000000000050A /* FishingSaveStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000050A /* FishingSaveStore.swift */; };
+		10000000000000000000050B /* FishingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000050B /* FishingSession.swift */; };
+		10000000000000000000050C /* FishingGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000050C /* FishingGeometry.swift */; };
+		10000000000000000000050D /* FishingCastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000050D /* FishingCastController.swift */; };
+		10000000000000000000050E /* FishingTensionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000050E /* FishingTensionSystem.swift */; };
+		10000000000000000000050F /* FishAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000050F /* FishAI.swift */; };
+		100000000000000000000510 /* FishingFightController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000510 /* FishingFightController.swift */; };
+		100000000000000000000511 /* FishingRod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000511 /* FishingRod.swift */; };
+		100000000000000000000512 /* FishingBobber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000512 /* FishingBobber.swift */; };
+		100000000000000000000513 /* FishingLineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000513 /* FishingLineRenderer.swift */; };
+		100000000000000000000514 /* FishNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000514 /* FishNode.swift */; };
+		100000000000000000000515 /* FishingEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000515 /* FishingEffects.swift */; };
+		100000000000000000000516 /* FishingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000516 /* FishingHUD.swift */; };
+		100000000000000000000517 /* FishDexPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000517 /* FishDexPanel.swift */; };
+		100000000000000000000518 /* UpgradePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000518 /* UpgradePanel.swift */; };
+		100000000000000000000519 /* FishingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000519 /* FishingScene.swift */; };
+		10000000000000000000051A /* FishingSceneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051A /* FishingSceneInput.swift */; };
+		10000000000000000000051B /* FishingSceneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051B /* FishingSceneFlow.swift */; };
+		10000000000000000000051C /* FishingGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051C /* FishingGame.swift */; };
+		100000000000000000000600 /* SwordDummyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000600 /* SwordDummyConfiguration.swift */; };
+		100000000000000000000601 /* SwordDummyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000601 /* SwordDummyState.swift */; };
+		100000000000000000000602 /* SwordGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000602 /* SwordGeometry.swift */; };
+		100000000000000000000603 /* SwordPhysics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000603 /* SwordPhysics.swift */; };
+		100000000000000000000604 /* PhysicsSword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000604 /* PhysicsSword.swift */; };
+		100000000000000000000605 /* SwordCollisionGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000605 /* SwordCollisionGeometry.swift */; };
+		100000000000000000000606 /* DamageCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000606 /* DamageCalculator.swift */; };
+		100000000000000000000607 /* SwingTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000607 /* SwingTracker.swift */; };
+		100000000000000000000608 /* TrainingDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000608 /* TrainingDummy.swift */; };
+		100000000000000000000609 /* ChallengeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000609 /* ChallengeController.swift */; };
+		10000000000000000000060A /* SwordTrail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000060A /* SwordTrail.swift */; };
+		10000000000000000000060B /* SwordEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000060B /* SwordEffects.swift */; };
+		10000000000000000000060C /* SwordDummyHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000060C /* SwordDummyHUD.swift */; };
+		10000000000000000000060D /* SwordDebugOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000060D /* SwordDebugOverlay.swift */; };
+		10000000000000000000060E /* SwordDummyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000060E /* SwordDummyScene.swift */; };
+		10000000000000000000060F /* SwordDummySceneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000060F /* SwordDummySceneInput.swift */; };
+		100000000000000000000610 /* SwordDummySceneCombat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000610 /* SwordDummySceneCombat.swift */; };
+		100000000000000000000611 /* SwordDummyGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000611 /* SwordDummyGame.swift */; };
+		100000000000000000000612 /* SwordDummySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000612 /* SwordDummySettings.swift */; };
+		100000000000000000000613 /* SwordSettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000613 /* SwordSettingsPanel.swift */; };
+		100000000000000000000614 /* SwordEngineConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000614 /* SwordEngineConfiguration.swift */; };
+		100000000000000000000615 /* SwordEngineSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000615 /* SwordEngineSettings.swift */; };
+		100000000000000000000616 /* SwordSwingTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000616 /* SwordSwingTracker.swift */; };
+		100000000000000000000700 /* ZombieSwordConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000700 /* ZombieSwordConfiguration.swift */; };
+		100000000000000000000701 /* ZombieSwordState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000701 /* ZombieSwordState.swift */; };
+		100000000000000000000702 /* ZombieRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000702 /* ZombieRandom.swift */; };
+		100000000000000000000703 /* ZombieType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000703 /* ZombieType.swift */; };
+		100000000000000000000704 /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000704 /* Zombie.swift */; };
+		100000000000000000000705 /* ZombieSteering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000705 /* ZombieSteering.swift */; };
+		100000000000000000000706 /* ZombieDamageCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000706 /* ZombieDamageCalculator.swift */; };
+		100000000000000000000707 /* ZombieSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000707 /* ZombieSpawner.swift */; };
+		100000000000000000000708 /* ZombieWaveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000708 /* ZombieWaveController.swift */; };
+		100000000000000000000709 /* ZombieSwordPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000709 /* ZombieSwordPlayer.swift */; };
+		10000000000000000000070A /* ZombieSwordComboController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000070A /* ZombieSwordComboController.swift */; };
+		10000000000000000000070B /* ZombieSwordChallengeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000070B /* ZombieSwordChallengeController.swift */; };
+		10000000000000000000070C /* ZombieSwordEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000070C /* ZombieSwordEffects.swift */; };
+		10000000000000000000070D /* ZombieSwordHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000070D /* ZombieSwordHUD.swift */; };
+		10000000000000000000070E /* ZombieSwordScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000070E /* ZombieSwordScene.swift */; };
+		10000000000000000000070F /* ZombieSwordSceneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000070F /* ZombieSwordSceneInput.swift */; };
+		100000000000000000000710 /* ZombieSwordSceneCombat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000710 /* ZombieSwordSceneCombat.swift */; };
+		100000000000000000000711 /* ZombieSwordSceneLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000711 /* ZombieSwordSceneLifecycle.swift */; };
+		100000000000000000000712 /* ZombieSwordGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000712 /* ZombieSwordGame.swift */; };
+		100000000000000000000713 /* ZombieSwordDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000713 /* ZombieSwordDiagnostics.swift */; };
+		100000000000000000000800 /* WhyWaitAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000800 /* WhyWaitAppState.swift */; };
+		100000000000000000000801 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000801 /* AppPreferences.swift */; };
+		100000000000000000000802 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000802 /* MenuBarController.swift */; };
+		100000000000000000000803 /* GlobalShortcutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000803 /* GlobalShortcutController.swift */; };
+		100000000000000000000804 /* LauncherTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000804 /* LauncherTheme.swift */; };
+		100000000000000000000805 /* WaitingRailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000805 /* WaitingRailView.swift */; };
+		100000000000000000000806 /* GameCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000806 /* GameCardView.swift */; };
+		100000000000000000000807 /* LauncherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000807 /* LauncherViewController.swift */; };
+		100000000000000000000808 /* LauncherWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000808 /* LauncherWindowController.swift */; };
+		100000000000000000000809 /* AppShellDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000809 /* AppShellDiagnostics.swift */; };
+		10000000000000000000080A /* WhyWaitStatsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000080A /* WhyWaitStatsStore.swift */; };
+		10000000000000000000080B /* GameSupplementalStatsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000080B /* GameSupplementalStatsProvider.swift */; };
+		10000000000000000000080C /* WhyWaitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000080C /* WhyWaitSettings.swift */; };
+		10000000000000000000080D /* LaunchAtLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000080D /* LaunchAtLoginController.swift */; };
+		10000000000000000000080E /* LauncherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000080E /* LauncherViewModel.swift */; };
+		10000000000000000000080F /* LauncherRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000080F /* LauncherRootView.swift */; };
+		100000000000000000000810 /* GameDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000810 /* GameDetailView.swift */; };
+		100000000000000000000811 /* LauncherSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000811 /* LauncherSettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		200000000000000000000001 /* WhyWaitApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitApplication.swift; sourceTree = "<group>"; };
+		200000000000000000000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		200000000000000000000003 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		200000000000000000000004 /* OverlayWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWindow.swift; sourceTree = "<group>"; };
+		200000000000000000000005 /* OverlayWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWindowController.swift; sourceTree = "<group>"; };
+		200000000000000000000006 /* InputEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputEvent.swift; sourceTree = "<group>"; };
+		200000000000000000000007 /* InputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputManager.swift; sourceTree = "<group>"; };
+		200000000000000000000008 /* Minigame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minigame.swift; sourceTree = "<group>"; };
+		200000000000000000000009 /* CursorGolfGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorGolfGame.swift; sourceTree = "<group>"; };
+		20000000000000000000000A /* CursorGolfScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorGolfScene.swift; sourceTree = "<group>"; };
+		200000000000000000000101 /* CursorGolfConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorGolfConfiguration.swift; sourceTree = "<group>"; };
+		200000000000000000000102 /* CursorGolfState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorGolfState.swift; sourceTree = "<group>"; };
+		200000000000000000000103 /* CursorGolfGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorGolfGeometry.swift; sourceTree = "<group>"; };
+		200000000000000000000104 /* GolfBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfBall.swift; sourceTree = "<group>"; };
+		200000000000000000000105 /* GolfHole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfHole.swift; sourceTree = "<group>"; };
+		200000000000000000000106 /* ShotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotController.swift; sourceTree = "<group>"; };
+		200000000000000000000107 /* AimIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AimIndicator.swift; sourceTree = "<group>"; };
+		200000000000000000000108 /* CourseGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseGenerator.swift; sourceTree = "<group>"; };
+		200000000000000000000109 /* GolfObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfObstacle.swift; sourceTree = "<group>"; };
+		20000000000000000000010A /* GolfHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfHUD.swift; sourceTree = "<group>"; };
+		200000000000000000000200 /* MinigameRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinigameRegistry.swift; sourceTree = "<group>"; };
+		200000000000000000000201 /* CursorPongConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorPongConfiguration.swift; sourceTree = "<group>"; };
+		200000000000000000000202 /* CursorPongState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorPongState.swift; sourceTree = "<group>"; };
+		200000000000000000000203 /* PongPhysics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PongPhysics.swift; sourceTree = "<group>"; };
+		200000000000000000000204 /* PongBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PongBall.swift; sourceTree = "<group>"; };
+		200000000000000000000205 /* PongPaddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PongPaddle.swift; sourceTree = "<group>"; };
+		200000000000000000000206 /* PongBallTrail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PongBallTrail.swift; sourceTree = "<group>"; };
+		200000000000000000000207 /* PlayerPaddleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPaddleController.swift; sourceTree = "<group>"; };
+		200000000000000000000208 /* CPUPaddleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUPaddleController.swift; sourceTree = "<group>"; };
+		200000000000000000000209 /* PongHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PongHUD.swift; sourceTree = "<group>"; };
+		20000000000000000000020A /* CursorPongGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorPongGame.swift; sourceTree = "<group>"; };
+		20000000000000000000020B /* CursorPongScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorPongScene.swift; sourceTree = "<group>"; };
+		200000000000000000000300 /* FruitSliceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSliceConfiguration.swift; sourceTree = "<group>"; };
+		200000000000000000000301 /* FruitSliceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSliceState.swift; sourceTree = "<group>"; };
+		200000000000000000000302 /* FruitType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitType.swift; sourceTree = "<group>"; };
+		200000000000000000000303 /* SliceGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliceGeometry.swift; sourceTree = "<group>"; };
+		200000000000000000000304 /* BladeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BladeTracker.swift; sourceTree = "<group>"; };
+		200000000000000000000305 /* BladeTrail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BladeTrail.swift; sourceTree = "<group>"; };
+		200000000000000000000306 /* ComboController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboController.swift; sourceTree = "<group>"; };
+		200000000000000000000307 /* FruitNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitNode.swift; sourceTree = "<group>"; };
+		200000000000000000000308 /* BombNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombNode.swift; sourceTree = "<group>"; };
+		200000000000000000000309 /* FruitSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSpawner.swift; sourceTree = "<group>"; };
+		20000000000000000000030A /* SliceEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliceEffects.swift; sourceTree = "<group>"; };
+		20000000000000000000030B /* FruitSliceHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSliceHUD.swift; sourceTree = "<group>"; };
+		20000000000000000000030C /* FruitSliceGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSliceGame.swift; sourceTree = "<group>"; };
+		20000000000000000000030D /* FruitSliceScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSliceScene.swift; sourceTree = "<group>"; };
+		200000000000000000000400 /* GrappleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleConfiguration.swift; sourceTree = "<group>"; };
+		200000000000000000000401 /* GrappleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleState.swift; sourceTree = "<group>"; };
+		200000000000000000000402 /* GrapplePhysics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrapplePhysics.swift; sourceTree = "<group>"; };
+		200000000000000000000403 /* GrappleCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleCourse.swift; sourceTree = "<group>"; };
+		200000000000000000000404 /* GrappleCourseGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleCourseGenerator.swift; sourceTree = "<group>"; };
+		200000000000000000000405 /* GrappleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleController.swift; sourceTree = "<group>"; };
+		200000000000000000000406 /* GrapplePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrapplePlayer.swift; sourceTree = "<group>"; };
+		200000000000000000000407 /* GrappleTrail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleTrail.swift; sourceTree = "<group>"; };
+		200000000000000000000408 /* RopeRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RopeRenderer.swift; sourceTree = "<group>"; };
+		200000000000000000000409 /* GrappleCheckpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleCheckpoint.swift; sourceTree = "<group>"; };
+		20000000000000000000040A /* GrappleObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleObstacle.swift; sourceTree = "<group>"; };
+		20000000000000000000040B /* GrappleHazard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleHazard.swift; sourceTree = "<group>"; };
+		20000000000000000000040C /* GrappleGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleGoal.swift; sourceTree = "<group>"; };
+		20000000000000000000040D /* GrappleHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleHUD.swift; sourceTree = "<group>"; };
+		20000000000000000000040E /* GrappleGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleGame.swift; sourceTree = "<group>"; };
+		20000000000000000000040F /* GrappleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleScene.swift; sourceTree = "<group>"; };
+		200000000000000000000500 /* FishingConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingConfiguration.swift; sourceTree = "<group>"; };
+		200000000000000000000501 /* FishingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingState.swift; sourceTree = "<group>"; };
+		200000000000000000000502 /* FishingRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingRandom.swift; sourceTree = "<group>"; };
+		200000000000000000000503 /* FishingEquipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingEquipment.swift; sourceTree = "<group>"; };
+		200000000000000000000504 /* FishDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishDefinition.swift; sourceTree = "<group>"; };
+		200000000000000000000505 /* FishCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishCatalog.swift; sourceTree = "<group>"; };
+		200000000000000000000506 /* TreasureDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureDefinition.swift; sourceTree = "<group>"; };
+		200000000000000000000507 /* CatchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchResult.swift; sourceTree = "<group>"; };
+		200000000000000000000508 /* CatchGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchGenerator.swift; sourceTree = "<group>"; };
+		200000000000000000000509 /* FishingProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingProfile.swift; sourceTree = "<group>"; };
+		20000000000000000000050A /* FishingSaveStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingSaveStore.swift; sourceTree = "<group>"; };
+		20000000000000000000050B /* FishingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingSession.swift; sourceTree = "<group>"; };
+		20000000000000000000050C /* FishingGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingGeometry.swift; sourceTree = "<group>"; };
+		20000000000000000000050D /* FishingCastController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingCastController.swift; sourceTree = "<group>"; };
+		20000000000000000000050E /* FishingTensionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingTensionSystem.swift; sourceTree = "<group>"; };
+		20000000000000000000050F /* FishAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishAI.swift; sourceTree = "<group>"; };
+		200000000000000000000510 /* FishingFightController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingFightController.swift; sourceTree = "<group>"; };
+		200000000000000000000511 /* FishingRod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingRod.swift; sourceTree = "<group>"; };
+		200000000000000000000512 /* FishingBobber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingBobber.swift; sourceTree = "<group>"; };
+		200000000000000000000513 /* FishingLineRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingLineRenderer.swift; sourceTree = "<group>"; };
+		200000000000000000000514 /* FishNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishNode.swift; sourceTree = "<group>"; };
+		200000000000000000000515 /* FishingEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingEffects.swift; sourceTree = "<group>"; };
+		200000000000000000000516 /* FishingHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingHUD.swift; sourceTree = "<group>"; };
+		200000000000000000000517 /* FishDexPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishDexPanel.swift; sourceTree = "<group>"; };
+		200000000000000000000518 /* UpgradePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradePanel.swift; sourceTree = "<group>"; };
+		200000000000000000000519 /* FishingScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingScene.swift; sourceTree = "<group>"; };
+		20000000000000000000051A /* FishingSceneInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingSceneInput.swift; sourceTree = "<group>"; };
+		20000000000000000000051B /* FishingSceneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingSceneFlow.swift; sourceTree = "<group>"; };
+		20000000000000000000051C /* FishingGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingGame.swift; sourceTree = "<group>"; };
+		200000000000000000000600 /* SwordDummyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummyConfiguration.swift; sourceTree = "<group>"; };
+		200000000000000000000601 /* SwordDummyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummyState.swift; sourceTree = "<group>"; };
+		200000000000000000000602 /* SwordGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordGeometry.swift; sourceTree = "<group>"; };
+		200000000000000000000603 /* SwordPhysics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordPhysics.swift; sourceTree = "<group>"; };
+		200000000000000000000604 /* PhysicsSword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsSword.swift; sourceTree = "<group>"; };
+		200000000000000000000605 /* SwordCollisionGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordCollisionGeometry.swift; sourceTree = "<group>"; };
+		200000000000000000000606 /* DamageCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageCalculator.swift; sourceTree = "<group>"; };
+		200000000000000000000607 /* SwingTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingTracker.swift; sourceTree = "<group>"; };
+		200000000000000000000608 /* TrainingDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingDummy.swift; sourceTree = "<group>"; };
+		200000000000000000000609 /* ChallengeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeController.swift; sourceTree = "<group>"; };
+		20000000000000000000060A /* SwordTrail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordTrail.swift; sourceTree = "<group>"; };
+		20000000000000000000060B /* SwordEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordEffects.swift; sourceTree = "<group>"; };
+		20000000000000000000060C /* SwordDummyHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummyHUD.swift; sourceTree = "<group>"; };
+		20000000000000000000060D /* SwordDebugOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDebugOverlay.swift; sourceTree = "<group>"; };
+		20000000000000000000060E /* SwordDummyScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummyScene.swift; sourceTree = "<group>"; };
+		20000000000000000000060F /* SwordDummySceneInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummySceneInput.swift; sourceTree = "<group>"; };
+		200000000000000000000610 /* SwordDummySceneCombat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummySceneCombat.swift; sourceTree = "<group>"; };
+		200000000000000000000611 /* SwordDummyGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummyGame.swift; sourceTree = "<group>"; };
+		200000000000000000000612 /* SwordDummySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummySettings.swift; sourceTree = "<group>"; };
+		200000000000000000000613 /* SwordSettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordSettingsPanel.swift; sourceTree = "<group>"; };
+		200000000000000000000614 /* SwordEngineConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordEngineConfiguration.swift; sourceTree = "<group>"; };
+		200000000000000000000615 /* SwordEngineSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordEngineSettings.swift; sourceTree = "<group>"; };
+		200000000000000000000616 /* SwordSwingTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordSwingTracker.swift; sourceTree = "<group>"; };
+		200000000000000000000700 /* ZombieSwordConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordConfiguration.swift; sourceTree = "<group>"; };
+		200000000000000000000701 /* ZombieSwordState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordState.swift; sourceTree = "<group>"; };
+		200000000000000000000702 /* ZombieRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieRandom.swift; sourceTree = "<group>"; };
+		200000000000000000000703 /* ZombieType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieType.swift; sourceTree = "<group>"; };
+		200000000000000000000704 /* Zombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
+		200000000000000000000705 /* ZombieSteering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSteering.swift; sourceTree = "<group>"; };
+		200000000000000000000706 /* ZombieDamageCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieDamageCalculator.swift; sourceTree = "<group>"; };
+		200000000000000000000707 /* ZombieSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSpawner.swift; sourceTree = "<group>"; };
+		200000000000000000000708 /* ZombieWaveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieWaveController.swift; sourceTree = "<group>"; };
+		200000000000000000000709 /* ZombieSwordPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordPlayer.swift; sourceTree = "<group>"; };
+		20000000000000000000070A /* ZombieSwordComboController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordComboController.swift; sourceTree = "<group>"; };
+		20000000000000000000070B /* ZombieSwordChallengeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordChallengeController.swift; sourceTree = "<group>"; };
+		20000000000000000000070C /* ZombieSwordEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordEffects.swift; sourceTree = "<group>"; };
+		20000000000000000000070D /* ZombieSwordHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordHUD.swift; sourceTree = "<group>"; };
+		20000000000000000000070E /* ZombieSwordScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordScene.swift; sourceTree = "<group>"; };
+		20000000000000000000070F /* ZombieSwordSceneInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordSceneInput.swift; sourceTree = "<group>"; };
+		200000000000000000000710 /* ZombieSwordSceneCombat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordSceneCombat.swift; sourceTree = "<group>"; };
+		200000000000000000000711 /* ZombieSwordSceneLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordSceneLifecycle.swift; sourceTree = "<group>"; };
+		200000000000000000000712 /* ZombieSwordGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordGame.swift; sourceTree = "<group>"; };
+		200000000000000000000713 /* ZombieSwordDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSwordDiagnostics.swift; sourceTree = "<group>"; };
+		200000000000000000000800 /* WhyWaitAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitAppState.swift; sourceTree = "<group>"; };
+		200000000000000000000801 /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		200000000000000000000802 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
+		200000000000000000000803 /* GlobalShortcutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalShortcutController.swift; sourceTree = "<group>"; };
+		200000000000000000000804 /* LauncherTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherTheme.swift; sourceTree = "<group>"; };
+		200000000000000000000805 /* WaitingRailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRailView.swift; sourceTree = "<group>"; };
+		200000000000000000000806 /* GameCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCardView.swift; sourceTree = "<group>"; };
+		200000000000000000000807 /* LauncherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherViewController.swift; sourceTree = "<group>"; };
+		200000000000000000000808 /* LauncherWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherWindowController.swift; sourceTree = "<group>"; };
+		200000000000000000000809 /* AppShellDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShellDiagnostics.swift; sourceTree = "<group>"; };
+		20000000000000000000080A /* WhyWaitStatsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitStatsStore.swift; sourceTree = "<group>"; };
+		20000000000000000000080B /* GameSupplementalStatsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSupplementalStatsProvider.swift; sourceTree = "<group>"; };
+		20000000000000000000080C /* WhyWaitSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitSettings.swift; sourceTree = "<group>"; };
+		20000000000000000000080D /* LaunchAtLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginController.swift; sourceTree = "<group>"; };
+		20000000000000000000080E /* LauncherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherViewModel.swift; sourceTree = "<group>"; };
+		20000000000000000000080F /* LauncherRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherRootView.swift; sourceTree = "<group>"; };
+		200000000000000000000810 /* GameDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailView.swift; sourceTree = "<group>"; };
+		200000000000000000000811 /* LauncherSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherSettingsView.swift; sourceTree = "<group>"; };
+		20000000000000000000000B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20000000000000000000000C /* WhyWait.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhyWait.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		300000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		400000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				400000000000000000000002 /* WhyWaitApp */,
+				400000000000000000000009 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		400000000000000000000002 /* WhyWaitApp */ = {
+			isa = PBXGroup;
+			children = (
+				400000000000000000000003 /* App */,
+				400000000000000000000004 /* Overlay */,
+				400000000000000000000005 /* Input */,
+				400000000000000000000006 /* Shared */,
+				400000000000000000000007 /* Minigames */,
+			);
+			path = WhyWaitApp;
+			sourceTree = "<group>";
+		};
+		400000000000000000000003 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000001 /* WhyWaitApplication.swift */,
+				200000000000000000000002 /* AppDelegate.swift */,
+				200000000000000000000003 /* AppCoordinator.swift */,
+				200000000000000000000200 /* MinigameRegistry.swift */,
+				200000000000000000000800 /* WhyWaitAppState.swift */,
+				200000000000000000000801 /* AppPreferences.swift */,
+				200000000000000000000802 /* MenuBarController.swift */,
+				200000000000000000000803 /* GlobalShortcutController.swift */,
+				200000000000000000000809 /* AppShellDiagnostics.swift */,
+				400000000000000000000012 /* Statistics */,
+				400000000000000000000013 /* Settings */,
+				400000000000000000000011 /* Launcher */,
+				20000000000000000000000B /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		400000000000000000000004 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000004 /* OverlayWindow.swift */,
+				200000000000000000000005 /* OverlayWindowController.swift */,
+			);
+			path = Overlay;
+			sourceTree = "<group>";
+		};
+		400000000000000000000005 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000006 /* InputEvent.swift */,
+				200000000000000000000007 /* InputManager.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		400000000000000000000006 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000008 /* Minigame.swift */,
+				40000000000000000000000F /* Sword */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		40000000000000000000000F /* Sword */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000614 /* SwordEngineConfiguration.swift */,
+				200000000000000000000615 /* SwordEngineSettings.swift */,
+				200000000000000000000602 /* SwordGeometry.swift */,
+				200000000000000000000603 /* SwordPhysics.swift */,
+				200000000000000000000604 /* PhysicsSword.swift */,
+				200000000000000000000605 /* SwordCollisionGeometry.swift */,
+				200000000000000000000616 /* SwordSwingTracker.swift */,
+				20000000000000000000060A /* SwordTrail.swift */,
+				20000000000000000000060D /* SwordDebugOverlay.swift */,
+			);
+			path = Sword;
+			sourceTree = "<group>";
+		};
+		400000000000000000000007 /* Minigames */ = {
+			isa = PBXGroup;
+			children = (
+				400000000000000000000008 /* CursorGolf */,
+				40000000000000000000000A /* CursorPong */,
+				40000000000000000000000B /* FruitSlice */,
+				40000000000000000000000C /* Grapple */,
+				40000000000000000000000D /* Fishing */,
+				40000000000000000000000E /* SwordDummy */,
+				400000000000000000000010 /* ZombieSword */,
+			);
+			path = Minigames;
+			sourceTree = "<group>";
+		};
+		400000000000000000000008 /* CursorGolf */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000009 /* CursorGolfGame.swift */,
+				20000000000000000000000A /* CursorGolfScene.swift */,
+				200000000000000000000101 /* CursorGolfConfiguration.swift */,
+				200000000000000000000102 /* CursorGolfState.swift */,
+				200000000000000000000103 /* CursorGolfGeometry.swift */,
+				200000000000000000000104 /* GolfBall.swift */,
+				200000000000000000000105 /* GolfHole.swift */,
+				200000000000000000000106 /* ShotController.swift */,
+				200000000000000000000107 /* AimIndicator.swift */,
+				200000000000000000000108 /* CourseGenerator.swift */,
+				200000000000000000000109 /* GolfObstacle.swift */,
+				20000000000000000000010A /* GolfHUD.swift */,
+			);
+			path = CursorGolf;
+			sourceTree = "<group>";
+		};
+		400000000000000000000009 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				20000000000000000000000C /* WhyWait.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		40000000000000000000000A /* CursorPong */ = {
+			isa = PBXGroup;
+			children = (
+				20000000000000000000020A /* CursorPongGame.swift */,
+				20000000000000000000020B /* CursorPongScene.swift */,
+				200000000000000000000201 /* CursorPongConfiguration.swift */,
+				200000000000000000000202 /* CursorPongState.swift */,
+				200000000000000000000203 /* PongPhysics.swift */,
+				200000000000000000000204 /* PongBall.swift */,
+				200000000000000000000205 /* PongPaddle.swift */,
+				200000000000000000000206 /* PongBallTrail.swift */,
+				200000000000000000000207 /* PlayerPaddleController.swift */,
+				200000000000000000000208 /* CPUPaddleController.swift */,
+				200000000000000000000209 /* PongHUD.swift */,
+			);
+			path = CursorPong;
+			sourceTree = "<group>";
+		};
+		40000000000000000000000B /* FruitSlice */ = {
+			isa = PBXGroup;
+			children = (
+				20000000000000000000030C /* FruitSliceGame.swift */,
+				20000000000000000000030D /* FruitSliceScene.swift */,
+				200000000000000000000300 /* FruitSliceConfiguration.swift */,
+				200000000000000000000301 /* FruitSliceState.swift */,
+				200000000000000000000302 /* FruitType.swift */,
+				200000000000000000000303 /* SliceGeometry.swift */,
+				200000000000000000000304 /* BladeTracker.swift */,
+				200000000000000000000305 /* BladeTrail.swift */,
+				200000000000000000000306 /* ComboController.swift */,
+				200000000000000000000307 /* FruitNode.swift */,
+				200000000000000000000308 /* BombNode.swift */,
+				200000000000000000000309 /* FruitSpawner.swift */,
+				20000000000000000000030A /* SliceEffects.swift */,
+				20000000000000000000030B /* FruitSliceHUD.swift */,
+			);
+			path = FruitSlice;
+			sourceTree = "<group>";
+		};
+		40000000000000000000000C /* Grapple */ = {
+			isa = PBXGroup;
+			children = (
+				20000000000000000000040E /* GrappleGame.swift */,
+				20000000000000000000040F /* GrappleScene.swift */,
+				200000000000000000000400 /* GrappleConfiguration.swift */,
+				200000000000000000000401 /* GrappleState.swift */,
+				200000000000000000000402 /* GrapplePhysics.swift */,
+				200000000000000000000403 /* GrappleCourse.swift */,
+				200000000000000000000404 /* GrappleCourseGenerator.swift */,
+				200000000000000000000405 /* GrappleController.swift */,
+				200000000000000000000406 /* GrapplePlayer.swift */,
+				200000000000000000000407 /* GrappleTrail.swift */,
+				200000000000000000000408 /* RopeRenderer.swift */,
+				200000000000000000000409 /* GrappleCheckpoint.swift */,
+				20000000000000000000040A /* GrappleObstacle.swift */,
+				20000000000000000000040B /* GrappleHazard.swift */,
+				20000000000000000000040C /* GrappleGoal.swift */,
+				20000000000000000000040D /* GrappleHUD.swift */,
+			);
+			path = Grapple;
+			sourceTree = "<group>";
+		};
+		40000000000000000000000D /* Fishing */ = {
+			isa = PBXGroup;
+			children = (
+				20000000000000000000051C /* FishingGame.swift */,
+				200000000000000000000519 /* FishingScene.swift */,
+				20000000000000000000051A /* FishingSceneInput.swift */,
+				20000000000000000000051B /* FishingSceneFlow.swift */,
+				200000000000000000000500 /* FishingConfiguration.swift */,
+				200000000000000000000501 /* FishingState.swift */,
+				200000000000000000000502 /* FishingRandom.swift */,
+				200000000000000000000503 /* FishingEquipment.swift */,
+				200000000000000000000504 /* FishDefinition.swift */,
+				200000000000000000000505 /* FishCatalog.swift */,
+				200000000000000000000506 /* TreasureDefinition.swift */,
+				200000000000000000000507 /* CatchResult.swift */,
+				200000000000000000000508 /* CatchGenerator.swift */,
+				200000000000000000000509 /* FishingProfile.swift */,
+				20000000000000000000050A /* FishingSaveStore.swift */,
+				20000000000000000000050B /* FishingSession.swift */,
+				20000000000000000000050C /* FishingGeometry.swift */,
+				20000000000000000000050D /* FishingCastController.swift */,
+				20000000000000000000050E /* FishingTensionSystem.swift */,
+				20000000000000000000050F /* FishAI.swift */,
+				200000000000000000000510 /* FishingFightController.swift */,
+				200000000000000000000511 /* FishingRod.swift */,
+				200000000000000000000512 /* FishingBobber.swift */,
+				200000000000000000000513 /* FishingLineRenderer.swift */,
+				200000000000000000000514 /* FishNode.swift */,
+				200000000000000000000515 /* FishingEffects.swift */,
+				200000000000000000000516 /* FishingHUD.swift */,
+				200000000000000000000517 /* FishDexPanel.swift */,
+				200000000000000000000518 /* UpgradePanel.swift */,
+			);
+			path = Fishing;
+			sourceTree = "<group>";
+		};
+		40000000000000000000000E /* SwordDummy */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000611 /* SwordDummyGame.swift */,
+				20000000000000000000060E /* SwordDummyScene.swift */,
+				20000000000000000000060F /* SwordDummySceneInput.swift */,
+				200000000000000000000610 /* SwordDummySceneCombat.swift */,
+				200000000000000000000600 /* SwordDummyConfiguration.swift */,
+				200000000000000000000601 /* SwordDummyState.swift */,
+				200000000000000000000612 /* SwordDummySettings.swift */,
+				200000000000000000000613 /* SwordSettingsPanel.swift */,
+				200000000000000000000606 /* DamageCalculator.swift */,
+				200000000000000000000607 /* SwingTracker.swift */,
+				200000000000000000000608 /* TrainingDummy.swift */,
+				200000000000000000000609 /* ChallengeController.swift */,
+				20000000000000000000060B /* SwordEffects.swift */,
+				20000000000000000000060C /* SwordDummyHUD.swift */,
+			);
+			path = SwordDummy;
+			sourceTree = "<group>";
+		};
+		400000000000000000000010 /* ZombieSword */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000712 /* ZombieSwordGame.swift */,
+				20000000000000000000070E /* ZombieSwordScene.swift */,
+				20000000000000000000070F /* ZombieSwordSceneInput.swift */,
+				200000000000000000000710 /* ZombieSwordSceneCombat.swift */,
+				200000000000000000000711 /* ZombieSwordSceneLifecycle.swift */,
+				200000000000000000000700 /* ZombieSwordConfiguration.swift */,
+				200000000000000000000701 /* ZombieSwordState.swift */,
+				200000000000000000000702 /* ZombieRandom.swift */,
+				200000000000000000000703 /* ZombieType.swift */,
+				200000000000000000000704 /* Zombie.swift */,
+				200000000000000000000705 /* ZombieSteering.swift */,
+				200000000000000000000706 /* ZombieDamageCalculator.swift */,
+				200000000000000000000707 /* ZombieSpawner.swift */,
+				200000000000000000000708 /* ZombieWaveController.swift */,
+				200000000000000000000709 /* ZombieSwordPlayer.swift */,
+				20000000000000000000070A /* ZombieSwordComboController.swift */,
+				20000000000000000000070B /* ZombieSwordChallengeController.swift */,
+				20000000000000000000070C /* ZombieSwordEffects.swift */,
+				20000000000000000000070D /* ZombieSwordHUD.swift */,
+				200000000000000000000713 /* ZombieSwordDiagnostics.swift */,
+			);
+			path = ZombieSword;
+			sourceTree = "<group>";
+		};
+		400000000000000000000011 /* Launcher */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000804 /* LauncherTheme.swift */,
+				200000000000000000000805 /* WaitingRailView.swift */,
+				200000000000000000000806 /* GameCardView.swift */,
+				200000000000000000000807 /* LauncherViewController.swift */,
+				200000000000000000000808 /* LauncherWindowController.swift */,
+				20000000000000000000080E /* LauncherViewModel.swift */,
+				20000000000000000000080F /* LauncherRootView.swift */,
+				200000000000000000000810 /* GameDetailView.swift */,
+				200000000000000000000811 /* LauncherSettingsView.swift */,
+			);
+			path = Launcher;
+			sourceTree = "<group>";
+		};
+		400000000000000000000012 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				20000000000000000000080A /* WhyWaitStatsStore.swift */,
+				20000000000000000000080B /* GameSupplementalStatsProvider.swift */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		400000000000000000000013 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				20000000000000000000080C /* WhyWaitSettings.swift */,
+				20000000000000000000080D /* LaunchAtLoginController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		500000000000000000000001 /* WhyWait */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 600000000000000000000002 /* Build configuration list for PBXNativeTarget "WhyWait" */;
+			buildPhases = (
+				300000000000000000000003 /* Sources */,
+				300000000000000000000001 /* Frameworks */,
+				300000000000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WhyWait;
+			productName = WhyWait;
+			productReference = 20000000000000000000000C /* WhyWait.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		500000000000000000000002 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					500000000000000000000001 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+				};
+			};
+			buildConfigurationList = 600000000000000000000001 /* Build configuration list for PBXProject "WhyWait" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 400000000000000000000001;
+			productRefGroup = 400000000000000000000009 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				500000000000000000000001 /* WhyWait */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		300000000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		300000000000000000000003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000001 /* WhyWaitApplication.swift in Sources */,
+				100000000000000000000002 /* AppDelegate.swift in Sources */,
+				100000000000000000000003 /* AppCoordinator.swift in Sources */,
+				100000000000000000000004 /* OverlayWindow.swift in Sources */,
+				100000000000000000000005 /* OverlayWindowController.swift in Sources */,
+				100000000000000000000006 /* InputEvent.swift in Sources */,
+				100000000000000000000007 /* InputManager.swift in Sources */,
+				100000000000000000000008 /* Minigame.swift in Sources */,
+				100000000000000000000009 /* CursorGolfGame.swift in Sources */,
+				10000000000000000000000A /* CursorGolfScene.swift in Sources */,
+				100000000000000000000101 /* CursorGolfConfiguration.swift in Sources */,
+				100000000000000000000102 /* CursorGolfState.swift in Sources */,
+				100000000000000000000103 /* CursorGolfGeometry.swift in Sources */,
+				100000000000000000000104 /* GolfBall.swift in Sources */,
+				100000000000000000000105 /* GolfHole.swift in Sources */,
+				100000000000000000000106 /* ShotController.swift in Sources */,
+				100000000000000000000107 /* AimIndicator.swift in Sources */,
+				100000000000000000000108 /* CourseGenerator.swift in Sources */,
+				100000000000000000000109 /* GolfObstacle.swift in Sources */,
+				10000000000000000000010A /* GolfHUD.swift in Sources */,
+				100000000000000000000200 /* MinigameRegistry.swift in Sources */,
+				100000000000000000000201 /* CursorPongConfiguration.swift in Sources */,
+				100000000000000000000202 /* CursorPongState.swift in Sources */,
+				100000000000000000000203 /* PongPhysics.swift in Sources */,
+				100000000000000000000204 /* PongBall.swift in Sources */,
+				100000000000000000000205 /* PongPaddle.swift in Sources */,
+				100000000000000000000206 /* PongBallTrail.swift in Sources */,
+				100000000000000000000207 /* PlayerPaddleController.swift in Sources */,
+				100000000000000000000208 /* CPUPaddleController.swift in Sources */,
+				100000000000000000000209 /* PongHUD.swift in Sources */,
+				10000000000000000000020A /* CursorPongGame.swift in Sources */,
+				10000000000000000000020B /* CursorPongScene.swift in Sources */,
+				100000000000000000000300 /* FruitSliceConfiguration.swift in Sources */,
+				100000000000000000000301 /* FruitSliceState.swift in Sources */,
+				100000000000000000000302 /* FruitType.swift in Sources */,
+				100000000000000000000303 /* SliceGeometry.swift in Sources */,
+				100000000000000000000304 /* BladeTracker.swift in Sources */,
+				100000000000000000000305 /* BladeTrail.swift in Sources */,
+				100000000000000000000306 /* ComboController.swift in Sources */,
+				100000000000000000000307 /* FruitNode.swift in Sources */,
+				100000000000000000000308 /* BombNode.swift in Sources */,
+				100000000000000000000309 /* FruitSpawner.swift in Sources */,
+				10000000000000000000030A /* SliceEffects.swift in Sources */,
+				10000000000000000000030B /* FruitSliceHUD.swift in Sources */,
+				10000000000000000000030C /* FruitSliceGame.swift in Sources */,
+				10000000000000000000030D /* FruitSliceScene.swift in Sources */,
+				100000000000000000000400 /* GrappleConfiguration.swift in Sources */,
+				100000000000000000000401 /* GrappleState.swift in Sources */,
+				100000000000000000000402 /* GrapplePhysics.swift in Sources */,
+				100000000000000000000403 /* GrappleCourse.swift in Sources */,
+				100000000000000000000404 /* GrappleCourseGenerator.swift in Sources */,
+				100000000000000000000405 /* GrappleController.swift in Sources */,
+				100000000000000000000406 /* GrapplePlayer.swift in Sources */,
+				100000000000000000000407 /* GrappleTrail.swift in Sources */,
+				100000000000000000000408 /* RopeRenderer.swift in Sources */,
+				100000000000000000000409 /* GrappleCheckpoint.swift in Sources */,
+				10000000000000000000040A /* GrappleObstacle.swift in Sources */,
+				10000000000000000000040B /* GrappleHazard.swift in Sources */,
+				10000000000000000000040C /* GrappleGoal.swift in Sources */,
+				10000000000000000000040D /* GrappleHUD.swift in Sources */,
+				10000000000000000000040E /* GrappleGame.swift in Sources */,
+				10000000000000000000040F /* GrappleScene.swift in Sources */,
+				100000000000000000000500 /* FishingConfiguration.swift in Sources */,
+				100000000000000000000501 /* FishingState.swift in Sources */,
+				100000000000000000000502 /* FishingRandom.swift in Sources */,
+				100000000000000000000503 /* FishingEquipment.swift in Sources */,
+				100000000000000000000504 /* FishDefinition.swift in Sources */,
+				100000000000000000000505 /* FishCatalog.swift in Sources */,
+				100000000000000000000506 /* TreasureDefinition.swift in Sources */,
+				100000000000000000000507 /* CatchResult.swift in Sources */,
+				100000000000000000000508 /* CatchGenerator.swift in Sources */,
+				100000000000000000000509 /* FishingProfile.swift in Sources */,
+				10000000000000000000050A /* FishingSaveStore.swift in Sources */,
+				10000000000000000000050B /* FishingSession.swift in Sources */,
+				10000000000000000000050C /* FishingGeometry.swift in Sources */,
+				10000000000000000000050D /* FishingCastController.swift in Sources */,
+				10000000000000000000050E /* FishingTensionSystem.swift in Sources */,
+				10000000000000000000050F /* FishAI.swift in Sources */,
+				100000000000000000000510 /* FishingFightController.swift in Sources */,
+				100000000000000000000511 /* FishingRod.swift in Sources */,
+				100000000000000000000512 /* FishingBobber.swift in Sources */,
+				100000000000000000000513 /* FishingLineRenderer.swift in Sources */,
+				100000000000000000000514 /* FishNode.swift in Sources */,
+				100000000000000000000515 /* FishingEffects.swift in Sources */,
+				100000000000000000000516 /* FishingHUD.swift in Sources */,
+				100000000000000000000517 /* FishDexPanel.swift in Sources */,
+				100000000000000000000518 /* UpgradePanel.swift in Sources */,
+				100000000000000000000519 /* FishingScene.swift in Sources */,
+				10000000000000000000051A /* FishingSceneInput.swift in Sources */,
+				10000000000000000000051B /* FishingSceneFlow.swift in Sources */,
+				10000000000000000000051C /* FishingGame.swift in Sources */,
+				100000000000000000000600 /* SwordDummyConfiguration.swift in Sources */,
+				100000000000000000000601 /* SwordDummyState.swift in Sources */,
+				100000000000000000000602 /* SwordGeometry.swift in Sources */,
+				100000000000000000000603 /* SwordPhysics.swift in Sources */,
+				100000000000000000000604 /* PhysicsSword.swift in Sources */,
+				100000000000000000000605 /* SwordCollisionGeometry.swift in Sources */,
+				100000000000000000000606 /* DamageCalculator.swift in Sources */,
+				100000000000000000000607 /* SwingTracker.swift in Sources */,
+				100000000000000000000608 /* TrainingDummy.swift in Sources */,
+				100000000000000000000609 /* ChallengeController.swift in Sources */,
+				10000000000000000000060A /* SwordTrail.swift in Sources */,
+				10000000000000000000060B /* SwordEffects.swift in Sources */,
+				10000000000000000000060C /* SwordDummyHUD.swift in Sources */,
+				10000000000000000000060D /* SwordDebugOverlay.swift in Sources */,
+				10000000000000000000060E /* SwordDummyScene.swift in Sources */,
+				10000000000000000000060F /* SwordDummySceneInput.swift in Sources */,
+				100000000000000000000610 /* SwordDummySceneCombat.swift in Sources */,
+				100000000000000000000611 /* SwordDummyGame.swift in Sources */,
+				100000000000000000000612 /* SwordDummySettings.swift in Sources */,
+				100000000000000000000613 /* SwordSettingsPanel.swift in Sources */,
+				100000000000000000000614 /* SwordEngineConfiguration.swift in Sources */,
+				100000000000000000000615 /* SwordEngineSettings.swift in Sources */,
+				100000000000000000000616 /* SwordSwingTracker.swift in Sources */,
+				100000000000000000000700 /* ZombieSwordConfiguration.swift in Sources */,
+				100000000000000000000701 /* ZombieSwordState.swift in Sources */,
+				100000000000000000000702 /* ZombieRandom.swift in Sources */,
+				100000000000000000000703 /* ZombieType.swift in Sources */,
+				100000000000000000000704 /* Zombie.swift in Sources */,
+				100000000000000000000705 /* ZombieSteering.swift in Sources */,
+				100000000000000000000706 /* ZombieDamageCalculator.swift in Sources */,
+				100000000000000000000707 /* ZombieSpawner.swift in Sources */,
+				100000000000000000000708 /* ZombieWaveController.swift in Sources */,
+				100000000000000000000709 /* ZombieSwordPlayer.swift in Sources */,
+				10000000000000000000070A /* ZombieSwordComboController.swift in Sources */,
+				10000000000000000000070B /* ZombieSwordChallengeController.swift in Sources */,
+				10000000000000000000070C /* ZombieSwordEffects.swift in Sources */,
+				10000000000000000000070D /* ZombieSwordHUD.swift in Sources */,
+				10000000000000000000070E /* ZombieSwordScene.swift in Sources */,
+				10000000000000000000070F /* ZombieSwordSceneInput.swift in Sources */,
+				100000000000000000000710 /* ZombieSwordSceneCombat.swift in Sources */,
+				100000000000000000000711 /* ZombieSwordSceneLifecycle.swift in Sources */,
+				100000000000000000000712 /* ZombieSwordGame.swift in Sources */,
+				100000000000000000000713 /* ZombieSwordDiagnostics.swift in Sources */,
+				100000000000000000000800 /* WhyWaitAppState.swift in Sources */,
+				100000000000000000000801 /* AppPreferences.swift in Sources */,
+				100000000000000000000802 /* MenuBarController.swift in Sources */,
+				100000000000000000000803 /* GlobalShortcutController.swift in Sources */,
+				100000000000000000000804 /* LauncherTheme.swift in Sources */,
+				100000000000000000000805 /* WaitingRailView.swift in Sources */,
+				100000000000000000000806 /* GameCardView.swift in Sources */,
+				100000000000000000000807 /* LauncherViewController.swift in Sources */,
+				100000000000000000000808 /* LauncherWindowController.swift in Sources */,
+				100000000000000000000809 /* AppShellDiagnostics.swift in Sources */,
+				10000000000000000000080A /* WhyWaitStatsStore.swift in Sources */,
+				10000000000000000000080B /* GameSupplementalStatsProvider.swift in Sources */,
+				10000000000000000000080C /* WhyWaitSettings.swift in Sources */,
+				10000000000000000000080D /* LaunchAtLoginController.swift in Sources */,
+				10000000000000000000080E /* LauncherViewModel.swift in Sources */,
+				10000000000000000000080F /* LauncherRootView.swift in Sources */,
+				100000000000000000000810 /* GameDetailView.swift in Sources */,
+				100000000000000000000811 /* LauncherSettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		700000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		700000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		700000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WhyWaitApp/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whywait.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		700000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WhyWaitApp/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whywait.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		600000000000000000000001 /* Build configuration list for PBXProject "WhyWait" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				700000000000000000000001 /* Debug */,
+				700000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		600000000000000000000002 /* Build configuration list for PBXNativeTarget "WhyWait" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				700000000000000000000003 /* Debug */,
+				700000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 500000000000000000000002 /* Project object */;
+}

@@ -1,0 +1,122 @@
+import Foundation
+import SpriteKit
+
+extension FishingScene {
+    func mouseMoved(toScreenLocation screenLocation: CGPoint) {
+        guard isGameActive,
+              let sceneLocation = sceneLocation(fromScreenLocation: screenLocation) else {
+            return
+        }
+        latestCursorPosition = sceneLocation
+        castController.updateCursor(sceneLocation)
+
+        switch gameState {
+        case .readyToCast, .chargingCast, .fighting:
+            let power = gameState == .chargingCast
+                ? castController.chargePower(at: ProcessInfo.processInfo.systemUptime)
+                : 0
+            rod.setAim(toward: sceneLocation, power: power)
+        default:
+            break
+        }
+    }
+
+    func leftMouseDown(atScreenLocation screenLocation: CGPoint) {
+        guard isGameActive,
+              let sceneLocation = sceneLocation(fromScreenLocation: screenLocation) else {
+            return
+        }
+        latestCursorPosition = sceneLocation
+
+        switch gameState {
+        case .readyToCast:
+            beginCastCharge(at: sceneLocation)
+        case .biteWindow:
+            setHook()
+        case .fighting:
+            isMouseHeld = true
+        case .showingDex:
+            _ = fishDexPanel.handleClick(at: sceneLocation)
+        case .showingUpgrades:
+            if let category = upgradePanel.upgrade(at: sceneLocation) {
+                purchaseUpgrade(category)
+            } else {
+                _ = upgradePanel.consumesClick(at: sceneLocation)
+            }
+        case .chargingCast, .bobberFlying, .waitingForBite, .hooked,
+             .catchComplete, .failedCatch, .resetting:
+            break
+        }
+    }
+
+    func leftMouseUp(atScreenLocation screenLocation: CGPoint) {
+        if let sceneLocation = sceneLocation(fromScreenLocation: screenLocation) {
+            latestCursorPosition = sceneLocation
+            castController.updateCursor(sceneLocation)
+        }
+
+        switch gameState {
+        case .chargingCast:
+            releaseCast()
+        case .fighting:
+            isMouseHeld = false
+        default:
+            isMouseHeld = false
+        }
+    }
+
+    func toggleFishDex() {
+        guard isGameActive else { return }
+        switch gameState {
+        case .readyToCast:
+            guard transition(to: .showingDex) else { return }
+            fishDexPanel.present(profile: profile, in: size)
+        case .showingDex:
+            fishDexPanel.dismiss()
+            _ = transition(to: .readyToCast)
+        case .showingUpgrades:
+            upgradePanel.dismiss()
+            guard transition(to: .showingDex) else { return }
+            fishDexPanel.present(profile: profile, in: size)
+        default:
+            hud.showSmallFeedback("FINISH CURRENT CAST")
+        }
+    }
+
+    func toggleUpgrades() {
+        guard isGameActive else { return }
+        switch gameState {
+        case .readyToCast:
+            guard transition(to: .showingUpgrades) else { return }
+            upgradePanel.present(profile: profile, in: size)
+        case .showingUpgrades:
+            upgradePanel.dismiss()
+            _ = transition(to: .readyToCast)
+        case .showingDex:
+            fishDexPanel.dismiss()
+            guard transition(to: .showingUpgrades) else { return }
+            upgradePanel.present(profile: profile, in: size)
+        default:
+            hud.showSmallFeedback("FINISH CURRENT CAST")
+        }
+    }
+
+    func purchaseUpgrade(_ category: FishingEquipmentCategory) {
+        let result = profile.purchaseUpgrade(category, transactionID: UUID())
+        if case .purchased = result {
+            saveProfile()
+            hud.updateProfile(profile)
+            fishDexPanel.refresh(profile: profile)
+        }
+        upgradePanel.refresh(profile: profile)
+        upgradePanel.showPurchaseResult(result)
+    }
+
+    func sceneLocation(fromScreenLocation screenLocation: CGPoint) -> CGPoint? {
+        guard let view, let window = view.window else { return nil }
+        let windowLocation = window.convertPoint(fromScreen: screenLocation)
+        let viewLocation = view.convert(windowLocation, from: nil)
+        return convertPoint(fromView: viewLocation)
+    }
+}
+
