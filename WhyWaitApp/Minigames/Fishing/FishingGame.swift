@@ -41,6 +41,8 @@ final class FishingGame: Minigame {
             switch keyCode {
             case 2:
                 scene?.toggleFishDex()
+            case 11:
+                scene?.toggleTidevault()
             case 15:
                 scene?.resetCurrentInteraction()
             case 32:

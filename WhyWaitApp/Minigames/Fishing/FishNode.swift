@@ -10,6 +10,10 @@ enum FishBodyArchetype: String, CaseIterable {
     case pike
     case sturgeon
     case giant
+    case flatfish
+    case shark
+    case ray
+    case billfish
 }
 
 private struct FishVisualProfile {
@@ -43,6 +47,16 @@ private struct FishVisualProfile {
             return FishVisualProfile(archetype: .bass, heightRatio: 0.43, tailScale: 0.92, dorsalScale: 0.88, noseExtension: 0.04)
         case "arapaima", "midnight-leviathan":
             return FishVisualProfile(archetype: .giant, heightRatio: 0.31, tailScale: 1.05, dorsalScale: 0.62, noseExtension: 0.06)
+        case "sand-flounder":
+            return FishVisualProfile(archetype: .flatfish, heightRatio: 0.64, tailScale: 0.62, dorsalScale: 0.38, noseExtension: 0.02)
+        case "blacktip-shark", "blue-shark", "hammerhead-shark", "whale-shark":
+            return FishVisualProfile(archetype: .shark, heightRatio: 0.3, tailScale: 1.28, dorsalScale: 1.35, noseExtension: definition.id == "hammerhead-shark" ? 0.14 : 0.07)
+        case "moon-manta", "starfall-manta":
+            return FishVisualProfile(archetype: .ray, heightRatio: 0.78, tailScale: 1.9, dorsalScale: 0.18, noseExtension: 0.02)
+        case "swordfish":
+            return FishVisualProfile(archetype: .billfish, heightRatio: 0.27, tailScale: 1.15, dorsalScale: 0.84, noseExtension: 0.32)
+        case "abyssal-oarfish":
+            return FishVisualProfile(archetype: .eel, heightRatio: 0.16, tailScale: 0.42, dorsalScale: 0.65, noseExtension: 0.03)
         default:
             return FishVisualProfile(archetype: .streamlined, heightRatio: 0.38, tailScale: 0.9, dorsalScale: 0.82, noseExtension: 0.02)
         }
@@ -51,6 +65,7 @@ private struct FishVisualProfile {
 
 final class FishNode: SKNode {
     let definition: FishDefinition
+    let variant: FishVariant
     let visualArchetype: FishBodyArchetype
 
     private let profile: FishVisualProfile
@@ -73,8 +88,14 @@ final class FishNode: SKNode {
     private let shadowOnly: Bool
     private var facesRight = true
 
-    init(definition: FishDefinition, sizePercentile: Double = 0.5, shadowOnly: Bool = false) {
+    init(
+        definition: FishDefinition,
+        sizePercentile: Double = 0.5,
+        variant: FishVariant = .standard,
+        shadowOnly: Bool = false
+    ) {
         self.definition = definition
+        self.variant = variant
         profile = FishVisualProfile.make(for: definition)
         visualArchetype = profile.archetype
         self.shadowOnly = shadowOnly
@@ -136,9 +157,15 @@ final class FishNode: SKNode {
     static func dexPreview(
         definition: FishDefinition,
         discovered: Bool,
-        scale: CGFloat = 0.72
+        scale: CGFloat = 0.72,
+        variant: FishVariant = .standard
     ) -> SKNode {
-        let fish = FishNode(definition: definition, sizePercentile: 0.5, shadowOnly: !discovered)
+        let fish = FishNode(
+            definition: definition,
+            sizePercentile: 0.5,
+            variant: variant,
+            shadowOnly: !discovered
+        )
         fish.setScale(scale)
         if !discovered {
             fish.alpha = 0.46
@@ -147,18 +174,20 @@ final class FishNode: SKNode {
     }
 
     private func configure() {
-        let bodyColor = color(
+        let baseBodyColor = color(
             red: definition.color.red,
             green: definition.color.green,
             blue: definition.color.blue,
             alpha: shadowOnly ? 0.34 : 0.98
         )
-        let accentColor = color(
+        let baseAccentColor = color(
             red: definition.color.accentRed,
             green: definition.color.accentGreen,
             blue: definition.color.accentBlue,
             alpha: shadowOnly ? 0.24 : 0.96
         )
+        let bodyColor = variantColor(base: baseBodyColor, accent: false)
+        let accentColor = variantColor(base: baseAccentColor, accent: true)
         let silhouette = SKColor.black.withAlphaComponent(shadowOnly ? 0.3 : 0)
         let bodyPath = makeBodyPath()
 
@@ -188,6 +217,7 @@ final class FishNode: SKNode {
         configureSurfaceDetails(accent: accentColor)
         configureSpeciesDetails(accent: accentColor)
         configureLegendaryTreatment(accent: accentColor)
+        configureVariantTreatment(accent: accentColor)
         startSecondaryAnimation()
     }
 
@@ -210,6 +240,15 @@ final class FishNode: SKNode {
             lowerPeak = -h * 0.48
         case .sturgeon:
             topPeak = h * 0.45
+            lowerPeak = -h * 0.38
+        case .flatfish:
+            topPeak = h * 0.5
+            lowerPeak = -h * 0.48
+        case .ray:
+            topPeak = h * 0.62
+            lowerPeak = -h * 0.62
+        case .shark, .billfish:
+            topPeak = h * 0.44
             lowerPeak = -h * 0.38
         default:
             topPeak = h * 0.5
@@ -399,6 +438,14 @@ final class FishNode: SKNode {
             addDorsalRibbon(color: accent)
         case .giant:
             addGiantScales(color: accent)
+        case .flatfish:
+            addFlounderSpots(color: accent)
+        case .shark:
+            addSharkDetails(color: accent)
+        case .ray:
+            addRayDetails(color: accent)
+        case .billfish:
+            addBillfishDetails(color: accent)
         case .streamlined:
             if definition.id.contains("trout") {
                 addTroutSpots(color: accent)
@@ -576,6 +623,121 @@ final class FishNode: SKNode {
         jaw.lineWidth = 0.8
         jaw.lineCap = .round
         detailLayer.addChild(jaw)
+    }
+
+    private func addFlounderSpots(color: SKColor) {
+        for index in 0..<6 {
+            let spot = SKShapeNode(circleOfRadius: index.isMultiple(of: 2) ? 1.5 : 1)
+            spot.position = CGPoint(
+                x: -bodyWidth * 0.24 + CGFloat(index) * bodyWidth * 0.09,
+                y: index.isMultiple(of: 2) ? bodyHeight * 0.14 : -bodyHeight * 0.13
+            )
+            spot.fillColor = color.withAlphaComponent(0.58)
+            spot.strokeColor = .clear
+            detailLayer.addChild(spot)
+        }
+        eyeWhite.position.y = bodyHeight * 0.23
+        pupil.position.y = bodyHeight * 0.23
+    }
+
+    private func addSharkDetails(color: SKColor) {
+        let belly = SKShapeNode()
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: -bodyWidth * 0.31, y: -bodyHeight * 0.08))
+        path.addCurve(
+            to: CGPoint(x: bodyWidth * 0.36, y: -bodyHeight * 0.08),
+            control1: CGPoint(x: -bodyWidth * 0.08, y: -bodyHeight * 0.42),
+            control2: CGPoint(x: bodyWidth * 0.2, y: -bodyHeight * 0.32)
+        )
+        belly.path = path
+        belly.strokeColor = SKColor.white.withAlphaComponent(0.48)
+        belly.lineWidth = 1.2
+        detailLayer.addChild(belly)
+        if definition.id == "hammerhead-shark" {
+            let hammer = SKShapeNode(rectOf: CGSize(width: 13, height: 4.2), cornerRadius: 2)
+            hammer.position = CGPoint(x: bodyWidth * 0.51, y: bodyHeight * 0.04)
+            hammer.fillColor = color.withAlphaComponent(0.86)
+            hammer.strokeColor = SKColor.white.withAlphaComponent(0.24)
+            detailLayer.addChild(hammer)
+        }
+        if definition.id == "whale-shark" {
+            addTroutSpots(color: SKColor.white.withAlphaComponent(0.68))
+        }
+    }
+
+    private func addRayDetails(color: SKColor) {
+        for sign in [-1, 1] as [CGFloat] {
+            let wing = SKShapeNode()
+            let path = CGMutablePath()
+            path.move(to: CGPoint(x: -bodyWidth * 0.05, y: 0))
+            path.addQuadCurve(
+                to: CGPoint(x: -bodyWidth * 0.35, y: sign * bodyHeight * 0.72),
+                control: CGPoint(x: bodyWidth * 0.16, y: sign * bodyHeight * 0.7)
+            )
+            path.addLine(to: CGPoint(x: bodyWidth * 0.34, y: 0))
+            path.closeSubpath()
+            wing.path = path
+            wing.fillColor = color.withAlphaComponent(0.34)
+            wing.strokeColor = SKColor.white.withAlphaComponent(0.16)
+            wing.lineWidth = 0.7
+            wing.zPosition = -0.05
+            detailLayer.addChild(wing)
+        }
+        let tailLine = SKShapeNode()
+        let tailPath = CGMutablePath()
+        tailPath.move(to: CGPoint(x: -bodyWidth * 0.38, y: 0))
+        tailPath.addLine(to: CGPoint(x: -bodyWidth * 0.82, y: -2))
+        tailLine.path = tailPath
+        tailLine.strokeColor = color.withAlphaComponent(0.8)
+        tailLine.lineWidth = 1.5
+        tailLine.lineCap = .round
+        detailLayer.addChild(tailLine)
+    }
+
+    private func addBillfishDetails(color: SKColor) {
+        let bill = SKShapeNode()
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: bodyWidth * 0.39, y: -bodyHeight * 0.02))
+        path.addLine(to: CGPoint(x: bodyWidth * 0.78, y: 0))
+        bill.path = path
+        bill.strokeColor = color.withAlphaComponent(0.94)
+        bill.lineWidth = 2
+        bill.lineCap = .round
+        detailLayer.addChild(bill)
+    }
+
+    private func variantColor(base: SKColor, accent: Bool) -> SKColor {
+        switch variant {
+        case .standard:
+            return base
+        case .albino:
+            return base.blended(withFraction: accent ? 0.48 : 0.76, of: .white) ?? base
+        case .melanistic:
+            return base.blended(withFraction: accent ? 0.46 : 0.72, of: .black) ?? base
+        case .gilded:
+            let gold = SKColor(calibratedRed: 0.98, green: 0.72, blue: 0.16, alpha: 1)
+            return base.blended(withFraction: accent ? 0.74 : 0.58, of: gold) ?? base
+        case .iridescent:
+            let cyan = accent
+                ? SKColor(calibratedRed: 0.94, green: 0.35, blue: 0.92, alpha: 1)
+                : SKColor(calibratedRed: 0.24, green: 0.8, blue: 0.9, alpha: 1)
+            return base.blended(withFraction: 0.62, of: cyan) ?? base
+        case .ancient:
+            let jade = SKColor(calibratedRed: 0.16, green: 0.66, blue: 0.49, alpha: 1)
+            return base.blended(withFraction: accent ? 0.7 : 0.48, of: jade) ?? base
+        }
+    }
+
+    private func configureVariantTreatment(accent: SKColor) {
+        guard variant != .standard else { return }
+        body.glowWidth = variant == .ancient || variant == .iridescent ? 4 : 1.5
+        body.strokeColor = accent.withAlphaComponent(0.72)
+        let sigil = SKShapeNode(circleOfRadius: max(2.2, bodyHeight * 0.1))
+        sigil.position = CGPoint(x: -bodyWidth * 0.05, y: bodyHeight * 0.02)
+        sigil.fillColor = .clear
+        sigil.strokeColor = accent.withAlphaComponent(0.74)
+        sigil.lineWidth = 0.8
+        detailLayer.addChild(sigil)
     }
 
     private func configureLegendaryTreatment(accent: SKColor) {

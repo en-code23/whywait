@@ -4,6 +4,7 @@ final class MenuBarController: NSObject {
     var onOpenWhyWait: (() -> Void)?
     var onPlayLastGame: (() -> Void)?
     var onPlayGame: ((String) -> Void)?
+    var onCheckForUpdates: (() -> Void)?
     var onQuit: (() -> Void)?
 
     private var statusItem: NSStatusItem?
@@ -49,6 +50,15 @@ final class MenuBarController: NSObject {
         openItem.image = NSImage(systemSymbolName: "rectangle.on.rectangle", accessibilityDescription: nil)
         menu.addItem(openItem)
 
+        let updateItem = NSMenuItem(
+            title: "Check for Updates…",
+            action: #selector(checkForUpdates),
+            keyEquivalent: ""
+        )
+        updateItem.target = self
+        updateItem.image = NSImage(systemSymbolName: "arrow.triangle.2.circlepath", accessibilityDescription: nil)
+        menu.addItem(updateItem)
+
         let lastName = lastPlayedID.flatMap { MinigameRegistry.metadata(for: $0)?.name }
         let lastItem = NSMenuItem(
             title: lastName.map { "Play Last Game — \($0)" } ?? "Play Last Game",
@@ -80,6 +90,7 @@ final class MenuBarController: NSObject {
     }
 
     @objc private func openWhyWait() { onOpenWhyWait?() }
+    @objc private func checkForUpdates() { onCheckForUpdates?() }
     @objc private func playLastGame() { onPlayLastGame?() }
 
     @objc private func playGame(_ sender: NSMenuItem) {

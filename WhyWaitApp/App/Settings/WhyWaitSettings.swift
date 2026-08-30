@@ -3,6 +3,7 @@ import Foundation
 struct WhyWaitSettings: Codable, Equatable {
     var menuBarEnabled: Bool
     var globalShortcutEnabled: Bool
+    var automaticallyCheckForUpdates: Bool
     var showGameHUD: Bool
     var reduceVisualEffects: Bool
     var cursorTrailEffects: Bool
@@ -13,6 +14,7 @@ struct WhyWaitSettings: Codable, Equatable {
     init(
         menuBarEnabled: Bool = true,
         globalShortcutEnabled: Bool = true,
+        automaticallyCheckForUpdates: Bool = true,
         showGameHUD: Bool = true,
         reduceVisualEffects: Bool = false,
         cursorTrailEffects: Bool = true,
@@ -22,6 +24,7 @@ struct WhyWaitSettings: Codable, Equatable {
     ) {
         self.menuBarEnabled = menuBarEnabled
         self.globalShortcutEnabled = globalShortcutEnabled
+        self.automaticallyCheckForUpdates = automaticallyCheckForUpdates
         self.showGameHUD = showGameHUD
         self.reduceVisualEffects = reduceVisualEffects
         self.cursorTrailEffects = cursorTrailEffects
@@ -36,6 +39,10 @@ struct WhyWaitSettings: Codable, Equatable {
         globalShortcutEnabled = try container.decodeIfPresent(
             Bool.self,
             forKey: .globalShortcutEnabled
+        ) ?? true
+        automaticallyCheckForUpdates = try container.decodeIfPresent(
+            Bool.self,
+            forKey: .automaticallyCheckForUpdates
         ) ?? true
         showGameHUD = try container.decodeIfPresent(Bool.self, forKey: .showGameHUD) ?? true
         reduceVisualEffects = try container.decodeIfPresent(
@@ -64,6 +71,7 @@ enum WhyWaitSettingKey: String, CaseIterable {
     case launchAtLogin
     case menuBarEnabled
     case globalShortcutEnabled
+    case automaticallyCheckForUpdates
     case showGameHUD
     case reduceVisualEffects
     case cursorTrailEffects

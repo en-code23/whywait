@@ -49,6 +49,13 @@ enum FishingTuning {
     static let startingCoins = 250
     static let maximumRecentTransactions = 64
     static let upgradeCosts = [500, 1_500, 4_000, 10_000]
+    static let rareVariantBaseProbability = 0.022
+    static let maximumRareVariantProbability = 0.085
+    static let maximumLureQuantity = 24
+    static let baseVaultCapacity = 24
+    static let vaultCapacities = [24, 40, 64, 96]
+    static let maximumVaultLevel = 3
+    static let vaultUpgradeCosts = [900, 2_400, 5_800]
 
     // Presentation and cleanup
     static let catchPresentationDuration: TimeInterval = 1.7

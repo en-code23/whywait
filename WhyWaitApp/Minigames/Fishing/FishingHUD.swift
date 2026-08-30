@@ -6,6 +6,7 @@ final class FishingHUD: SKNode {
     private let coinsLabel = SKLabelNode(fontNamed: "Menlo-Bold")
     private let dexShadow = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
     private let dexLabel = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let vaultLabel = SKLabelNode(fontNamed: "AvenirNext-Medium")
     private let zoneLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
     private let hintLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
 
@@ -46,6 +47,10 @@ final class FishingHUD: SKNode {
         let dex = "FISHDEX  \(profile.discoveredFishCount)/\(FishCatalog.all.count)"
         dexLabel.text = dex
         dexShadow.text = dex
+        let lure = profile.shopInventory.equippedLure.map {
+            " · \($0.displayName) ×\(profile.shopInventory.quantity(of: $0))"
+        } ?? ""
+        vaultLabel.text = "TIDEVAULT  \(profile.storedFish.count)/\(profile.vaultCapacity)\(lure)"
     }
 
     func showZone(_ zone: FishingZone) {
@@ -114,11 +119,13 @@ final class FishingHUD: SKNode {
         catchPreview = nil
 
         switch catchItem {
-        case .fish:
+        case let .fish(specimen):
             if progression.isNewDiscovery {
                 catchEyebrow.text = catchItem.isLegendary
                     ? "LEGENDARY DISCOVERY!"
                     : "NEW SPECIES!"
+            } else if specimen.variant != .standard {
+                catchEyebrow.text = "RARE \(specimen.variant.displayName) VARIANT"
             } else {
                 catchEyebrow.text = "LANDED"
             }
@@ -132,7 +139,7 @@ final class FishingHUD: SKNode {
         catchValue.text = "+\(progression.coinsAwarded.formatted()) COINS"
         catchRecord.text = (progression.isNewWeightRecord || progression.isNewLengthRecord)
             ? "NEW RECORD"
-            : nil
+            : (progression.vaultWasFull ? "TIDEVAULT FULL · CATCH APPRAISED" : nil)
 
         switch catchItem {
         case let .fish(specimen):
@@ -144,7 +151,8 @@ final class FishingHUD: SKNode {
             let preview = FishNode.dexPreview(
                 definition: specimen.definition,
                 discovered: true,
-                scale: 1
+                scale: 1,
+                variant: specimen.variant
             )
             preview.position = CGPoint(x: 0, y: 37)
             preview.alpha = 0
@@ -266,6 +274,7 @@ final class FishingHUD: SKNode {
         coinsShadow.position = CGPoint(x: 31.2, y: topY - 1.2)
         dexLabel.position = CGPoint(x: 30, y: topY - 24)
         dexShadow.position = CGPoint(x: 31, y: topY - 25)
+        vaultLabel.position = CGPoint(x: 30, y: topY - 43)
         zoneLabel.position = CGPoint(x: size.width / 2, y: topY)
         hintLabel.position = CGPoint(x: size.width / 2, y: max(72, size.height * 0.18))
         feedbackContainer.position = CGPoint(x: size.width / 2, y: size.height * 0.6)
@@ -287,11 +296,19 @@ final class FishingHUD: SKNode {
         configureLabel(dexLabel, size: 10, color: SKColor.white.withAlphaComponent(0.72))
         dexLabel.horizontalAlignmentMode = .left
         addChild(dexLabel)
+        configureLabel(
+            vaultLabel,
+            size: 8.5,
+            color: SKColor(calibratedRed: 0.48, green: 0.88, blue: 0.84, alpha: 0.64)
+        )
+        vaultLabel.horizontalAlignmentMode = .left
+        addChild(vaultLabel)
         let persistentHUDVisible = WhyWaitPresentationPreferences.showGameHUD
         coinsShadow.isHidden = !persistentHUDVisible
         coinsLabel.isHidden = !persistentHUDVisible
         dexShadow.isHidden = !persistentHUDVisible
         dexLabel.isHidden = !persistentHUDVisible
+        vaultLabel.isHidden = !persistentHUDVisible
 
         configureLabel(zoneLabel, size: 10, color: SKColor.white.withAlphaComponent(0.78))
         zoneLabel.alpha = 0

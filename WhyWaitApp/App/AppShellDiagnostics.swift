@@ -18,6 +18,7 @@ private final class DiagnosticLaunchAtLoginController: LaunchAtLoginControlling 
     }
 }
 
+@MainActor
 enum AppShellDiagnostics {
     struct Failure: Error, CustomStringConvertible {
         let description: String
@@ -29,10 +30,14 @@ enum AppShellDiagnostics {
         reports.append("registry: 7 metadata-rich games and CLI routes")
 
         try verifyPresentationAssets()
-        reports.append("presentation: 24 fish, 9 archetypes, articulated rod, fruit cuts, zombie silhouettes")
+        reports.append("presentation: expanded fish roster, articulated rod, fruit cuts, zombie silhouettes")
+
+        reports.append(contentsOf: try FishingExpansionDiagnostics.runAll().map { "fishing expansion: \($0)" })
+
+        reports.append(contentsOf: try WhyWaitUpdateDiagnostics.runAll().map { "updates: \($0)" })
 
         try verifyPreferences()
-        reports.append("preferences: last-played and v2 settings round trip")
+        reports.append("preferences: last-played and current settings round trip")
 
         try verifyStats()
         reports.append("stats: launches, duration, persistence, crash recovery, clamps")
@@ -41,7 +46,7 @@ enum AppShellDiagnostics {
         reports.append("launcher: details, quick actions, settings, keyboard navigation")
 
         try verifyMenuBar()
-        reports.append("menu bar: launcher, last-game, 7 games, quit")
+        reports.append("menu bar: launcher, updates, last-game, 7 games, quit")
 
         try verifyShortcut()
         reports.append("shortcut: registration and callback")
@@ -98,7 +103,7 @@ enum AppShellDiagnostics {
             "Invalid object scale was not sanitized"
         )
 
-        try require(FishCatalog.all.count == 24, "Fishing visual roster no longer contains 24 fish")
+        try require(FishCatalog.all.count >= 36, "Fishing visual roster did not expand")
         let fish = FishCatalog.all.map {
             FishNode(definition: $0, sizePercentile: 0.62)
         }
@@ -212,6 +217,7 @@ enum AppShellDiagnostics {
         first.lastPlayedMinigameID = "fishing"
         var settings = first.settings
         settings.menuBarEnabled = false
+        settings.automaticallyCheckForUpdates = false
         settings.reduceVisualEffects = true
         settings.cursorTrailEffects = false
         settings.gameObjectScale = 1.22
@@ -337,7 +343,7 @@ enum AppShellDiagnostics {
         let menuBar = MenuBarController()
         defer { menuBar.stop() }
         menuBar.start(lastPlayedID: nil)
-        let expectedTitles = ["Open WhyWait", "Play Last Game"]
+        let expectedTitles = ["Open WhyWait", "Check for Updates…", "Play Last Game"]
             + MinigameRegistry.allGames.map(\.name)
             + ["Quit WhyWait"]
         try require(menuBar.diagnosticMenuTitles == expectedTitles, "Menu bar entries are incomplete")

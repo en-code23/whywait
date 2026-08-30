@@ -76,11 +76,15 @@ final class FishingSaveStore {
     }
 
     private func migrate(_ profile: FishingProfile) -> FishingProfile {
-        // Version 1 is the initial persistent format. Keeping this explicit
-        // gives future versions a single migration entry point.
-        switch profile.version {
+        var migrated = profile
+        switch migrated.version {
         case 1:
-            return profile
+            // v2 adds Tidevault specimens, variant discoveries, and tackle
+            // inventory. decodeIfPresent supplies lossless defaults for old saves.
+            migrated.version = 2
+            fallthrough
+        case 2:
+            return migrated
         default:
             return FishingProfile()
         }

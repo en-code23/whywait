@@ -98,6 +98,9 @@
 		10000000000000000000051A /* FishingSceneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051A /* FishingSceneInput.swift */; };
 		10000000000000000000051B /* FishingSceneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051B /* FishingSceneFlow.swift */; };
 		10000000000000000000051C /* FishingGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051C /* FishingGame.swift */; };
+		10000000000000000000051D /* FishingCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051D /* FishingCollection.swift */; };
+		10000000000000000000051E /* TidevaultPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051E /* TidevaultPanel.swift */; };
+		10000000000000000000051F /* FishingExpansionDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000051F /* FishingExpansionDiagnostics.swift */; };
 		100000000000000000000600 /* SwordDummyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000600 /* SwordDummyConfiguration.swift */; };
 		100000000000000000000601 /* SwordDummyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000601 /* SwordDummyState.swift */; };
 		100000000000000000000602 /* SwordGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000602 /* SwordGeometry.swift */; };
@@ -159,6 +162,12 @@
 		10000000000000000000080F /* LauncherRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000080F /* LauncherRootView.swift */; };
 		100000000000000000000810 /* GameDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000810 /* GameDetailView.swift */; };
 		100000000000000000000811 /* LauncherSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000811 /* LauncherSettingsView.swift */; };
+		100000000000000000000900 /* WhyWaitUpdateModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000900 /* WhyWaitUpdateModels.swift */; };
+		100000000000000000000901 /* WhyWaitUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000901 /* WhyWaitUpdateService.swift */; };
+		100000000000000000000902 /* WhyWaitUpdateInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000902 /* WhyWaitUpdateInstaller.swift */; };
+		100000000000000000000903 /* WhyWaitUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000903 /* WhyWaitUpdater.swift */; };
+		100000000000000000000904 /* WhyWaitUpdateDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000904 /* WhyWaitUpdateDiagnostics.swift */; };
+		100000000000000000000905 /* WhyWaitUpdateAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000905 /* WhyWaitUpdateAccessoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -253,6 +262,9 @@
 		20000000000000000000051A /* FishingSceneInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingSceneInput.swift; sourceTree = "<group>"; };
 		20000000000000000000051B /* FishingSceneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingSceneFlow.swift; sourceTree = "<group>"; };
 		20000000000000000000051C /* FishingGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingGame.swift; sourceTree = "<group>"; };
+		20000000000000000000051D /* FishingCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingCollection.swift; sourceTree = "<group>"; };
+		20000000000000000000051E /* TidevaultPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidevaultPanel.swift; sourceTree = "<group>"; };
+		20000000000000000000051F /* FishingExpansionDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingExpansionDiagnostics.swift; sourceTree = "<group>"; };
 		200000000000000000000600 /* SwordDummyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummyConfiguration.swift; sourceTree = "<group>"; };
 		200000000000000000000601 /* SwordDummyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordDummyState.swift; sourceTree = "<group>"; };
 		200000000000000000000602 /* SwordGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordGeometry.swift; sourceTree = "<group>"; };
@@ -314,6 +326,12 @@
 		20000000000000000000080F /* LauncherRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherRootView.swift; sourceTree = "<group>"; };
 		200000000000000000000810 /* GameDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailView.swift; sourceTree = "<group>"; };
 		200000000000000000000811 /* LauncherSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherSettingsView.swift; sourceTree = "<group>"; };
+		200000000000000000000900 /* WhyWaitUpdateModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitUpdateModels.swift; sourceTree = "<group>"; };
+		200000000000000000000901 /* WhyWaitUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitUpdateService.swift; sourceTree = "<group>"; };
+		200000000000000000000902 /* WhyWaitUpdateInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitUpdateInstaller.swift; sourceTree = "<group>"; };
+		200000000000000000000903 /* WhyWaitUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitUpdater.swift; sourceTree = "<group>"; };
+		200000000000000000000904 /* WhyWaitUpdateDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitUpdateDiagnostics.swift; sourceTree = "<group>"; };
+		200000000000000000000905 /* WhyWaitUpdateAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitUpdateAccessoryView.swift; sourceTree = "<group>"; };
 		20000000000000000000000B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20000000000000000000000C /* WhyWait.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhyWait.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -363,6 +381,7 @@
 				200000000000000000000809 /* AppShellDiagnostics.swift */,
 				400000000000000000000012 /* Statistics */,
 				400000000000000000000013 /* Settings */,
+				400000000000000000000014 /* Updates */,
 				400000000000000000000011 /* Launcher */,
 				20000000000000000000000B /* Info.plist */,
 			);
@@ -547,6 +566,9 @@
 				200000000000000000000516 /* FishingHUD.swift */,
 				200000000000000000000517 /* FishDexPanel.swift */,
 				200000000000000000000518 /* UpgradePanel.swift */,
+				20000000000000000000051D /* FishingCollection.swift */,
+				20000000000000000000051E /* TidevaultPanel.swift */,
+				20000000000000000000051F /* FishingExpansionDiagnostics.swift */,
 			);
 			path = Fishing;
 			sourceTree = "<group>";
@@ -631,6 +653,19 @@
 				20000000000000000000080D /* LaunchAtLoginController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		400000000000000000000014 /* Updates */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000900 /* WhyWaitUpdateModels.swift */,
+				200000000000000000000901 /* WhyWaitUpdateService.swift */,
+				200000000000000000000902 /* WhyWaitUpdateInstaller.swift */,
+				200000000000000000000903 /* WhyWaitUpdater.swift */,
+				200000000000000000000904 /* WhyWaitUpdateDiagnostics.swift */,
+				200000000000000000000905 /* WhyWaitUpdateAccessoryView.swift */,
+			);
+			path = Updates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -792,6 +827,9 @@
 				10000000000000000000051A /* FishingSceneInput.swift in Sources */,
 				10000000000000000000051B /* FishingSceneFlow.swift in Sources */,
 				10000000000000000000051C /* FishingGame.swift in Sources */,
+				10000000000000000000051D /* FishingCollection.swift in Sources */,
+				10000000000000000000051E /* TidevaultPanel.swift in Sources */,
+				10000000000000000000051F /* FishingExpansionDiagnostics.swift in Sources */,
 				100000000000000000000600 /* SwordDummyConfiguration.swift in Sources */,
 				100000000000000000000601 /* SwordDummyState.swift in Sources */,
 				100000000000000000000602 /* SwordGeometry.swift in Sources */,
@@ -853,6 +891,12 @@
 				10000000000000000000080F /* LauncherRootView.swift in Sources */,
 				100000000000000000000810 /* GameDetailView.swift in Sources */,
 				100000000000000000000811 /* LauncherSettingsView.swift in Sources */,
+				100000000000000000000900 /* WhyWaitUpdateModels.swift in Sources */,
+				100000000000000000000901 /* WhyWaitUpdateService.swift in Sources */,
+				100000000000000000000902 /* WhyWaitUpdateInstaller.swift in Sources */,
+				100000000000000000000903 /* WhyWaitUpdater.swift in Sources */,
+				100000000000000000000904 /* WhyWaitUpdateDiagnostics.swift in Sources */,
+				100000000000000000000905 /* WhyWaitUpdateAccessoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -966,7 +1010,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WhyWaitApp/App/Info.plist;
@@ -974,7 +1018,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whywait.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -987,7 +1031,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WhyWaitApp/App/Info.plist;
@@ -995,7 +1039,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whywait.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

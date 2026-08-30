@@ -35,6 +35,7 @@ final class LauncherWindowController: NSWindowController, NSWindowDelegate {
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.titlebarSeparatorStyle = .none
+        window.backgroundColor = LauncherTheme.canvas
         window.isReleasedWhenClosed = false
         window.isMovableByWindowBackground = true
         window.animationBehavior = .documentWindow
@@ -67,6 +68,13 @@ final class LauncherWindowController: NSWindowController, NSWindowDelegate {
         launcherViewController.showSettings()
         guard let window else { return }
         present(window)
+    }
+
+    /// Generic header slot for small status/actions. Automatic-update UI can
+    /// attach here without coupling the launcher to an update implementation.
+    func installQuickActionAccessory(_ accessory: NSView?) {
+        _ = launcherViewController.view
+        launcherViewController.installQuickActionAccessory(accessory)
     }
 
     func hide() {

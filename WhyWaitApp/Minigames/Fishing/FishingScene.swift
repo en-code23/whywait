@@ -20,6 +20,7 @@ final class FishingScene: SKScene {
     let hud = FishingHUD()
     let fishDexPanel = FishDexPanel()
     let upgradePanel = UpgradePanel()
+    let tidevaultPanel = TidevaultPanel()
 
     var activeFishNode: FishNode?
     var activeTreasureNode: SKNode?
@@ -83,6 +84,8 @@ final class FishingScene: SKScene {
             fishDexPanel.layout(in: size)
         } else if gameState == .showingUpgrades {
             upgradePanel.layout(in: size)
+        } else if gameState == .showingVault {
+            tidevaultPanel.layout(in: size)
         } else if gameState != .readyToCast {
             resetCurrentInteraction(showHint: false)
         }
@@ -114,7 +117,7 @@ final class FishingScene: SKScene {
         case .fighting:
             updateFight(deltaTime: delta)
         case .readyToCast, .hooked, .catchComplete, .failedCatch,
-             .showingDex, .showingUpgrades, .resetting:
+             .showingDex, .showingUpgrades, .showingVault, .resetting:
             break
         }
     }
@@ -139,6 +142,7 @@ final class FishingScene: SKScene {
         clearInteractionNodes()
         fishDexPanel.dismiss()
         upgradePanel.dismiss()
+        tidevaultPanel.dismiss()
         effects.clearTransientEffects()
         hud.reset(profile: profile)
         castController.cancel()
@@ -160,6 +164,7 @@ final class FishingScene: SKScene {
         clearInteractionNodes()
         fishDexPanel.dismiss()
         upgradePanel.dismiss()
+        tidevaultPanel.dismiss()
         effects.clearTransientEffects()
         castController.cancel()
         fightController.cancel()
@@ -188,6 +193,7 @@ final class FishingScene: SKScene {
         hud.layout(in: size)
         fishDexPanel.layout(in: size)
         upgradePanel.layout(in: size)
+        tidevaultPanel.layout(in: size)
         if gameState == .readyToCast, let cursor = latestCursorPosition {
             rod.setAim(toward: cursor, power: 0)
         }
@@ -256,6 +262,7 @@ final class FishingScene: SKScene {
         addChild(hud)
         addChild(fishDexPanel)
         addChild(upgradePanel)
+        addChild(tidevaultPanel)
         layoutContent()
         hud.updateProfile(profile)
     }

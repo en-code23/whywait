@@ -1,22 +1,27 @@
 import AppKit
 
+/// A compact artifact row rather than a dashboard card. Seven rows share one
+/// queue surface so the catalog reads as a single, purposeful instrument.
 final class GameCardView: NSView {
     let gameID: String
     var onSelect: ((String) -> Void)?
     var onPlay: ((String) -> Void)?
 
     private let metadata: MinigameMetadata
+    private let accentBar = NSView()
+    private let indexLabel = NSTextField(labelWithString: "")
     private let iconContainer = NSView()
     private let iconView = NSImageView()
     private let titleLabel = NSTextField(labelWithString: "")
     private let summaryLabel = NSTextField(labelWithString: "")
     private let statLabel = NSTextField(labelWithString: "")
-    private let playButton = NSButton()
-    private let lastPlayedLabel = NSTextField(labelWithString: "LAST PLAYED")
+    private let playButton = LauncherActionButton()
+    private let lastPlayedLabel = NSTextField(labelWithString: "LAST")
     private var trackingAreaReference: NSTrackingArea?
     private var isHovered = false
     private var isPressed = false
     private var isSelected = false
+    private var reduceMotion = false
 
     init(game: LauncherGameViewModel) {
         metadata = game.metadata
@@ -40,13 +45,17 @@ final class GameCardView: NSView {
 
     func setLastPlayed(_ lastPlayed: Bool) {
         lastPlayedLabel.isHidden = !lastPlayed
-        updateAppearance()
     }
 
     func setSelected(_ selected: Bool) {
         guard isSelected != selected else { return }
         isSelected = selected
         updateAppearance(animated: true)
+    }
+
+    func setReduceMotion(_ reduced: Bool) {
+        reduceMotion = reduced
+        playButton.reduceMotion = reduced
     }
 
     override func updateTrackingAreas() {
@@ -95,7 +104,18 @@ final class GameCardView: NSView {
         wantsLayer = true
         layer?.cornerRadius = LauncherTheme.cardRadius
         layer?.cornerCurve = .continuous
-        layer?.borderWidth = 1
+        layer?.borderWidth = 0
+
+        let registryIndex = MinigameRegistry.allGames.firstIndex(where: { $0.id == gameID }) ?? 0
+        indexLabel.translatesAutoresizingMaskIntoConstraints = false
+        indexLabel.stringValue = String(format: "%02d", registryIndex + 1)
+        indexLabel.font = NSFont.monospacedDigitSystemFont(ofSize: 8.5, weight: .medium)
+        indexLabel.textColor = LauncherTheme.mutedText
+        indexLabel.alignment = .right
+
+        accentBar.translatesAutoresizingMaskIntoConstraints = false
+        accentBar.wantsLayer = true
+        accentBar.layer?.cornerRadius = 1
 
         iconContainer.translatesAutoresizingMaskIntoConstraints = false
         iconContainer.wantsLayer = true
@@ -106,78 +126,84 @@ final class GameCardView: NSView {
             systemSymbolName: metadata.symbolName,
             accessibilityDescription: metadata.name
         ) ?? NSImage(systemSymbolName: "gamecontroller.fill", accessibilityDescription: metadata.name)
-        iconView.symbolConfiguration = NSImage.SymbolConfiguration(pointSize: 17, weight: .medium)
-        iconView.contentTintColor = LauncherTheme.accent
+        iconView.symbolConfiguration = NSImage.SymbolConfiguration(pointSize: 13, weight: .medium)
+        iconView.contentTintColor = LauncherTheme.gameAccent(for: gameID)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.stringValue = metadata.name
-        titleLabel.font = NSFont.systemFont(ofSize: 14, weight: .semibold)
+        titleLabel.font = NSFont.systemFont(ofSize: 12.5, weight: .semibold)
         titleLabel.textColor = LauncherTheme.primaryText
         titleLabel.lineBreakMode = .byTruncatingTail
 
         summaryLabel.translatesAutoresizingMaskIntoConstraints = false
         summaryLabel.stringValue = metadata.summary
-        summaryLabel.font = NSFont.systemFont(ofSize: 10.5, weight: .regular)
+        summaryLabel.font = NSFont.systemFont(ofSize: 9.5, weight: .regular)
         summaryLabel.textColor = LauncherTheme.secondaryText
         summaryLabel.lineBreakMode = .byTruncatingTail
         summaryLabel.maximumNumberOfLines = 1
 
         statLabel.translatesAutoresizingMaskIntoConstraints = false
-        statLabel.font = NSFont.monospacedSystemFont(ofSize: 8.5, weight: .medium)
+        statLabel.font = NSFont.monospacedSystemFont(ofSize: 8, weight: .medium)
         statLabel.textColor = LauncherTheme.tertiaryText
-        statLabel.lineBreakMode = .byTruncatingTail
+        statLabel.alignment = .right
+        statLabel.lineBreakMode = .byTruncatingHead
 
         playButton.translatesAutoresizingMaskIntoConstraints = false
         playButton.title = "PLAY"
         playButton.image = NSImage(systemSymbolName: "play.fill", accessibilityDescription: nil)
         playButton.imagePosition = .imageLeading
-        playButton.font = NSFont.systemFont(ofSize: 9, weight: .bold)
-        playButton.isBordered = false
-        playButton.contentTintColor = LauncherTheme.accent
+        playButton.launcherStyle = .quiet
+        playButton.font = NSFont.monospacedSystemFont(ofSize: 8.5, weight: .semibold)
         playButton.target = self
         playButton.action = #selector(play)
         playButton.setAccessibilityLabel("Play \(metadata.name)")
 
         lastPlayedLabel.translatesAutoresizingMaskIntoConstraints = false
-        lastPlayedLabel.font = NSFont.systemFont(ofSize: 8, weight: .bold)
+        lastPlayedLabel.font = NSFont.monospacedSystemFont(ofSize: 7.5, weight: .bold)
         lastPlayedLabel.textColor = LauncherTheme.accent
         lastPlayedLabel.isHidden = true
 
-        addSubview(iconContainer)
+        [accentBar, indexLabel, iconContainer, titleLabel, summaryLabel, statLabel, playButton, lastPlayedLabel].forEach(addSubview)
         iconContainer.addSubview(iconView)
-        addSubview(titleLabel)
-        addSubview(summaryLabel)
-        addSubview(statLabel)
-        addSubview(playButton)
-        addSubview(lastPlayedLabel)
 
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: LauncherTheme.cardHeight),
-            iconContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 13),
-            iconContainer.topAnchor.constraint(equalTo: topAnchor, constant: 13),
-            iconContainer.widthAnchor.constraint(equalToConstant: 38),
-            iconContainer.heightAnchor.constraint(equalToConstant: 38),
+            accentBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            accentBar.centerYAnchor.constraint(equalTo: centerYAnchor),
+            accentBar.widthAnchor.constraint(equalToConstant: 2),
+            accentBar.heightAnchor.constraint(equalToConstant: 22),
+
+            indexLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            indexLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            indexLabel.widthAnchor.constraint(equalToConstant: 18),
+
+            iconContainer.leadingAnchor.constraint(equalTo: indexLabel.trailingAnchor, constant: 8),
+            iconContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
+            iconContainer.widthAnchor.constraint(equalToConstant: 30),
+            iconContainer.heightAnchor.constraint(equalToConstant: 30),
             iconView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor),
             iconView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: 21),
-            iconView.heightAnchor.constraint(equalToConstant: 21),
+            iconView.widthAnchor.constraint(equalToConstant: 17),
+            iconView.heightAnchor.constraint(equalToConstant: 17),
 
-            titleLabel.leadingAnchor.constraint(equalTo: iconContainer.trailingAnchor, constant: 11),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: playButton.leadingAnchor, constant: -4),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 13),
+            titleLabel.leadingAnchor.constraint(equalTo: iconContainer.trailingAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 7),
+            titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 128),
             summaryLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            summaryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            summaryLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
+            summaryLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 1),
+            summaryLabel.trailingAnchor.constraint(lessThanOrEqualTo: statLabel.leadingAnchor, constant: -12),
 
-            playButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            playButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            playButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 48),
-            playButton.heightAnchor.constraint(equalToConstant: 28),
+            lastPlayedLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 7),
+            lastPlayedLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
 
-            lastPlayedLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 13),
-            lastPlayedLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            statLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -13),
-            statLabel.bottomAnchor.constraint(equalTo: lastPlayedLabel.bottomAnchor),
+            playButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            playButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            playButton.widthAnchor.constraint(equalToConstant: 55),
+            playButton.heightAnchor.constraint(equalToConstant: 30),
+
+            statLabel.trailingAnchor.constraint(equalTo: playButton.leadingAnchor, constant: -7),
+            statLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            statLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 124),
             statLabel.leadingAnchor.constraint(greaterThanOrEqualTo: lastPlayedLabel.trailingAnchor, constant: 8)
         ])
     }
@@ -187,40 +213,34 @@ final class GameCardView: NSView {
     }
 
     private func updateAppearance(animated: Bool = false) {
-        let changes = { [self] in
-            let background: NSColor
-            if isPressed {
-                background = LauncherTheme.cardPressed
-            } else if isSelected {
-                background = LauncherTheme.cardSelected
-            } else if isHovered {
-                background = LauncherTheme.cardHover
-            } else {
-                background = LauncherTheme.cardBackground
-            }
-            layer?.backgroundColor = background.cgColor
-            layer?.borderColor = (isSelected || isHovered
-                ? LauncherTheme.borderHover
-                : LauncherTheme.border).cgColor
-            layer?.borderWidth = isSelected ? 1.5 : 1
-            iconContainer.layer?.backgroundColor = LauncherTheme.accent.withAlphaComponent(
-                isSelected ? 0.2 : (isHovered ? 0.16 : 0.09)
-            ).cgColor
+        guard let layer else { return }
+        let background: NSColor
+        if isPressed {
+            background = LauncherTheme.accent.withAlphaComponent(0.16)
+        } else if isSelected {
+            background = LauncherTheme.selectedSurface
+        } else if isHovered {
+            background = LauncherTheme.hoverSurface
+        } else {
+            background = .clear
+        }
+        let gameAccent = LauncherTheme.gameAccent(for: gameID)
 
-            let dark = effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-            layer?.shadowColor = NSColor.black.cgColor
-            layer?.shadowOpacity = dark ? 0 : (isSelected || isHovered ? 0.14 : 0.06)
-            layer?.shadowRadius = isSelected || isHovered ? 7 : 3
-            layer?.shadowOffset = CGSize(width: 0, height: -2)
-        }
-        guard animated else {
-            changes()
-            return
-        }
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 0.14
-            context.timingFunction = CAMediaTimingFunction(name: .easeOut)
-            changes()
-        }
+        CATransaction.begin()
+        CATransaction.setDisableActions(!animated || reduceMotion)
+        CATransaction.setAnimationDuration(0.16)
+        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: .easeOut))
+        layer.backgroundColor = LauncherTheme.resolved(background, for: self).cgColor
+        layer.borderColor = LauncherTheme.resolved(isSelected ? LauncherTheme.softBorder : .clear, for: self).cgColor
+        layer.borderWidth = isSelected ? 1 : 0
+        accentBar.layer?.backgroundColor = LauncherTheme.resolved(
+            isSelected ? LauncherTheme.accent : (isHovered ? gameAccent.withAlphaComponent(0.7) : .clear),
+            for: self
+        ).cgColor
+        iconContainer.layer?.backgroundColor = LauncherTheme.resolved(
+            gameAccent.withAlphaComponent(isSelected ? 0.18 : 0.10),
+            for: self
+        ).cgColor
+        CATransaction.commit()
     }
 }

@@ -14,7 +14,8 @@ final class CatchGenerator {
 
     func generate(
         zone: FishingZone,
-        equipment: FishingEquipmentStats
+        equipment: FishingEquipmentStats,
+        lure: FishingLure? = nil
     ) -> GeneratedCatch {
 #if DEBUG
         if let forcedFishID,
@@ -25,6 +26,7 @@ final class CatchGenerator {
             return generatedFish(
                 definition,
                 equipment: equipment,
+                lure: lure,
                 forcedPercentile: percentile
             )
         }
@@ -52,9 +54,15 @@ final class CatchGenerator {
         let definition = weightedFish(
             from: eligible.isEmpty ? FishCatalog.all : eligible,
             zone: zone,
-            rareBonus: equipment.rareWeightBonus
+            rareBonus: equipment.rareWeightBonus + (lure?.rareWeightBonus ?? 0),
+            oceanMultiplier: lure?.oceanWeightMultiplier ?? 1
         ) ?? FishCatalog.all[0]
-        return generatedFish(definition, equipment: equipment, forcedPercentile: nil)
+        return generatedFish(
+            definition,
+            equipment: equipment,
+            lure: lure,
+            forcedPercentile: nil
+        )
     }
 
 #if DEBUG
@@ -67,7 +75,8 @@ final class CatchGenerator {
     func selectionWeight(
         for definition: FishDefinition,
         zone: FishingZone,
-        rareBonus: Double
+        rareBonus: Double,
+        oceanMultiplier: Double = 1
     ) -> Double {
         guard definition.availableZones.contains(zone), rareBonus.isFinite else {
             return 0
@@ -87,15 +96,18 @@ final class CatchGenerator {
         case .legendary: rarityScale = 1 + (rareBonus * 1.7)
         }
         let zoneScale = definition.preferredZones.contains(zone) ? 1.42 : 0.62
+        let habitatScale = definition.isOceanic ? max(0.25, oceanMultiplier) : 1
         let weight = (definition.rarity.baseSelectionWeight / Double(sameTierCount))
             * rarityScale
             * zoneScale
+            * habitatScale
         return weight.isFinite ? max(0, weight) : 0
     }
 
     private func generatedFish(
         _ definition: FishDefinition,
         equipment: FishingEquipmentStats,
+        lure: FishingLure?,
         forcedPercentile: Double?
     ) -> GeneratedCatch {
         let percentile = max(
@@ -115,16 +127,22 @@ final class CatchGenerator {
             percentile: weightPercentile
         )
         let sizeValueMultiplier = 0.72 + (percentile * 0.82)
+        let variant = chooseVariant(
+            rarity: definition.rarity,
+            multiplier: lure?.variantChanceMultiplier ?? 1
+        )
         let saleValue = max(
             1,
             Int(
                 (Double(definition.baseValue)
                     * definition.rarity.valueMultiplier
-                    * sizeValueMultiplier).rounded()
+                    * sizeValueMultiplier
+                    * variant.valueMultiplier).rounded()
             )
         )
         let specimen = FishSpecimen(
             definition: definition,
+            variant: variant,
             weight: weight,
             length: length,
             sizePercentile: percentile,
@@ -141,6 +159,7 @@ final class CatchGenerator {
         }
         let wait = (random.value(in: 1.5...5.15) + rarityDelay)
             * equipment.biteWaitMultiplier
+            * (lure?.biteWaitMultiplier ?? 1)
         return GeneratedCatch(
             prospective: .fish(specimen),
             biteWait: boundedWait(wait),
@@ -155,11 +174,38 @@ final class CatchGenerator {
     private func weightedFish(
         from definitions: [FishDefinition],
         zone: FishingZone,
-        rareBonus: Double
+        rareBonus: Double,
+        oceanMultiplier: Double
     ) -> FishDefinition? {
         weightedChoice(definitions) {
-            selectionWeight(for: $0, zone: zone, rareBonus: rareBonus)
+            selectionWeight(
+                for: $0,
+                zone: zone,
+                rareBonus: rareBonus,
+                oceanMultiplier: oceanMultiplier
+            )
         }
+    }
+
+    private func chooseVariant(
+        rarity: FishRarity,
+        multiplier: Double
+    ) -> FishVariant {
+        let rarityFactor: Double
+        switch rarity {
+        case .common: rarityFactor = 0.82
+        case .uncommon: rarityFactor = 0.94
+        case .rare: rarityFactor = 1.08
+        case .epic: rarityFactor = 1.18
+        case .legendary: rarityFactor = 1.3
+        }
+        let chance = min(
+            FishingTuning.maximumRareVariantProbability,
+            max(0, FishingTuning.rareVariantBaseProbability * max(0, multiplier) * rarityFactor)
+        )
+        guard random.nextUnit() < chance else { return .standard }
+        let variants = FishVariant.allCases.filter { $0 != .standard }
+        return weightedChoice(variants) { $0.conditionalWeight } ?? .albino
     }
 
     private func weightedTreasure() -> TreasureDefinition? {
@@ -205,4 +251,3 @@ final class CatchGenerator {
         min(FishingTuning.maximumHookWindow, max(FishingTuning.minimumHookWindow, value))
     }
 }
-

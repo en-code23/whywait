@@ -83,6 +83,7 @@ struct FishDefinition: Identifiable, Equatable {
     let agility: Double
     let biteWindowModifier: TimeInterval
     let color: FishingColor
+    let isOceanic: Bool
 
     var averageWeight: Double { (minimumWeight + maximumWeight) / 2 }
     var averageLength: Double { (minimumLength + maximumLength) / 2 }
@@ -102,6 +103,7 @@ extension FishDefinition {
         stamina: Double,
         agility: Double,
         hookModifier: TimeInterval = 0,
+        oceanic: Bool = false,
         body: (Double, Double, Double),
         accent: (Double, Double, Double)
     ) -> FishDefinition {
@@ -127,7 +129,8 @@ extension FishDefinition {
                 accentRed: accent.0,
                 accentGreen: accent.1,
                 accentBlue: accent.2
-            )
+            ),
+            isOceanic: oceanic
         )
     }
 }

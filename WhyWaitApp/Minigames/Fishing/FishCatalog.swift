@@ -173,6 +173,93 @@ enum FishCatalog {
             weight: 70...280, length: 220...430, value: 4_200,
             power: 1.92, stamina: 230, agility: 0.72, hookModifier: -0.2,
             body: (0.08, 0.1, 0.2), accent: (0.46, 0.32, 0.94)
+        ),
+
+        // Tidebreak coast collection. These ocean species deliberately span
+        // several silhouettes and remain depth-weighted rather than hard gated.
+        .make(
+            "atlantic-mackerel", "Atlantic Mackerel", rarity: .common,
+            preferred: [.mid], available: [.mid, .deep],
+            weight: 0.18...2.3, length: 22...55, value: 104,
+            power: 0.46, stamina: 49, agility: 0.82, oceanic: true,
+            body: (0.22, 0.53, 0.67), accent: (0.77, 0.91, 0.86)
+        ),
+        .make(
+            "sand-flounder", "Sand Flounder", rarity: .common,
+            preferred: [.near, .mid], available: [.near, .mid],
+            weight: 0.2...4.8, length: 24...72, value: 118,
+            power: 0.42, stamina: 52, agility: 0.38, oceanic: true,
+            body: (0.56, 0.46, 0.3), accent: (0.82, 0.73, 0.5)
+        ),
+        .make(
+            "great-barracuda", "Great Barracuda", rarity: .uncommon,
+            preferred: [.mid, .deep], available: [.mid, .deep],
+            weight: 1.5...22, length: 54...168, value: 315,
+            power: 0.98, stamina: 88, agility: 1.02, hookModifier: -0.06, oceanic: true,
+            body: (0.29, 0.49, 0.55), accent: (0.76, 0.91, 0.78)
+        ),
+        .make(
+            "ocean-sunfish", "Ocean Sunfish", rarity: .uncommon,
+            preferred: [.deep], available: [.mid, .deep],
+            weight: 8...92, length: 66...188, value: 360,
+            power: 0.92, stamina: 102, agility: 0.2, oceanic: true,
+            body: (0.46, 0.55, 0.6), accent: (0.79, 0.84, 0.75)
+        ),
+        .make(
+            "blacktip-shark", "Blacktip Reef Shark", rarity: .rare,
+            preferred: [.deep], available: [.deep],
+            weight: 12...84, length: 105...235, value: 760,
+            power: 1.28, stamina: 142, agility: 0.92, hookModifier: -0.1, oceanic: true,
+            body: (0.27, 0.39, 0.45), accent: (0.08, 0.12, 0.15)
+        ),
+        .make(
+            "blue-shark", "Blue Shark", rarity: .rare,
+            preferred: [.deep], available: [.deep],
+            weight: 18...118, length: 135...310, value: 880,
+            power: 1.36, stamina: 151, agility: 0.98, hookModifier: -0.11, oceanic: true,
+            body: (0.16, 0.37, 0.64), accent: (0.7, 0.87, 0.96)
+        ),
+        .make(
+            "moon-manta", "Moon Manta", rarity: .rare,
+            preferred: [.deep], available: [.deep],
+            weight: 22...145, length: 120...340, value: 940,
+            power: 1.25, stamina: 158, agility: 0.58, hookModifier: -0.09, oceanic: true,
+            body: (0.13, 0.21, 0.34), accent: (0.47, 0.8, 0.92)
+        ),
+        .make(
+            "swordfish", "Swordfish", rarity: .epic,
+            preferred: [.deep], available: [.deep],
+            weight: 28...190, length: 145...390, value: 1_620,
+            power: 1.56, stamina: 176, agility: 1.08, hookModifier: -0.15, oceanic: true,
+            body: (0.14, 0.32, 0.52), accent: (0.75, 0.89, 0.92)
+        ),
+        .make(
+            "hammerhead-shark", "Hammerhead Shark", rarity: .epic,
+            preferred: [.deep], available: [.deep],
+            weight: 38...245, length: 165...410, value: 1_820,
+            power: 1.68, stamina: 192, agility: 0.81, hookModifier: -0.16, oceanic: true,
+            body: (0.3, 0.4, 0.43), accent: (0.72, 0.81, 0.79)
+        ),
+        .make(
+            "whale-shark", "Whale Shark", rarity: .epic,
+            preferred: [.deep], available: [.deep],
+            weight: 180...820, length: 380...920, value: 2_150,
+            power: 1.82, stamina: 218, agility: 0.3, hookModifier: -0.17, oceanic: true,
+            body: (0.13, 0.29, 0.38), accent: (0.77, 0.88, 0.78)
+        ),
+        .make(
+            "abyssal-oarfish", "Abyssal Oarfish", rarity: .legendary,
+            preferred: [.deep], available: [.deep],
+            weight: 28...210, length: 330...870, value: 4_800,
+            power: 1.9, stamina: 224, agility: 0.86, hookModifier: -0.2, oceanic: true,
+            body: (0.33, 0.16, 0.42), accent: (0.95, 0.3, 0.36)
+        ),
+        .make(
+            "starfall-manta", "Starfall Manta", rarity: .legendary,
+            preferred: [.deep], available: [.deep],
+            weight: 55...360, length: 210...560, value: 5_400,
+            power: 1.96, stamina: 238, agility: 0.64, hookModifier: -0.21, oceanic: true,
+            body: (0.07, 0.09, 0.2), accent: (0.43, 0.83, 1)
         )
     ]
 

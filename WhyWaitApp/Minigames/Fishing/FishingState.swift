@@ -10,6 +10,7 @@ enum FishingState: Equatable {
     case failedCatch
     case showingDex
     case showingUpgrades
+    case showingVault
     case resetting
 
     func canTransition(to next: FishingState) -> Bool {
@@ -22,6 +23,7 @@ enum FishingState: Equatable {
              (.readyToCast, .chargingCast),
              (.readyToCast, .showingDex),
              (.readyToCast, .showingUpgrades),
+             (.readyToCast, .showingVault),
              (.chargingCast, .bobberFlying),
              (.chargingCast, .readyToCast),
              (.bobberFlying, .waitingForBite),
@@ -36,8 +38,13 @@ enum FishingState: Equatable {
              (.failedCatch, .readyToCast),
              (.showingDex, .readyToCast),
              (.showingDex, .showingUpgrades),
+             (.showingDex, .showingVault),
              (.showingUpgrades, .readyToCast),
-             (.showingUpgrades, .showingDex):
+             (.showingUpgrades, .showingDex),
+             (.showingUpgrades, .showingVault),
+             (.showingVault, .readyToCast),
+             (.showingVault, .showingDex),
+             (.showingVault, .showingUpgrades):
             return true
         default:
             return false
@@ -45,7 +52,7 @@ enum FishingState: Equatable {
     }
 
     var isPanelVisible: Bool {
-        self == .showingDex || self == .showingUpgrades
+        self == .showingDex || self == .showingUpgrades || self == .showingVault
     }
 }
 
@@ -54,4 +61,3 @@ enum FishingFailureReason: String {
     case lineBroke = "LINE BROKE"
     case slackEscape = "HOOK LOST"
 }
-

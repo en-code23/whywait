@@ -1,6 +1,7 @@
 import AppKit
 
 /// Owns launcher/playing/hidden state, exclusive game switching, and app-wide sessions.
+@MainActor
 final class AppCoordinator {
     var onExitRequested: (() -> Void)?
 
@@ -13,6 +14,8 @@ final class AppCoordinator {
     private let shortcutController: GlobalShortcutController
     private let launchAtLoginController: LaunchAtLoginControlling
     private let launcherViewModelBuilder: LauncherViewModelBuilder
+    private let updater: WhyWaitUpdater
+    private let updateAccessoryView: WhyWaitUpdateAccessoryView
 
     private(set) var state: WhyWaitAppState = .hidden
     private(set) var activeMinigame: Minigame?
@@ -21,29 +24,34 @@ final class AppCoordinator {
     private var sessionHeartbeat: Timer?
     private var gameGeneration = 0
     private var isRunning = false
+    private var isManualUpdateCheck = false
 
     init(
         overlayController: OverlayWindowController = OverlayWindowController(),
         inputManager: InputManager = InputManager(),
         preferences: AppPreferences = AppPreferences(),
         statsStore: WhyWaitStatsStore = WhyWaitStatsStore(),
-        launcherController: LauncherWindowController = LauncherWindowController(
-            games: MinigameRegistry.allGames
-        ),
+        launcherController: LauncherWindowController? = nil,
         menuBarController: MenuBarController = MenuBarController(),
         shortcutController: GlobalShortcutController = GlobalShortcutController(),
         launchAtLoginController: LaunchAtLoginControlling = LaunchAtLoginController(),
-        launcherViewModelBuilder: LauncherViewModelBuilder = LauncherViewModelBuilder()
+        launcherViewModelBuilder: LauncherViewModelBuilder = LauncherViewModelBuilder(),
+        updater: WhyWaitUpdater? = nil,
+        updateAccessoryView: WhyWaitUpdateAccessoryView? = nil
     ) {
         self.overlayController = overlayController
         self.inputManager = inputManager
         self.preferences = preferences
         self.statsStore = statsStore
-        self.launcherController = launcherController
+        self.launcherController = launcherController ?? LauncherWindowController(
+            games: MinigameRegistry.allGames
+        )
         self.menuBarController = menuBarController
         self.shortcutController = shortcutController
         self.launchAtLoginController = launchAtLoginController
         self.launcherViewModelBuilder = launcherViewModelBuilder
+        self.updater = updater ?? WhyWaitUpdater()
+        self.updateAccessoryView = updateAccessoryView ?? WhyWaitUpdateAccessoryView()
         settings = preferences.settings
         connectControllers()
     }
@@ -57,6 +65,7 @@ final class AppCoordinator {
         inputManager.escapeHandler = { [weak self] in self?.handleEscape() == true }
         inputManager.start()
         applyUtilitySettings()
+        startAutomaticUpdateCheckIfNeeded()
 
         if let requestedID = MinigameRegistry.requestedMinigameID(arguments: arguments) {
             playGame(id: requestedID)
@@ -79,6 +88,13 @@ final class AppCoordinator {
         state = .launcher
         launcherController.show(viewModel: makeLauncherViewModel())
         launcherController.showSettings()
+    }
+
+    func checkForUpdates() {
+        guard isRunning else { return }
+        showLauncher()
+        isManualUpdateCheck = true
+        updater.checkNow()
     }
 
     func hideLauncher() {
@@ -156,6 +172,7 @@ final class AppCoordinator {
         launcherController.hide()
         menuBarController.stop()
         shortcutController.stop()
+        updater.cancel()
         inputManager.stop()
         inputManager.eventHandler = nil
         inputManager.quitHandler = nil
@@ -190,8 +207,17 @@ final class AppCoordinator {
         menuBarController.onOpenWhyWait = { [weak self] in self?.showLauncher() }
         menuBarController.onPlayLastGame = { [weak self] in self?.playLastGame() }
         menuBarController.onPlayGame = { [weak self] id in self?.playGame(id: id) }
+        menuBarController.onCheckForUpdates = { [weak self] in self?.checkForUpdates() }
         menuBarController.onQuit = { [weak self] in self?.requestQuit() }
         shortcutController.onShortcut = { [weak self] in self?.toggleLauncher() }
+        launcherController.installQuickActionAccessory(updateAccessoryView)
+        updateAccessoryView.onAction = { [weak self] in self?.handleUpdateAction() }
+        updater.onStateChange = { [weak self] state in self?.handleUpdateState(state) }
+#if DEBUG
+        updater.onBackgroundCheckError = { error in
+            print("WhyWait update check skipped: \(error.localizedDescription)")
+        }
+#endif
     }
 
     private func applyUtilitySettings() {
@@ -226,6 +252,8 @@ final class AppCoordinator {
             settings.menuBarEnabled = enabled
         case .globalShortcutEnabled:
             settings.globalShortcutEnabled = enabled
+        case .automaticallyCheckForUpdates:
+            settings.automaticallyCheckForUpdates = enabled
         case .showGameHUD:
             settings.showGameHUD = enabled
         case .reduceVisualEffects:
@@ -240,6 +268,13 @@ final class AppCoordinator {
             break
         }
         preferences.settings = settings
+        if key == .automaticallyCheckForUpdates {
+            if enabled {
+                startAutomaticUpdateCheckIfNeeded(after: 0.3)
+            } else {
+                updater.cancel()
+            }
+        }
         applyUtilitySettings()
         refreshLauncher()
     }
@@ -274,10 +309,81 @@ final class AppCoordinator {
         menuBarController.update(lastPlayedID: validLastPlayedID)
     }
 
+    private func startAutomaticUpdateCheckIfNeeded(after delay: TimeInterval = 1.5) {
+        guard settings.automaticallyCheckForUpdates,
+              ProcessInfo.processInfo.environment["WHYWAIT_APP_SHELL_TESTS"] != "1" else { return }
+        updater.startAutomaticCheck(after: delay)
+    }
+
+    private func handleUpdateState(_ updateState: WhyWaitUpdaterState) {
+        updateAccessoryView.update(state: updateState)
+        switch updateState {
+        case let .upToDate(version) where isManualUpdateCheck:
+            isManualUpdateCheck = false
+            let alert = NSAlert()
+            alert.messageText = "WhyWait is up to date"
+            alert.informativeText = "You’re running the latest release (v\(version))."
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+        case .updateAvailable:
+            isManualUpdateCheck = false
+        case .failed:
+            isManualUpdateCheck = false
+        default:
+            break
+        }
+    }
+
+    private func handleUpdateAction() {
+        switch updater.state {
+        case let .updateAvailable(release):
+            updater.downloadAndPrepare(release)
+        case .readyToInstall:
+            let alert = NSAlert()
+            alert.messageText = "Restart WhyWait to update?"
+            alert.informativeText = "Your active game will close. WhyWait will replace itself and reopen automatically."
+            alert.addButton(withTitle: "Restart & Update")
+            alert.addButton(withTitle: "Later")
+            guard alert.runModal() == .alertFirstButtonReturn else { return }
+            do {
+                try updater.beginInstallation()
+                requestQuit()
+            } catch {
+                showUpdateFailure(error.localizedDescription, fallbackURL: updater.fallbackReleaseURL)
+            }
+        case let .failed(message, fallbackURL):
+            showUpdateFailure(message, fallbackURL: fallbackURL)
+        case .idle, .upToDate:
+            checkForUpdates()
+        case .checking, .downloading, .preparing, .installing:
+            break
+        }
+    }
+
+    private func showUpdateFailure(_ message: String, fallbackURL: URL) {
+        let alert = NSAlert()
+        alert.messageText = "WhyWait couldn’t finish the update"
+        alert.informativeText = message
+        alert.addButton(withTitle: "Try Again")
+        alert.addButton(withTitle: "Open Releases")
+        alert.addButton(withTitle: "Cancel")
+        switch alert.runModal() {
+        case .alertFirstButtonReturn:
+            isManualUpdateCheck = true
+            updater.checkNow()
+        case .alertSecondButtonReturn:
+            NSWorkspace.shared.open(fallbackURL)
+        default:
+            break
+        }
+    }
+
     private func startSessionHeartbeat() {
         sessionHeartbeat?.invalidate()
         let timer = Timer(timeInterval: 30, repeats: true) { [weak self] _ in
-            self?.statsStore.checkpointActiveSession()
+            Task { @MainActor [weak self] in
+                self?.statsStore.checkpointActiveSession()
+            }
         }
         RunLoop.main.add(timer, forMode: .common)
         sessionHeartbeat = timer

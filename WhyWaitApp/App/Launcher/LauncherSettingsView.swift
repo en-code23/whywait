@@ -17,7 +17,7 @@ private final class SettingsToggleRow: NSView {
         translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.stringValue = title
-        titleLabel.font = NSFont.systemFont(ofSize: 11.5, weight: .medium)
+        titleLabel.font = NSFont.systemFont(ofSize: 11, weight: .medium)
         titleLabel.textColor = LauncherTheme.primaryText
         toggle.translatesAutoresizingMaskIntoConstraints = false
         toggle.controlSize = .small
@@ -125,6 +125,7 @@ final class LauncherSettingsView: NSView {
 
     private let contentStack = NSStackView()
     private let statusLabel = NSTextField(wrappingLabelWithString: "")
+    private let accentLine = NSView()
     private var rows: [WhyWaitSettingKey: SettingsToggleRow] = [:]
     private let objectScaleRow = SettingsScaleRow(title: "Game object size")
 
@@ -145,6 +146,7 @@ final class LauncherSettingsView: NSView {
         rows[.launchAtLogin]?.setEnabled(launchAtLogin.isEnabled)
         rows[.menuBarEnabled]?.setEnabled(settings.menuBarEnabled)
         rows[.globalShortcutEnabled]?.setEnabled(settings.globalShortcutEnabled)
+        rows[.automaticallyCheckForUpdates]?.setEnabled(settings.automaticallyCheckForUpdates)
         rows[.showGameHUD]?.setEnabled(settings.showGameHUD)
         rows[.reduceVisualEffects]?.setEnabled(settings.reduceVisualEffects)
         rows[.cursorTrailEffects]?.setEnabled(settings.cursorTrailEffects)
@@ -155,21 +157,35 @@ final class LauncherSettingsView: NSView {
         statusLabel.isHidden = statusLabel.stringValue.isEmpty
     }
 
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
+        applySurfaceAppearance()
+    }
+
     private func configureHierarchy() {
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         layer?.cornerRadius = LauncherTheme.inspectorRadius
         layer?.cornerCurve = .continuous
-        layer?.backgroundColor = LauncherTheme.inspectorBackground.cgColor
         layer?.borderWidth = 1
-        layer?.borderColor = LauncherTheme.border.cgColor
+        layer?.masksToBounds = true
+        applySurfaceAppearance()
 
-        let title = NSTextField(labelWithString: "SETTINGS")
+        accentLine.translatesAutoresizingMaskIntoConstraints = false
+        accentLine.wantsLayer = true
+        accentLine.layer?.backgroundColor = LauncherTheme.resolved(LauncherTheme.accent, for: self).cgColor
+
+        let systemLabel = NSTextField(labelWithString: "SYSTEM  /  LOCAL")
+        systemLabel.translatesAutoresizingMaskIntoConstraints = false
+        systemLabel.font = NSFont.monospacedSystemFont(ofSize: 8, weight: .semibold)
+        systemLabel.textColor = LauncherTheme.accent
+
+        let title = NSTextField(labelWithString: "Preferences")
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.font = NSFont.systemFont(ofSize: 18, weight: .bold)
+        title.font = NSFont.systemFont(ofSize: 20, weight: .bold)
         title.textColor = LauncherTheme.primaryText
 
-        let subtitle = NSTextField(labelWithString: "Small defaults for a quieter utility.")
+        let subtitle = NSTextField(labelWithString: "Tune the intermission, keep the desktop quiet.")
         subtitle.translatesAutoresizingMaskIntoConstraints = false
         subtitle.font = NSFont.systemFont(ofSize: 10.5, weight: .regular)
         subtitle.textColor = LauncherTheme.secondaryText
@@ -182,7 +198,8 @@ final class LauncherSettingsView: NSView {
         addSection("GENERAL", rows: [
             (.launchAtLogin, "Launch WhyWait at login"),
             (.menuBarEnabled, "Keep menu-bar icon enabled"),
-            (.globalShortcutEnabled, "Global shortcut enabled")
+            (.globalShortcutEnabled, "Global shortcut enabled"),
+            (.automaticallyCheckForUpdates, "Automatically check for updates")
         ])
         addSection("GAMEPLAY", rows: [
             (.showGameHUD, "Show game HUD"),
@@ -221,18 +238,27 @@ final class LauncherSettingsView: NSView {
             document.widthAnchor.constraint(equalTo: scrollView.contentView.widthAnchor)
         ])
 
+        addSubview(accentLine)
+        addSubview(systemLabel)
         addSubview(title)
         addSubview(subtitle)
         addSubview(scrollView)
         addSubview(statusLabel)
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 18),
-            title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
-            title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18),
+            accentLine.topAnchor.constraint(equalTo: topAnchor),
+            accentLine.leadingAnchor.constraint(equalTo: leadingAnchor),
+            accentLine.trailingAnchor.constraint(equalTo: trailingAnchor),
+            accentLine.heightAnchor.constraint(equalToConstant: 2),
+            systemLabel.topAnchor.constraint(equalTo: topAnchor, constant: 14),
+            systemLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            systemLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            title.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 7),
+            title.leadingAnchor.constraint(equalTo: systemLabel.leadingAnchor),
+            title.trailingAnchor.constraint(equalTo: systemLabel.trailingAnchor),
             subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4),
             subtitle.leadingAnchor.constraint(equalTo: title.leadingAnchor),
             subtitle.trailingAnchor.constraint(equalTo: title.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 13),
+            scrollView.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 10),
             scrollView.leadingAnchor.constraint(equalTo: title.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: title.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: -8),
@@ -243,13 +269,19 @@ final class LauncherSettingsView: NSView {
         ])
     }
 
+    private func applySurfaceAppearance() {
+        layer?.backgroundColor = LauncherTheme.resolved(LauncherTheme.surfaceRaised, for: self).cgColor
+        layer?.borderColor = LauncherTheme.resolved(LauncherTheme.border, for: self).cgColor
+        accentLine.layer?.backgroundColor = LauncherTheme.resolved(LauncherTheme.accent, for: self).cgColor
+    }
+
     private func addSection(
         _ title: String,
         rows descriptors: [(WhyWaitSettingKey, String)]
     ) {
         let heading = NSTextField(labelWithString: title)
-        heading.font = NSFont.systemFont(ofSize: 9, weight: .bold)
-        heading.textColor = LauncherTheme.tertiaryText
+        heading.font = NSFont.monospacedSystemFont(ofSize: 8, weight: .bold)
+        heading.textColor = LauncherTheme.accent.withAlphaComponent(0.82)
         let wrapper = NSView()
         wrapper.translatesAutoresizingMaskIntoConstraints = false
         heading.translatesAutoresizingMaskIntoConstraints = false

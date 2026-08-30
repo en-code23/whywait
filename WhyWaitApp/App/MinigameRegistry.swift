@@ -51,9 +51,9 @@ enum MinigameRegistry {
         MinigameMetadata(
             id: "fishing",
             name: "Fishing",
-            summary: "Cast, fight fish, and fill your FishDex.",
-            detail: "Cast into depth zones, manage line tension with the cursor, discover species, and improve persistent fishing gear.",
-            controls: "Hold/release to cast  ·  Hold to reel  ·  D FishDex  ·  U upgrades",
+            summary: "Cast, collect rare variants, and stock your Tidevault.",
+            detail: "Cast into depth zones, manage line tension, archive prized catches, discover ocean species, and outfit your tackle room.",
+            controls: "Hold/release to cast  ·  D FishDex  ·  B Tidevault  ·  U shop",
             symbolName: "fish.fill",
             isAvailable: true
         ),

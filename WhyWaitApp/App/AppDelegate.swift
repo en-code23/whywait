@@ -1,5 +1,6 @@
 import AppKit
 
+@MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var coordinator: AppCoordinator?
 
@@ -47,6 +48,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         settingsItem.keyEquivalentModifierMask = [.command]
         settingsItem.target = self
         applicationMenu.addItem(settingsItem)
+        let updateItem = NSMenuItem(
+            title: "Check for Updates…",
+            action: #selector(checkForUpdates(_:)),
+            keyEquivalent: ""
+        )
+        updateItem.target = self
+        applicationMenu.addItem(updateItem)
         applicationMenu.addItem(.separator())
         let quitItem = NSMenuItem(
             title: "Quit WhyWait",
@@ -63,5 +71,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func openSettings(_ sender: Any?) {
         coordinator?.showSettings()
+    }
+
+    @objc private func checkForUpdates(_ sender: Any?) {
+        coordinator?.checkForUpdates()
     }
 }

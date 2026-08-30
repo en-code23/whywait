@@ -65,7 +65,18 @@ extension FishingScene {
 
     func beginWaitingForBite() {
         guard transition(to: .waitingForBite) else { return }
-        generatedCatch = catchGenerator.generate(zone: activeZone, equipment: equipmentStats)
+        let lure = profile.shopInventory.equippedLure
+        generatedCatch = catchGenerator.generate(
+            zone: activeZone,
+            equipment: equipmentStats,
+            lure: lure
+        )
+        if lure != nil {
+            _ = profile.consumeEquippedLure()
+            saveProfile()
+            hud.updateProfile(profile)
+            upgradePanel.refresh(profile: profile)
+        }
         nextAmbientTime = (lastUpdateTime ?? 0) + 0.7
         if tutorialSession {
             hud.showHint("CLICK WHEN IT BITES", duration: 2)
@@ -155,7 +166,8 @@ extension FishingScene {
     func beginFishFight(_ specimen: FishSpecimen) {
         let fish = FishNode(
             definition: specimen.definition,
-            sizePercentile: specimen.sizePercentile
+            sizePercentile: specimen.sizePercentile,
+            variant: specimen.variant
         )
         fish.position = bobber.position
         catchLayer.addChild(fish)
@@ -297,6 +309,7 @@ extension FishingScene {
         hud.updateProfile(profile)
         hud.showCatch(generatedCatch.prospective, progression: progression)
         fishDexPanel.refresh(profile: profile)
+        tidevaultPanel.refresh(profile: profile)
         activeTransaction = nil
 
         let token = interactionGeneration

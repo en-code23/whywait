@@ -2,13 +2,20 @@ import Foundation
 
 struct FishSpecimen: Equatable {
     let definition: FishDefinition
+    let variant: FishVariant
     let weight: Double
     let length: Double
     let sizePercentile: Double
     let saleValue: Int
 
     var sizeFightMultiplier: Double {
-        0.78 + (sizePercentile * 0.52)
+        (0.78 + (sizePercentile * 0.52)) * variant.fightMultiplier
+    }
+
+    var displayName: String {
+        variant == .standard
+            ? definition.name
+            : "\(variant.displayName.capitalized) \(definition.name)"
     }
 }
 
@@ -23,7 +30,7 @@ enum ProspectiveCatch: Equatable {
 
     var name: String {
         switch self {
-        case let .fish(specimen): return specimen.definition.name
+        case let .fish(specimen): return specimen.displayName
         case let .treasure(treasure): return treasure.definition.name
         }
     }
@@ -67,4 +74,3 @@ struct GeneratedCatch: Equatable {
     let biteWait: TimeInterval
     let hookWindow: TimeInterval
 }
-

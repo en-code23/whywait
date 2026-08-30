@@ -159,9 +159,9 @@ final class FishDexPanel: SKNode {
         let top = panelSize.height / 2 - 82
         let detailsWidth: CGFloat = 226
         let gridWidth = panelSize.width - detailsWidth - 54
-        let columns = 4
-        let rows = 6
-        let spacing: CGFloat = 7
+        let columns = 6
+        let rows = max(1, Int(ceil(Double(FishCatalog.all.count) / Double(columns))))
+        let spacing: CGFloat = 5
         let cardWidth = (gridWidth - (CGFloat(columns - 1) * spacing)) / CGFloat(columns)
         let gridHeight = panelSize.height - 112
         let cardHeight = (gridHeight - (CGFloat(rows - 1) * spacing)) / CGFloat(rows)
@@ -187,7 +187,7 @@ final class FishDexPanel: SKNode {
             let preview = FishNode.dexPreview(
                 definition: definition,
                 discovered: record.isDiscovered,
-                scale: min(0.55, cardWidth / 160)
+                scale: min(0.44, cardWidth / 145)
             )
             preview.position = CGPoint(x: frame.midX, y: frame.midY + 8)
             content.addChild(preview)
@@ -278,7 +278,8 @@ final class FishDexPanel: SKNode {
                 String(format: "Largest:  %.2f kg", record.bestWeight),
                 String(format: "Longest:  %.1f cm", record.bestLength),
                 "Preferred:  \(definition.preferredZones.map(\.displayName).joined(separator: "/"))",
-                "Best value:  \(record.bestSaleValue) coins"
+                "Best value:  \(record.bestSaleValue) coins",
+                "Variants:  \(record.discoveredVariantIDs.filter { $0 != FishVariant.standard.rawValue }.count) / \(FishVariant.allCases.count - 1)"
             ]
             addDetailLines(lines, in: detailFrame)
 
