@@ -29,6 +29,41 @@ final class FishingRod: SKNode {
     private var castBend: CGFloat = 0
     private var tensionBend: CGFloat = 0
     private var reelIsTurning = false
+    private var targetAngle: CGFloat = .pi * 0.3
+    private var angularVelocity: CGFloat = 0
+    private var bend: CGFloat = 0
+    private var bendVelocity: CGFloat = 0
+    private var model: FishingRodModel = .willow
+
+    func equip(_ model: FishingRodModel) {
+        self.model = model
+        let colors: [FishingRodModel: SKColor] = [
+            .willow: SKColor(calibratedRed: 0.43, green: 0.27, blue: 0.12, alpha: 1),
+            .tideglass: .systemTeal, .carbon: .lightGray, .abyss: .systemPurple
+        ]
+        blank.strokeColor = colors[model] ?? .gray
+        reelBody.strokeColor = colors[model] ?? .gray
+    }
+
+    /// Bounded angular spring and flexible blank; cursor changes aim, never teleports the tip.
+    func simulate(deltaTime: TimeInterval) {
+        let dt = CGFloat(min(1.0 / 30, max(0, deltaTime)))
+        guard dt > 0 else { return }
+        let steps = 4
+        let h = dt / CGFloat(steps)
+        for _ in 0..<steps {
+            let error = atan2(sin(targetAngle - rodAngle), cos(targetAngle - rodAngle))
+            angularVelocity += (error * model.stiffness - angularVelocity * 13) * h
+            angularVelocity = min(5, max(-5, angularVelocity))
+            rodAngle += angularVelocity * h
+            let targetBend = max(castBend, tensionBend) + angularVelocity * 3.2
+            bendVelocity += ((targetBend - bend) * 145 - bendVelocity * 15) * h
+            bendVelocity = min(160, max(-160, bendVelocity))
+            bend = min(34, max(-24, bend + bendVelocity * h))
+        }
+        assembly.zRotation = rodAngle
+        rebuildBlank()
+    }
 
     var basePosition: CGPoint { position }
 
@@ -66,10 +101,8 @@ final class FishingRod: SKNode {
         let upward = FishingGeometry.normalized(
             CGVector(dx: direction.dx, dy: max(0.22, direction.dy))
         )
-        rodAngle = atan2(upward.dy, upward.dx)
-        assembly.zRotation = rodAngle
+        targetAngle = atan2(upward.dy, upward.dx)
         castBend = CGFloat.fishingClamp(power, 0...1) * 15
-        tensionBend = 0
         rebuildBlank()
 
         let normalizedPower = CGFloat.fishingClamp(power, 0...1)
@@ -88,15 +121,9 @@ final class FishingRod: SKNode {
     }
 
     func pulseRelease() {
-        assembly.removeAction(forKey: "rod-release")
-        assembly.run(
-            .sequence([
-                .rotate(byAngle: 0.045, duration: 0.055),
-                .rotate(byAngle: -0.072, duration: 0.085),
-                .rotate(byAngle: 0.027, duration: 0.1)
-            ]),
-            withKey: "rod-release"
-        )
+        bendVelocity = -120
+        castBend = 0
+        chargeGlow.alpha = 0
     }
 
     func resetVisual() {
@@ -105,6 +132,9 @@ final class FishingRod: SKNode {
         assembly.zRotation = rodAngle
         castBend = 0
         tensionBend = 0
+        angularVelocity = 0
+        bendVelocity = 0
+        bend = 0
         setReelTurning(false)
         rebuildBlank()
     }
@@ -256,7 +286,7 @@ final class FishingRod: SKNode {
     }
 
     private func rebuildBlank() {
-        let totalBend = max(castBend, tensionBend)
+        let totalBend = bend
         let path = CGMutablePath()
         path.move(to: CGPoint(x: 34, y: 0))
         path.addCurve(

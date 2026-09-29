@@ -130,7 +130,7 @@ final class SwordSettingsPanel: SKNode {
     }
 
     private func label(_ text: String, size: CGFloat, color: NSColor) -> SKLabelNode {
-        let node = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+        let node = WhyWaitLabelNode(fontNamed: "AvenirNext-DemiBold")
         node.text = text
         node.fontSize = size
         node.fontColor = color

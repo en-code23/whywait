@@ -23,7 +23,7 @@ struct LauncherViewModel {
             totalPlayTime
         ]
         if let favoriteGameName { values.append("Favorite: \(favoriteGameName)") }
-        return values.joined(separator: "  ·  ")
+        return values.map(WWText.text).joined(separator: "  ·  ")
     }
 }
 

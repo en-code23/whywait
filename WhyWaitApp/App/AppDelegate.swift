@@ -4,6 +4,16 @@ import AppKit
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var coordinator: AppCoordinator?
 
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        coordinator?.showLauncher()
+        sender.activate(ignoringOtherApps: true)
+        return true
+    }
+
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        false
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         installMainMenu()
 #if DEBUG
@@ -13,7 +23,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                     for report in try AppShellDiagnostics.runAll() {
                         print("APP SHELL TEST PASS — \(report)")
                     }
-                    NSApplication.shared.terminate(nil)
+                    AppShellDiagnostics.runLiveChecks { result in
+                        switch result {
+                        case let .success(report):
+                            print("APP SHELL TEST PASS — \(report)")
+                            NSApplication.shared.terminate(nil)
+                        case let .failure(error):
+                            fatalError("Live diagnostics failed: \(error)")
+                        }
+                    }
                 } catch {
                     fatalError("App shell diagnostics failed: \(error)")
                 }
@@ -67,6 +85,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         applicationItem.submenu = applicationMenu
         mainMenu.addItem(applicationItem)
         NSApplication.shared.mainMenu = mainMenu
+        WWText.localize(mainMenu)
     }
 
     @objc private func openSettings(_ sender: Any?) {

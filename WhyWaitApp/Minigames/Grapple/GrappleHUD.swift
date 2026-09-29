@@ -1,13 +1,13 @@
 import SpriteKit
 
 final class GrappleHUD: SKNode {
-    private let timerLabel = SKLabelNode(fontNamed: "Menlo-Bold")
-    private let timerShadow = SKLabelNode(fontNamed: "Menlo-Bold")
-    private let progressLabel = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
-    private let progressShadow = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let timerLabel = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
+    private let timerShadow = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
+    private let progressLabel = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let progressShadow = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Medium")
     private let feedbackContainer = SKNode()
-    private let feedbackTitle = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-    private let feedbackSubtitle = SKLabelNode(fontNamed: "Menlo-Bold")
+    private let feedbackTitle = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let feedbackSubtitle = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
     private let transientLayer = SKNode()
 
     override init() {
@@ -138,7 +138,7 @@ final class GrappleHUD: SKNode {
             transientLayer.children.first?.removeFromParent()
         }
 
-        let label = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+        let label = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
         label.text = text
         label.fontSize = fontSize
         label.fontColor = color
@@ -167,4 +167,3 @@ final class GrappleHUD: SKNode {
         label.verticalAlignmentMode = .center
     }
 }
-

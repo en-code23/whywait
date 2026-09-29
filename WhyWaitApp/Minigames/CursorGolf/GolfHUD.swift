@@ -2,11 +2,11 @@ import SpriteKit
 
 final class GolfHUD: SKNode {
     private let strokeContainer = SKNode()
-    private let strokeLabel = SKLabelNode()
-    private let strokeShadow = SKLabelNode()
+    private let strokeLabel = WhyWaitLabelNode()
+    private let strokeShadow = WhyWaitLabelNode()
     private let completionContainer = SKNode()
-    private let completionLabel = SKLabelNode()
-    private let completionShadow = SKLabelNode()
+    private let completionLabel = WhyWaitLabelNode()
+    private let completionShadow = WhyWaitLabelNode()
     private let strokeAccent = SKShapeNode(rectOf: CGSize(width: 3, height: 13), cornerRadius: 1.5)
 
     override init() {

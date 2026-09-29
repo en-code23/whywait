@@ -2,11 +2,11 @@ import AppKit
 import SpriteKit
 
 final class ZombieSwordHUD: SKNode {
-    private let healthLabel = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
-    private let waveLabel = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
-    private let scoreLabel = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
-    private let comboLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
-    private let challengeLabel = SKLabelNode(fontNamed: "AvenirNext-Medium")
+    private let healthLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-DemiBold")
+    private let waveLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-DemiBold")
+    private let scoreLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-DemiBold")
+    private let comboLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-Bold")
+    private let challengeLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-Medium")
 
     override init() {
         super.init()

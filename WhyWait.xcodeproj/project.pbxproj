@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100000000000000000000A01 /* WhyWaitLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000A01 /* WhyWaitLanguage.swift */; };
 		100000000000000000000001 /* WhyWaitApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000001 /* WhyWaitApplication.swift */; };
 		100000000000000000000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000002 /* AppDelegate.swift */; };
 		100000000000000000000003 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000003 /* AppCoordinator.swift */; };
@@ -171,6 +172,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		200000000000000000000A01 /* WhyWaitLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitLanguage.swift; sourceTree = "<group>"; };
 		200000000000000000000001 /* WhyWaitApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyWaitApplication.swift; sourceTree = "<group>"; };
 		200000000000000000000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		200000000000000000000003 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				200000000000000000000200 /* MinigameRegistry.swift */,
 				200000000000000000000800 /* WhyWaitAppState.swift */,
 				200000000000000000000801 /* AppPreferences.swift */,
+				200000000000000000000A01 /* WhyWaitLanguage.swift */,
 				200000000000000000000802 /* MenuBarController.swift */,
 				200000000000000000000803 /* GlobalShortcutController.swift */,
 				200000000000000000000809 /* AppShellDiagnostics.swift */,
@@ -875,6 +878,7 @@
 				100000000000000000000713 /* ZombieSwordDiagnostics.swift in Sources */,
 				100000000000000000000800 /* WhyWaitAppState.swift in Sources */,
 				100000000000000000000801 /* AppPreferences.swift in Sources */,
+				100000000000000000000A01 /* WhyWaitLanguage.swift in Sources */,
 				100000000000000000000802 /* MenuBarController.swift in Sources */,
 				100000000000000000000803 /* GlobalShortcutController.swift in Sources */,
 				100000000000000000000804 /* LauncherTheme.swift in Sources */,
@@ -1010,7 +1014,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WhyWaitApp/App/Info.plist;
@@ -1018,7 +1022,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whywait.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1031,7 +1035,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WhyWaitApp/App/Info.plist;
@@ -1039,7 +1043,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whywait.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

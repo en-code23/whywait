@@ -1,13 +1,13 @@
 import SpriteKit
 
 final class FruitSliceHUD: SKNode {
-    private let scoreLabel = SKLabelNode(fontNamed: "Menlo-Bold")
-    private let scoreShadow = SKLabelNode(fontNamed: "Menlo-Bold")
-    private let livesLabel = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
-    private let livesShadow = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let scoreLabel = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
+    private let scoreShadow = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
+    private let livesLabel = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let livesShadow = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Medium")
     private let feedbackContainer = SKNode()
-    private let feedbackTitle = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-    private let feedbackSubtitle = SKLabelNode(fontNamed: "Menlo-Bold")
+    private let feedbackTitle = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let feedbackSubtitle = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
     private let transientLayer = SKNode()
 
     override init() {
@@ -137,7 +137,7 @@ final class FruitSliceHUD: SKNode {
         color: SKColor,
         fontSize: CGFloat
     ) {
-        let label = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+        let label = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
         label.text = text
         label.fontSize = fontSize
         label.fontColor = color
@@ -167,4 +167,3 @@ final class FruitSliceHUD: SKNode {
         label.verticalAlignmentMode = .center
     }
 }
-

@@ -170,14 +170,14 @@ final class SwordEffects: SKNode {
         fontSize: CGFloat,
         duration: TimeInterval
     ) {
-        let label = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+        let label = WhyWaitLabelNode(fontNamed: "AvenirNext-DemiBold")
         label.text = text
         label.fontColor = color
         label.fontSize = fontSize
         label.position = point
         label.verticalAlignmentMode = .center
         label.horizontalAlignmentMode = .center
-        let shadow = SKLabelNode(fontNamed: "AvenirNext-Bold")
+        let shadow = WhyWaitLabelNode(fontNamed: "AvenirNext-Bold")
         shadow.text = text
         shadow.fontSize = fontSize
         shadow.fontColor = NSColor.black.withAlphaComponent(0.72)

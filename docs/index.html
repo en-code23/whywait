@@ -1,88 +1,61 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <title>WhyWait</title>
-  <style>
-    :root {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-      color-scheme: dark;
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      width: 100%;
-      min-height: 100%;
-      margin: 0;
-    }
-
-    body {
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 18% 24%, rgba(42, 205, 255, 0.23), transparent 34%),
-        radial-gradient(circle at 82% 72%, rgba(111, 77, 255, 0.25), transparent 38%),
-        radial-gradient(circle at 52% 48%, rgba(38, 74, 112, 0.18), transparent 44%),
-        linear-gradient(145deg, #071019 0%, #0a101d 46%, #090a14 100%);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -20%;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-      background-size: 42px 42px;
-      transform: perspective(700px) rotateX(54deg) translateY(24%);
-      mask-image: linear-gradient(to bottom, transparent, black 30%, transparent 82%);
-    }
-
-    a {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 250px;
-      min-height: 58px;
-      padding: 0 30px;
-      border: 1px solid rgba(170, 232, 255, 0.42);
-      border-radius: 17px;
-      color: #f5fbff;
-      background: rgba(13, 29, 43, 0.76);
-      box-shadow:
-        0 18px 54px rgba(0, 0, 0, 0.4),
-        inset 0 1px rgba(255, 255, 255, 0.12),
-        0 0 36px rgba(57, 198, 255, 0.1);
-      backdrop-filter: blur(18px) saturate(130%);
-      -webkit-backdrop-filter: blur(18px) saturate(130%);
-      font-size: 16px;
-      font-weight: 650;
-      letter-spacing: -0.01em;
-      text-decoration: none;
-      transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
-    }
-
-    a:hover {
-      transform: translateY(-2px);
-      border-color: rgba(190, 240, 255, 0.78);
-      background: rgba(19, 42, 60, 0.88);
-    }
-
-    a:active { transform: translateY(0); }
-
-    a:focus-visible {
-      outline: 3px solid rgba(84, 211, 255, 0.72);
-      outline-offset: 5px;
-    }
-  </style>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101919">
+  <meta name="description" content="Seven tiny native macOS games, played right on your desktop. Turn the wait into a little play with WhyWait.">
+  <title>WhyWait — A little play, while you wait.</title>
+  <link rel="stylesheet" href="style.css"><script src="site.js" defer></script>
 </head>
 <body>
-  <a href="https://github.com/en-code23/whywait/releases/latest/download/WhyWait-macOS.zip">Download WhyWait for macOS</a>
-</body>
-</html>
+<a class="skip" href="#main" data-en="Skip to content" data-de="Zum Inhalt">Skip to content</a>
+<header class="wrap nav">
+  <a class="wordmark" href="#" aria-label="WhyWait home">WHY<span>/</span>WAIT</a>
+  <nav aria-label="Main"><a href="#games" data-en="The games" data-de="Die Spiele">The games</a><a href="#how" data-en="How it works" data-de="So geht’s">How it works</a><a href="https://github.com/en-code23/whywait">GitHub ↗</a></nav>
+  <div class="languages" aria-label="Language / Sprache"><button type="button" data-language="en" aria-pressed="true">EN</button><span>/</span><button type="button" data-language="de" aria-pressed="false">DE</button></div>
+</header>
+<main id="main">
+  <section class="wrap hero">
+    <div>
+      <p class="eyebrow"><span class="live-dot"></span> <span data-en="MADE FOR THE IN-BETWEEN" data-de="FÜR DIE ZEIT DAZWISCHEN">MADE FOR THE IN-BETWEEN</span></p>
+      <h1 data-en="The work can wait.<br>A little play can’t." data-de="Die Arbeit wartet.<br>Deine Pause nicht.">The work can wait.<br>A little play can’t.</h1>
+      <p class="lead" data-en="Your agent is thinking. Your build is building. Turn those spare moments into seven small games—right on your Mac’s desktop." data-de="Dein Agent denkt. Dein Build läuft. Mach aus den freien Momenten sieben kleine Spiele – direkt auf deinem Mac-Desktop.">Your agent is thinking. Your build is building. Turn those spare moments into seven small games—right on your Mac’s desktop.</p>
+      <a class="download" href="https://github.com/en-code23/whywait/releases/latest/download/WhyWait-macOS.zip"><span>↓</span><span data-en="Download for macOS" data-de="Für macOS laden">Download for macOS</span></a>
+      <p class="fine" data-en="Free & open source · macOS 13+ · No account" data-de="Kostenlos & Open Source · macOS 13+ · Kein Konto">Free & open source · macOS 13+ · No account</p>
+      <a class="install-note" href="#install" data-en="First install? Read the macOS security note." data-de="Erste Installation? Lies den macOS-Sicherheitshinweis.">First install? Read the macOS security note.</a>
+    </div>
+    <div class="desktop-art" role="img" aria-label="Illustration of fishing objects floating above desktop work">
+      <div class="desktop-menubar"><b>WhyWait</b><span>File &nbsp; Edit &nbsp; View</span><span>◷</span></div>
+      <div class="work-note"><div class="window-dots">● ● ●</div><p>~/something-good</p><code>› building your next idea<br><span>  working on it...</span><br><br>  ▰▰▰▰▱▱▱▱</code></div>
+      <div class="back-note"><span>FIELD NOTES / 07</span><i></i><i></i><i></i></div>
+      <svg class="fishing-art" viewBox="0 0 560 460" aria-hidden="true">
+        <defs><linearGradient id="fish-skin" x2="0" y2="1"><stop stop-color="#c4e8be"/><stop offset=".55" stop-color="#639fa0"/><stop offset="1" stop-color="#e0e5c1"/></linearGradient></defs>
+        <ellipse cx="408" cy="224" rx="50" ry="13" fill="none" stroke="#73cec7" opacity=".5"/><ellipse class="ripple" cx="408" cy="224" rx="35" ry="8" fill="none" stroke="#73cec7"/>
+        <path d="M106 380 Q145 280 210 191 Q280 137 408 216" fill="none" stroke="#bdd9d0" stroke-width="1.2"/>
+        <path d="M91 403 Q135 278 210 191" fill="none" stroke="#152e2c" stroke-width="8" stroke-linecap="round"/><path d="M103 374 Q142 275 210 191" fill="none" stroke="#c99c67" stroke-width="4" stroke-linecap="round"/><path d="M91 403 L104 369" stroke="#935f39" stroke-width="12" stroke-linecap="round"/>
+        <g fill="none" stroke="#a1b7ad" stroke-width="2"><ellipse cx="132" cy="309" rx="4" ry="8"/><ellipse cx="164" cy="252" rx="3" ry="6"/><ellipse cx="197" cy="208" rx="2" ry="4"/></g>
+        <circle cx="117" cy="371" r="13" fill="#283f3c" stroke="#b6c4b6" stroke-width="2"/><circle cx="117" cy="371" r="7" fill="none" stroke="#98b8a2"/><path d="M117 371 l17 6" stroke="#bdc9ba" stroke-width="3"/><circle cx="135" cy="378" r="4" fill="#252d29"/>
+        <g class="float"><path d="M408 202v-14" stroke="#203936" stroke-width="3"/><ellipse cx="408" cy="211" rx="9" ry="14" fill="#f5eee0"/><path d="M399 211a9 14 0 0 1 18 0z" fill="#e98062"/><path d="M408 225v7" stroke="#344c45" stroke-width="2"/><path d="M404 202v6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g>
+        <g class="swimming-fish" transform="translate(368 300) rotate(-12)"><path d="M-53 0l-28-26 7 26-7 24z" fill="#ba885f"/><path d="M-53 0C-30-33 27-32 58-5Q68 0 56 8C22 33-33 29-53 0" fill="url(#fish-skin)" stroke="#b4d5bc"/><path d="M-24-20l17-22 24 23M8 9l-5 24 23-17" fill="#90b3a0"/><path d="M-35 5Q0 24 47 6" fill="none" stroke="#e2e7bd" stroke-width="5"/><path d="M27-14q-10 14 0 28" fill="none" stroke="#417571"/><circle cx="43" cy="-6" r="4" fill="#eeeaca"/><circle cx="44" cy="-6" r="2.5" fill="#102b29"/><g fill="#396b67"><circle cx="-22" cy="-8" r="2"/><circle cx="-8" cy="-12" r="2"/><circle cx="7" cy="-9" r="2"/></g></g>
+      </svg>
+      <span class="art-caption" data-en="YOUR DESKTOP. A DIFFERENT KIND OF BREAK. / ILLUSTRATION" data-de="DEIN DESKTOP. DEINE KLEINE AUSZEIT. / ILLUSTRATION">YOUR DESKTOP. A DIFFERENT KIND OF BREAK. / ILLUSTRATION</span>
+    </div>
+  </section>
+  <section class="principles wrap" aria-label="Features"><p><b>01</b><span data-en="On your desktop.<br>Not instead of it." data-de="Auf deinem Desktop.<br>Nicht an seiner Stelle.">On your desktop.<br>Not instead of it.</span></p><p><b>02</b><span data-en="Built for the mouse.<br>No learning a keymap." data-de="Für deine Maus gebaut.<br>Keine Tastenkürzel lernen.">Built for the mouse.<br>No learning a keymap.</span></p><p><b>03</b><span data-en="A moment to play.<br>Escape to get back." data-de="Ein Moment zum Spielen.<br>Mit Escape zurück.">A moment to play.<br>Escape to get back.</span></p></section>
+  <section class="wrap games-section" id="games">
+    <div class="section-heading"><div><p class="eyebrow" data-en="SEVEN LITTLE DETOURS" data-de="SIEBEN KLEINE UMWEGE">SEVEN LITTLE DETOURS</p><h2 data-en="Pick your kind of pause." data-de="Welche Pause darf’s sein?">Pick your kind of pause.</h2></div><p data-en="No arena. No big commitment.<br>Just one more cast, swing, or shot." data-de="Keine Arena. Kein großer Aufwand.<br>Nur noch ein Wurf, Schwung oder Schlag.">No arena. No big commitment.<br>Just one more cast, swing, or shot.</p></div>
+    <div class="game-grid">
+      <article class="game featured"><span class="game-number">01 / FISHING</span><div class="fish-sketch" aria-hidden="true"><svg viewBox="0 0 180 90"><path d="M46 45L10 14l9 31-9 31z" fill="#77a792"/><path d="M40 45Q75-4 137 26l28 18-22 17Q80 95 40 45" fill="#a7c3a0"/><path d="M68 24l16-19 28 18M96 53L83 77l32-17" fill="#619482"/><path d="M125 29q-13 18 0 31" fill="none" stroke="#557f6f" stroke-width="3"/><circle cx="145" cy="38" r="5" fill="#183c35"/><path d="M58 48Q88 66 134 51" fill="none" stroke="#d6dfb8" stroke-width="5"/></svg></div><h3>Fishing</h3><p data-en="A few quiet casts become a collection. Discover 36 species, rare variants, ocean giants, and your next favorite rod." data-de="Aus ruhigen Würfen wird eine Sammlung. Entdecke 36 Arten, seltene Varianten, Meeresriesen und deine nächste Lieblingsrute.">A few quiet casts become a collection. Discover 36 species, rare variants, ocean giants, and your next favorite rod.</p><div class="tags"><span>FishDex</span><span>Tidevault</span><span data-en="Rod shop" data-de="Rutenladen">Rod shop</span></div><p class="control" data-en="HOLD + RELEASE TO CAST · CLICK ON A BITE" data-de="HALTEN + LOSLASSEN: WURF · BEIM ANBISS KLICKEN">HOLD + RELEASE TO CAST · CLICK ON A BITE</p></article>
+      <article class="game"><span class="game-number">02 / SWING</span><svg class="game-icon" viewBox="0 0 80 50" aria-hidden="true"><path d="M15 37L59 7 67 7 64 15 22 45z" fill="#dce3d6"/><path d="M16 28l16 20M11 43l12-10" stroke="#cbab72" stroke-width="5"/></svg><h3>Sword Dummy</h3><p data-en="A blade with weight, lag, and a life of its own. Turn cursor motion into a satisfying strike." data-de="Eine Klinge mit Gewicht und Trägheit. Verwandle Mausbewegungen in wuchtige Treffer.">A blade with weight, lag, and a life of its own. Turn cursor motion into a satisfying strike.</p><p class="control" data-en="MOVE TO SWING · RIGHT-CLICK TO RECOVER" data-de="MAUS: SCHWINGEN · RECHTSKLICK: BERGEN">MOVE TO SWING · RIGHT-CLICK TO RECOVER</p></article>
+      <article class="game"><span class="game-number">03 / SURVIVE</span><svg class="game-icon" viewBox="0 0 80 50" aria-hidden="true"><path d="M25 48l3-20h24l5 20" fill="#586b57"/><rect x="28" y="5" width="25" height="26" rx="8" fill="#a5b782"/><path d="M33 16h5m6-1h5m-15 9h11M28 31l-14 8m38-8l12 4" stroke="#223c31" stroke-width="4"/></svg><h3>Zombie Sword</h3><p data-en="Same physical sword. Rather less patient targets. Hold your ground against waves from every edge." data-de="Dasselbe physische Schwert. Weniger geduldige Ziele. Halte dich gegen Zombie-Wellen aus allen Richtungen.">Same physical sword. Rather less patient targets. Hold your ground against waves from every edge.</p><p class="control" data-en="SWING TO DEFEND · NO ATTACK BUTTON" data-de="SCHWINGEN ZUM VERTEIDIGEN · KEINE ANGRIFFSTASTE">SWING TO DEFEND · NO ATTACK BUTTON</p></article>
+      <article class="game"><span class="game-number">04 / MOMENTUM</span><svg class="game-icon" viewBox="0 0 80 50" aria-hidden="true"><path d="M21 38L58 7" stroke="#b5d6cb" stroke-width="2"/><circle cx="58" cy="7" r="5" fill="none" stroke="#73cec7" stroke-width="2"/><rect x="10" y="30" width="20" height="18" rx="7" fill="#73cec7"/><path d="M14 35h12" stroke="#254944" stroke-width="4"/></svg><h3>Grapple</h3><p data-en="Find an anchor. Catch the swing. Fly through checkpoints on a course made for your screen." data-de="Haken setzen. Schwung holen. Fliege durch Kontrollpunkte auf einem Parcours für deinen Bildschirm.">Find an anchor. Catch the swing. Fly through checkpoints on a course made for your screen.</p><p class="control" data-en="HOLD TO ATTACH · RELEASE TO FLY" data-de="HALTEN: EINHAKEN · LOSLASSEN: FLIEGEN">HOLD TO ATTACH · RELEASE TO FLY</p></article>
+      <article class="game"><span class="game-number">05 / SLICE</span><svg class="game-icon" viewBox="0 0 80 50" aria-hidden="true"><path d="M15 13a24 24 0 0 0 48 0z" fill="#76a979"/><path d="M19 13a20 20 0 0 0 40 0z" fill="#e68675"/><path d="M29 18l2 4m8-2v5m10-7l-2 4" stroke="#233a30" stroke-width="2"/></svg><h3>Fruit Slice</h3><p data-en="Your cursor is the blade. Slice a bright little fruit storm, chase combos, and watch out for bombs." data-de="Deine Maus ist die Klinge. Schneide Obst, sammle Kombos und pass auf die Bomben auf.">Your cursor is the blade. Slice a bright little fruit storm, chase combos, and watch out for bombs.</p><p class="control" data-en="SWIPE QUICKLY · NO CLICK NEEDED" data-de="SCHNELL WISCHEN · OHNE KLICKEN">SWIPE QUICKLY · NO CLICK NEEDED</p></article>
+      <article class="game"><span class="game-number">06 / ONE MORE HOLE</span><svg class="game-icon" viewBox="0 0 80 50" aria-hidden="true"><ellipse cx="48" cy="39" rx="17" ry="6" fill="#08120f"/><path d="M49 39V4l22 7-22 7" fill="#e8b47b" stroke="#e6d7b4" stroke-width="1.5"/><circle cx="17" cy="38" r="7" fill="#f3efe2"/></svg><h3>Cursor Golf</h3><p data-en="The desktop is your course. Pull back, bank a shot, and find the flag in as few strokes as you can." data-de="Dein Desktop wird zum Golfplatz. Ziehe zurück, nutze die Bande und loche mit wenigen Schlägen ein.">The desktop is your course. Pull back, bank a shot, and find the flag in as few strokes as you can.</p><p class="control" data-en="DRAG FROM THE BALL · RELEASE TO SHOOT" data-de="VOM BALL ZIEHEN · LOSLASSEN ZUM SCHLAGEN">DRAG FROM THE BALL · RELEASE TO SHOOT</p></article>
+      <article class="game"><span class="game-number">07 / THE CLASSIC</span><svg class="game-icon" viewBox="0 0 80 50" aria-hidden="true"><rect x="9" y="5" width="7" height="29" rx="3" fill="#a3bab0"/><rect x="64" y="19" width="7" height="29" rx="3" fill="#73cec7"/><path d="M31 34l13-8" stroke="#a0bfb3" stroke-width="2" opacity=".4"/><circle cx="47" cy="24" r="5" fill="#f2f0df"/></svg><h3>Cursor Pong</h3><p data-en="The smallest possible rivalry. Your mouse, one paddle, and a CPU you can actually beat." data-de="Die kleinste Rivalität. Deine Maus, ein Schläger und ein Computer, den du schlagen kannst.">The smallest possible rivalry. Your mouse, one paddle, and a CPU you can actually beat.</p><p class="control" data-en="MOVE UP & DOWN · FIRST TO FIVE" data-de="MAUS HOCH & RUNTER · WER ZUERST FÜNF HAT">MOVE UP & DOWN · FIRST TO FIVE</p></article>
+    </div>
+  </section>
+  <section class="wrap how" id="how"><div><p class="eyebrow" data-en="BUILT TO GET OUT OF YOUR WAY" data-de="DA, WENN DU EINE PAUSE BRAUCHST">BUILT TO GET OUT OF YOUR WAY</p><h2 data-en="Small app.<br>Proper little escape." data-de="Kleine App.<br>Echte kleine Auszeit.">Small app.<br>Proper little escape.</h2></div><ol><li><h3 data-en="Open. Pick. Play." data-de="Öffnen. Wählen. Spielen.">Open. Pick. Play.</h3><p data-en="Choose from the launcher or menu bar. Only one game is active at a time; your desktop stays visible." data-de="Wähle im Launcher oder in der Menüleiste. Es läuft immer nur ein Spiel, dein Desktop bleibt sichtbar.">Choose from the launcher or menu bar. Only one game is active at a time; your desktop stays visible.</p></li><li><h3 data-en="Back to work in a keypress." data-de="Mit einer Taste zurück zur Arbeit.">Back to work in a keypress.</h3><p data-en="Escape returns to the launcher. Close it and WhyWait waits in the menu bar. Command-Q quits completely." data-de="Escape öffnet den Launcher. Schließe ihn, und WhyWait wartet in der Menüleiste. Command-Q beendet die App.">Escape returns to the launcher. Close it and WhyWait waits in the menu bar. Command-Q quits completely.</p></li><li><h3 data-en="Your catches come with you." data-de="Deine Fänge bleiben bei dir.">Your catches come with you.</h3><p data-en="FishDex, your collection, coins, rods, and equipment are saved locally on your Mac. No account, no cloud required." data-de="FishDex, deine Sammlung, Münzen, Ruten und Ausrüstung werden lokal auf deinem Mac gespeichert. Ohne Konto und ohne Cloud.">FishDex, your collection, coins, rods, and equipment are saved locally on your Mac. No account, no cloud required.</p></li></ol></section>
+  <section class="wrap install" id="install"><div><p class="eyebrow" data-en="YOUR NEXT BREAK IS READY" data-de="DEINE NÄCHSTE PAUSE WARTET">YOUR NEXT BREAK IS READY</p><h2 data-en="Give the wait<br>something to do." data-de="Gib dem Warten<br>etwas zu tun.">Give the wait<br>something to do.</h2><a class="download" href="https://github.com/en-code23/whywait/releases/latest/download/WhyWait-macOS.zip"><span>↓</span><span data-en="Download WhyWait" data-de="WhyWait herunterladen">Download WhyWait</span></a></div><div class="installation"><h3 data-en="A quick note before installing" data-de="Ein Hinweis vor der Installation">A quick note before installing</h3><p data-en="Unzip the download and move WhyWait to Applications. This independent build is not Apple-notarized, so macOS may block the first launch." data-de="Entpacke den Download und verschiebe WhyWait nach Programme. Diese unabhängige Version ist nicht von Apple notarisiert. macOS kann den ersten Start blockieren.">Unzip the download and move WhyWait to Applications. This independent build is not Apple-notarized, so macOS may block the first launch.</p><p data-en="Only if you trust this release: after attempting to open it, check System Settings → Privacy & Security for Open Anyway. Don’t disable Gatekeeper globally." data-de="Nur wenn du dieser Version vertraust: Versuche sie zu öffnen und wähle dann in Systemeinstellungen → Datenschutz & Sicherheit „Dennoch öffnen“. Deaktiviere Gatekeeper nicht generell.">Only if you trust this release: after attempting to open it, check System Settings → Privacy & Security for Open Anyway. Don’t disable Gatekeeper globally.</p><a href="https://github.com/en-code23/whywait/releases" data-en="Release notes & source ↗" data-de="Versionshinweise & Quellcode ↗">Release notes & source ↗</a></div></section>
+</main>
+<footer class="wrap"><a class="wordmark" href="#">WHY<span>/</span>WAIT</a><p data-en="Native macOS. Seven games. Zero busywork." data-de="Natives macOS. Sieben Spiele. Einfach Pause.">Native macOS. Seven games. Zero busywork.</p><a href="https://github.com/en-code23/whywait/issues" data-en="Something feel off? ↗" data-de="Etwas stimmt nicht? ↗">Something feel off? ↗</a></footer>
+</body></html>

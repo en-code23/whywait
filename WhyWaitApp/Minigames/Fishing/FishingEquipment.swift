@@ -84,18 +84,18 @@ struct FishingEquipmentStats {
     let rareWeightBonus: Double
     let treasureProbability: Double
 
-    init(levels: FishingEquipmentLevels, worldMaximumCastDistance: CGFloat) {
+    init(levels: FishingEquipmentLevels, worldMaximumCastDistance: CGFloat, rod: FishingRodModel = .willow) {
         let rodStep = CGFloat(levels.rod - 1)
         let reelStep = CGFloat(levels.reel - 1)
         let lineStep = CGFloat(levels.line - 1)
         let hookStep = Double(levels.hook - 1)
         let baitStep = Double(levels.baitKit - 1)
 
-        maximumCastDistance = worldMaximumCastDistance * (0.62 + (rodStep * 0.095))
-        castControl = 0.82 + (rodStep * 0.045)
+        maximumCastDistance = worldMaximumCastDistance * min(1, 0.62 + (rodStep * 0.095) + rod.rangeBonus)
+        castControl = min(1, 0.82 + (rodStep * 0.045) + rod.controlBonus)
         reelRate = FishingTuning.baseReelRate + (reelStep * 22)
         runRecovery = 1 + (reelStep * 0.075)
-        lineBreakThreshold = FishingTuning.baseLineBreakThreshold + (lineStep * 0.055)
+        lineBreakThreshold = FishingTuning.baseLineBreakThreshold + (lineStep * 0.055) + rod.tensionBonus
         overloadGrace = FishingTuning.baseOverloadGrace + (Double(lineStep) * 0.075)
         hookWindowBonus = hookStep * 0.075
         slackGrace = FishingTuning.baseSlackGrace + (hookStep * 0.19)
@@ -125,4 +125,3 @@ extension FishingEquipmentCategory {
         }
     }
 }
-

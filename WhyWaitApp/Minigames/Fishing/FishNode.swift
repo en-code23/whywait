@@ -27,6 +27,10 @@ private struct FishVisualProfile {
         switch definition.id {
         case "bluegill":
             return FishVisualProfile(archetype: .sunfish, heightRatio: 0.72, tailScale: 0.72, dorsalScale: 1.25, noseExtension: 0)
+        case "ocean-sunfish":
+            return FishVisualProfile(archetype: .sunfish, heightRatio: 1.02, tailScale: 0.35, dorsalScale: 1.6, noseExtension: 0)
+        case "great-barracuda":
+            return FishVisualProfile(archetype: .pike, heightRatio: 0.24, tailScale: 1.05, dorsalScale: 0.5, noseExtension: 0.14)
         case "crucian-carp", "common-carp", "koi", "golden-koi":
             return FishVisualProfile(archetype: .carp, heightRatio: 0.56, tailScale: 0.9, dorsalScale: 0.92, noseExtension: 0)
         case "channel-catfish", "redtail-catfish":
@@ -102,7 +106,7 @@ final class FishNode: SKNode {
         let percentile = CGFloat(min(1, max(0, sizePercentile)))
         let speciesWidth = min(82, max(42, 36 + (sqrt(CGFloat(definition.maximumLength)) * 2.15)))
         bodyWidth = speciesWidth * (0.88 + (percentile * 0.24))
-        bodyHeight = speciesWidth * profile.heightRatio
+        bodyHeight = speciesWidth * profile.heightRatio * (profile.archetype == .ray ? 0.75 : 1)
         super.init()
         name = "fishing-fish-\(definition.id)"
         zPosition = shadowOnly ? 35 : 92
@@ -204,6 +208,7 @@ final class FishNode: SKNode {
         body.strokeColor = shadowOnly ? .clear : SKColor.white.withAlphaComponent(0.34)
         body.lineWidth = shadowOnly ? 0 : 0.9
         addChild(body)
+        if !shadowOnly { configureBodyLighting(color: bodyColor) }
 
         configureTail(color: shadowOnly ? silhouette : accentColor)
         configureFins(color: shadowOnly ? silhouette : accentColor)
@@ -256,15 +261,35 @@ final class FishNode: SKNode {
         }
 
         let path = CGMutablePath()
+        if profile.archetype == .eel {
+            path.move(to: CGPoint(x: -w * 0.65, y: -h * 0.2))
+            path.addCurve(to: CGPoint(x: w * 0.48, y: h * 0.12), control1: CGPoint(x: -w * 0.25, y: h * 0.8), control2: CGPoint(x: w * 0.12, y: h * 0.65))
+            path.addQuadCurve(to: CGPoint(x: w * 0.46, y: -h * 0.25), control: CGPoint(x: w * 0.6, y: 0))
+            path.addCurve(to: CGPoint(x: -w * 0.65, y: -h * 0.2), control1: CGPoint(x: w * 0.05, y: -h * 0.7), control2: CGPoint(x: -w * 0.18, y: h * 0.4))
+            path.closeSubpath()
+            return path
+        }
+        if profile.archetype == .ray {
+            path.move(to: CGPoint(x: w * 0.46, y: 0))
+            path.addCurve(to: CGPoint(x: -w * 0.14, y: h * 0.72), control1: CGPoint(x: w * 0.32, y: h * 0.13), control2: CGPoint(x: w * 0.04, y: h * 0.6))
+            path.addQuadCurve(to: CGPoint(x: -w * 0.38, y: 0), control: CGPoint(x: -w * 0.1, y: h * 0.12))
+            path.addQuadCurve(to: CGPoint(x: -w * 0.14, y: -h * 0.72), control: CGPoint(x: -w * 0.1, y: -h * 0.12))
+            path.addCurve(to: CGPoint(x: w * 0.46, y: 0), control1: CGPoint(x: w * 0.04, y: -h * 0.6), control2: CGPoint(x: w * 0.32, y: -h * 0.13))
+            path.closeSubpath()
+            return path
+        }
         path.move(to: CGPoint(x: tailRoot, y: 0))
         path.addCurve(
-            to: CGPoint(x: nose, y: profile.archetype == .sturgeon ? -h * 0.05 : 0),
+            to: CGPoint(x: nose, y: h * 0.055),
             control1: CGPoint(x: -w * 0.25, y: topPeak),
             control2: CGPoint(
                 x: w * (profile.archetype == .catfish ? 0.36 : 0.3),
                 y: topPeak * (profile.archetype == .pike ? 0.72 : 1)
             )
         )
+        // A shaped forehead and short jaw replace the old pointed leaf-like head.
+        path.addQuadCurve(to: CGPoint(x: nose - w * 0.025, y: -h * 0.14),
+                          control: CGPoint(x: nose + w * 0.025, y: -h * 0.07))
         path.addCurve(
             to: CGPoint(x: tailRoot, y: 0),
             control1: CGPoint(
@@ -275,6 +300,26 @@ final class FishNode: SKNode {
         )
         path.closeSubpath()
         return path
+    }
+
+    private func configureBodyLighting(color: SKColor) {
+        // Two inset silhouette washes give a dimensional back/belly without shaders.
+        let belly = SKShapeNode(path: makeBodyPath())
+        belly.fillColor = color.blended(withFraction: 0.65, of: .white) ?? .white
+        belly.strokeColor = .clear
+        belly.xScale = 0.88
+        belly.yScale = 0.42
+        belly.position.y = -bodyHeight * 0.12
+        belly.alpha = 0.48
+        addChild(belly)
+        let back = SKShapeNode(path: makeBodyPath())
+        back.fillColor = color.blended(withFraction: 0.6, of: .black) ?? .black
+        back.strokeColor = .clear
+        back.xScale = 0.87
+        back.yScale = 0.36
+        back.position.y = bodyHeight * 0.13
+        back.alpha = 0.27
+        addChild(back)
     }
 
     private func configureTail(color: SKColor) {
@@ -302,12 +347,42 @@ final class FishNode: SKNode {
             control2: CGPoint(x: -tailLength * 0.3, y: -tailHeight * 0.15)
         )
         tail.path = path
+        if visualArchetype == .eel { tail.isHidden = true }
+        if visualArchetype == .ray {
+            let whip = CGMutablePath()
+            whip.move(to: .zero)
+            whip.addQuadCurve(to: CGPoint(x: -bodyWidth * 0.6, y: -3), control: CGPoint(x: -bodyWidth * 0.3, y: 5))
+            tail.path = whip
+        } else if visualArchetype == .shark || visualArchetype == .sturgeon {
+            let fork = CGMutablePath()
+            fork.move(to: .zero)
+            fork.addQuadCurve(to: CGPoint(x: -tailLength * 0.8, y: tailHeight * 1.4), control: CGPoint(x: -tailLength * 0.32, y: tailHeight * 0.8))
+            fork.addLine(to: CGPoint(x: -tailLength * 0.46, y: 0))
+            fork.addLine(to: CGPoint(x: -tailLength * 0.78, y: -tailHeight * 0.65))
+            fork.addQuadCurve(to: .zero, control: CGPoint(x: -tailLength * 0.22, y: -tailHeight * 0.15))
+            fork.closeSubpath()
+            tail.path = fork
+        }
         tail.position = CGPoint(x: rootX, y: 0)
         tail.fillColor = color
         tail.strokeColor = shadowOnly ? .clear : SKColor.white.withAlphaComponent(0.19)
         tail.lineWidth = 0.7
+        if visualArchetype == .ray { tail.strokeColor = color; tail.lineWidth = 1.5 }
         tail.zPosition = -0.2
         addChild(tail)
+        if !shadowOnly, visualArchetype != .ray {
+            let rays = CGMutablePath()
+            for sign in [-1, 1] as [CGFloat] {
+                for fraction in [0.3, 0.6, 0.85] as [CGFloat] {
+                    rays.move(to: CGPoint(x: -1, y: 0))
+                    rays.addLine(to: CGPoint(x: -tailLength * 0.8, y: sign * tailHeight * fraction))
+                }
+            }
+            let veins = SKShapeNode(path: rays)
+            veins.strokeColor = SKColor.white.withAlphaComponent(0.25)
+            veins.lineWidth = 0.55
+            tail.addChild(veins)
+        }
     }
 
     private func configureFins(color: SKColor) {
@@ -320,6 +395,15 @@ final class FishNode: SKNode {
         )
         dorsalPath.closeSubpath()
         dorsalFin.path = dorsalPath
+        if visualArchetype == .shark || visualArchetype == .billfish {
+            let sail = CGMutablePath()
+            sail.move(to: CGPoint(x: -bodyWidth * 0.19, y: bodyHeight * 0.24))
+            sail.addQuadCurve(to: CGPoint(x: bodyWidth * 0.05, y: bodyHeight * 1.0), control: CGPoint(x: -bodyWidth * 0.04, y: bodyHeight * 0.5))
+            sail.addQuadCurve(to: CGPoint(x: bodyWidth * 0.12, y: bodyHeight * 0.25), control: CGPoint(x: bodyWidth * 0.05, y: bodyHeight * 0.52))
+            sail.closeSubpath()
+            dorsalFin.path = sail
+        }
+        if visualArchetype == .ray || visualArchetype == .eel { dorsalFin.isHidden = true }
         dorsalFin.fillColor = color.withAlphaComponent(shadowOnly ? 0.3 : 0.86)
         dorsalFin.strokeColor = .clear
         dorsalFin.zPosition = -0.1
@@ -350,6 +434,7 @@ final class FishNode: SKNode {
         pelvicFin.fillColor = color.withAlphaComponent(shadowOnly ? 0.28 : 0.62)
         pelvicFin.strokeColor = .clear
         pelvicFin.zPosition = -0.1
+        if visualArchetype == .ray || visualArchetype == .eel { pelvicFin.isHidden = true }
         addChild(pelvicFin)
     }
 
@@ -365,6 +450,11 @@ final class FishNode: SKNode {
         pupil.fillColor = definition.rarity == .legendary ? accent : SKColor.black.withAlphaComponent(0.92)
         pupil.strokeColor = .clear
         addChild(pupil)
+        let eyeGlint = SKShapeNode(circleOfRadius: 0.48)
+        eyeGlint.fillColor = .white
+        eyeGlint.strokeColor = .clear
+        eyeGlint.position = CGPoint(x: -0.3, y: 0.35)
+        pupil.addChild(eyeGlint)
 
         let mouthPath = CGMutablePath()
         let noseX = bodyWidth * (0.43 + profile.noseExtension)
@@ -641,6 +731,16 @@ final class FishNode: SKNode {
     }
 
     private func addSharkDetails(color: SKColor) {
+        let slits = CGMutablePath()
+        for index in 0..<4 {
+            let x = bodyWidth * (0.14 - CGFloat(index) * 0.035)
+            slits.move(to: CGPoint(x: x, y: bodyHeight * 0.15))
+            slits.addQuadCurve(to: CGPoint(x: x - 1, y: -bodyHeight * 0.13), control: CGPoint(x: x - 2, y: 0))
+        }
+        let gills = SKShapeNode(path: slits)
+        gills.strokeColor = SKColor.black.withAlphaComponent(0.5)
+        gills.lineWidth = 0.7
+        detailLayer.addChild(gills)
         let belly = SKShapeNode()
         let path = CGMutablePath()
         path.move(to: CGPoint(x: -bodyWidth * 0.31, y: -bodyHeight * 0.08))

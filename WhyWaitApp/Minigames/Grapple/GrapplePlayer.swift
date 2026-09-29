@@ -26,11 +26,17 @@ final class GrapplePlayer: SKNode {
         GrapplePhysics.magnitude(of: velocity)
     }
 
-    func apply(force: CGVector) {
+    func apply(force: CGVector, deltaTime: TimeInterval) {
         guard force.dx.isFinite, force.dy.isFinite else {
             return
         }
-        physicsBody?.applyForce(force)
+        // Our tuning uses points/second, not SpriteKit's metre-based force units.
+        // Integrate acceleration once here; SpriteKit still handles collisions.
+        let dt = CGFloat(min(GrappleTuning.maximumPhysicsDeltaTime, max(0, deltaTime)))
+        velocity = GrapplePhysics.cappedVelocity(CGVector(
+            dx: velocity.dx + force.dx / GrappleTuning.playerMass * dt,
+            dy: velocity.dy + (force.dy / GrappleTuning.playerMass + GrappleTuning.gravity.dy) * dt
+        ))
     }
 
     func reset(at position: CGPoint) {
@@ -41,7 +47,7 @@ final class GrapplePlayer: SKNode {
         setScale(1)
         appearance.setScale(1)
         physicsBody?.isDynamic = true
-        physicsBody?.affectedByGravity = true
+        physicsBody?.affectedByGravity = false
         physicsBody?.velocity = .zero
         physicsBody?.angularVelocity = 0
     }
@@ -253,7 +259,7 @@ final class GrapplePlayer: SKNode {
     private func configurePhysics() {
         let body = SKPhysicsBody(circleOfRadius: GrappleTuning.playerRadius)
         body.isDynamic = true
-        body.affectedByGravity = true
+        body.affectedByGravity = false
         body.allowsRotation = false
         body.usesPreciseCollisionDetection = true
         body.mass = GrappleTuning.playerMass

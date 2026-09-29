@@ -31,7 +31,8 @@ extension FishingScene {
             timestamp: ProcessInfo.processInfo.systemUptime,
             sceneSize: size,
             worldMaximumDistance: worldMaximumCastDistance,
-            equipment: equipmentStats
+            equipment: equipmentStats,
+            releasePosition: rod.tipPosition
         ), transition(to: .bobberFlying) else {
             castController.cancel()
             _ = transition(to: .readyToCast)
@@ -244,7 +245,7 @@ extension FishingScene {
     func beginTreasureReel(_ treasure: TreasureCatch) {
         bobber.isHidden = true
         lineRenderer.hide()
-        let node = SKLabelNode(fontNamed: "HelveticaNeue-Light")
+        let node = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Light")
         node.text = treasure.definition.symbol
         node.fontSize = 34
         node.fontColor = SKColor.white.withAlphaComponent(0.9)
@@ -300,12 +301,16 @@ extension FishingScene {
             returnToReady()
             return
         }
+        guard saveProfile() else {
+            returnToReady()
+            hud.showSmallFeedback("SAVE CHANGED OR UNAVAILABLE · TRY AGAIN")
+            return
+        }
         sessionStatistics.record(
             progression: progression,
             catchItem: generatedCatch.prospective,
             fightDuration: fightDuration
         )
-        saveProfile()
         hud.updateProfile(profile)
         hud.showCatch(generatedCatch.prospective, progression: progression)
         fishDexPanel.refresh(profile: profile)

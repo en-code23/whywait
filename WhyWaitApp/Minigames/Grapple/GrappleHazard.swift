@@ -132,7 +132,7 @@ final class GrappleHazard: SKNode {
             x += stripeWidth * 1.8
         }
 
-        let warning = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+        let warning = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
         warning.text = "!"
         warning.fontSize = min(18, size.height * 0.65)
         warning.fontColor = SKColor(calibratedRed: 1, green: 0.7, blue: 0.2, alpha: 0.94)

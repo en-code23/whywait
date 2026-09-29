@@ -26,6 +26,8 @@ final class FishingCastController {
     private var charge: Charge?
     private var launch: FishingCastLaunch?
     private var flightElapsed: TimeInterval = 0
+    private var cursorSample: (CGPoint, TimeInterval)?
+    private var cursorVelocity = CGVector.zero
     private let random: FishingRandomSource
 
     var isCharging: Bool { charge != nil }
@@ -46,11 +48,24 @@ final class FishingCastController {
             beganAt: timestamp,
             cursorPosition: cursorPosition
         )
+        cursorSample = (cursorPosition, timestamp)
+        cursorVelocity = .zero
         return true
     }
 
-    func updateCursor(_ position: CGPoint) {
+    func updateCursor(_ position: CGPoint, timestamp: TimeInterval = ProcessInfo.processInfo.systemUptime) {
         guard FishingGeometry.isFinite(position), charge != nil else { return }
+        if let (previous, time) = cursorSample {
+            let delta = timestamp - time
+            let vector = FishingGeometry.vector(from: previous, to: position)
+            if delta >= 0.001 && delta < 0.15 && FishingGeometry.length(vector) < 250 {
+                let measured = FishingGeometry.scaled(vector, by: 1 / CGFloat(delta))
+                let magnitude = FishingGeometry.length(measured)
+                let safe = FishingGeometry.scaled(measured, by: min(1, 1800 / max(1, magnitude)))
+                cursorVelocity = FishingGeometry.adding(FishingGeometry.scaled(cursorVelocity, by: 0.5), FishingGeometry.scaled(safe, by: 0.5))
+            } else { cursorVelocity = .zero }
+        }
+        cursorSample = (position, timestamp)
         charge?.cursorPosition = position
     }
 
@@ -64,18 +79,24 @@ final class FishingCastController {
         timestamp: TimeInterval,
         sceneSize: CGSize,
         worldMaximumDistance: CGFloat,
-        equipment: FishingEquipmentStats
+        equipment: FishingEquipmentStats,
+        releasePosition: CGPoint? = nil
     ) -> FishingCastLaunch? {
         guard let charge, sceneSize.width > 0, sceneSize.height > 0 else { return nil }
         self.charge = nil
+        let origin = releasePosition ?? charge.rodPosition
 
         let rawPower = chargePowerValue(charge: charge, timestamp: timestamp)
         let curvedPower = sqrt(max(0, rawPower))
         let power = max(FishingTuning.minimumCastPower, curvedPower)
 
         var direction = FishingGeometry.normalized(
-            FishingGeometry.vector(from: charge.rodPosition, to: charge.cursorPosition)
+            FishingGeometry.vector(from: origin, to: charge.cursorPosition)
         )
+        if let (_, sampleTime) = cursorSample, timestamp - sampleTime < 0.12 {
+            direction = FishingGeometry.normalized(FishingGeometry.adding(direction,
+                FishingGeometry.scaled(cursorVelocity, by: 0.0001)))
+        }
         direction.dy = max(FishingTuning.minimumCastUpwardComponent, direction.dy)
         direction = FishingGeometry.normalized(direction)
         let controlError = max(0, 1 - equipment.castControl) * 0.23
@@ -95,7 +116,7 @@ final class FishingCastController {
         let distance = FishingTuning.minimumCastDistance
             + ((maximum - FishingTuning.minimumCastDistance) * power)
         let intendedTarget = FishingGeometry.point(
-            charge.rodPosition,
+            origin,
             adding: FishingGeometry.scaled(direction, by: distance)
         )
         let safeBounds = CGRect(origin: .zero, size: sceneSize).insetBy(
@@ -103,7 +124,7 @@ final class FishingCastController {
             dy: FishingTuning.waterInset
         )
         let target = FishingGeometry.clamped(intendedTarget, to: safeBounds)
-        let actualDistance = FishingGeometry.distance(from: charge.rodPosition, to: target)
+        let actualDistance = FishingGeometry.distance(from: origin, to: target)
         let normalizedDistance = min(1, actualDistance / max(1, worldMaximumDistance))
         let duration = FishingTuning.bobberFlightDurationRange.lowerBound
             + ((FishingTuning.bobberFlightDurationRange.upperBound
@@ -114,7 +135,7 @@ final class FishingCastController {
                 - FishingTuning.bobberArcHeightRange.lowerBound)
                 * normalizedDistance)
         let cast = FishingCastLaunch(
-            start: charge.rodPosition,
+            start: origin,
             target: target,
             power: power,
             zone: FishingZone.zone(
@@ -159,6 +180,8 @@ final class FishingCastController {
         charge = nil
         launch = nil
         flightElapsed = 0
+        cursorSample = nil
+        cursorVelocity = .zero
     }
 
     private func chargePowerValue(charge: Charge, timestamp: TimeInterval) -> CGFloat {

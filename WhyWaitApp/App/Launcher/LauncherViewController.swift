@@ -168,6 +168,7 @@ final class LauncherViewController: NSViewController {
             selectedIndex = 0
         }
         updateSelection(animated: false)
+        WWText.localize(view)
     }
 
     func setShortcutDescription(_ description: String) {
@@ -436,6 +437,7 @@ final class LauncherViewController: NSViewController {
         }
         rail.selectedIndex = selectedIndex
         detailView.configure(game: viewModel.games[selectedIndex])
+        WWText.localize(view)
         if !isShowingSettings { updateInspector(animated: animated) }
     }
 

@@ -327,8 +327,8 @@ final class TidevaultPanel: SKNode {
         color: SKColor,
         alignment: SKLabelHorizontalAlignmentMode = .center
     ) {
-        let label = SKLabelNode(fontNamed: "AvenirNext-Medium")
-        label.text = text
+        let label = WhyWaitLabelNode(fontNamed: "AvenirNext-Medium")
+        label.text = WWText.text(text)
         label.fontSize = size
         label.fontColor = color
         label.horizontalAlignmentMode = alignment

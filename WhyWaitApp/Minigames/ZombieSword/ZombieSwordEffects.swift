@@ -172,14 +172,14 @@ final class ZombieSwordEffects: SKNode {
         size: CGFloat,
         duration: TimeInterval
     ) {
-        let label = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+        let label = WhyWaitLabelNode(fontNamed: "AvenirNext-DemiBold")
         label.text = text
         label.position = point
         label.fontColor = color
         label.fontSize = size
         label.horizontalAlignmentMode = .center
         label.verticalAlignmentMode = .center
-        let shadow = SKLabelNode(fontNamed: "AvenirNext-Bold")
+        let shadow = WhyWaitLabelNode(fontNamed: "AvenirNext-Bold")
         shadow.text = text
         shadow.fontSize = size
         shadow.fontColor = NSColor.black.withAlphaComponent(0.75)

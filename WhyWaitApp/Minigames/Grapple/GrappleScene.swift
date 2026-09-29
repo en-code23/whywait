@@ -2,6 +2,20 @@ import Foundation
 import SpriteKit
 
 final class GrappleScene: SKScene, SKPhysicsContactDelegate {
+#if DEBUG
+    var diagnosticPlayerPosition: CGPoint { player.position }
+    var diagnosticPlayerVelocity: CGVector { player.velocity }
+    func diagnosticPrepareFall() {
+        safelyDetach(showFeedback: false)
+        courseLayer.removeAllChildren()
+        hazardNodes.removeAll()
+        checkpointNodes.removeAll()
+        goalNode = nil
+        player.reset(at: CGPoint(x: size.width / 2, y: size.height * 0.75))
+        previousPlayerPosition = player.position
+        lastUpdateTime = nil
+    }
+#endif
     private(set) var gameState: GrappleSceneState = .resetting
     private(set) var nextCheckpointIndex = 0
 
@@ -86,7 +100,7 @@ final class GrappleScene: SKScene, SKPhysicsContactDelegate {
                 playerVelocity: player.velocity,
                 deltaTime: rawDeltaTime
             )
-            player.apply(force: force.force)
+            player.apply(force: force.force, deltaTime: rawDeltaTime > GrappleTuning.updateInterruptionThreshold ? 0 : rawDeltaTime)
             updateAimHelper()
         } else {
             ropeRenderer.hideAim()
@@ -300,7 +314,7 @@ final class GrappleScene: SKScene, SKPhysicsContactDelegate {
         scaleMode = .resizeFill
         anchorPoint = .zero
         isUserInteractionEnabled = false
-        physicsWorld.gravity = GrappleTuning.gravity
+        physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
 
         courseLayer.name = "grapple-course"
@@ -561,13 +575,11 @@ final class GrappleScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func restoreLaunchPlatformIfNeeded() {
-        guard let course,
-              GrapplePhysics.distance(
-                from: latestRespawnPosition,
-                to: course.startPosition
-              ) < 1 else {
-            return
-        }
+        // Reuse one support at the latest checkpoint: retries give time to aim.
+        launchPlatformNode?.position = CGPoint(
+            x: latestRespawnPosition.x,
+            y: latestRespawnPosition.y - GrappleTuning.playerRadius - GrappleTuning.launchPlatformSize.height / 2 - 1
+        )
         launchPlatformNode?.setLaunchPlatformActive(true)
     }
 

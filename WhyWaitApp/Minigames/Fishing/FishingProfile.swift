@@ -61,7 +61,7 @@ enum FishingUpgradePurchaseStatus: Equatable {
 }
 
 struct FishingProfile: Codable, Equatable {
-    static let currentVersion = 2
+    static let currentVersion = 3
 
     var version: Int
     var coins: Int
@@ -74,6 +74,23 @@ struct FishingProfile: Codable, Equatable {
     var recentTransactionIDs: [String]
     var storedFish: [StoredFishSpecimen]
     var shopInventory: FishingShopInventory
+    var ownedRodIDs: [String] = [FishingRodModel.willow.rawValue]
+    var equippedRodID: String = FishingRodModel.willow.rawValue
+
+    var equippedRod: FishingRodModel { FishingRodModel(rawValue: equippedRodID) ?? .willow }
+
+    mutating func selectRod(_ rod: FishingRodModel, transactionID: UUID) -> FishingShopPurchaseStatus {
+        guard !recentTransactionIDs.contains(transactionID.uuidString) else { return .duplicateTransaction }
+        let owned = ownedRodIDs.contains(rod.rawValue)
+        let cost = owned ? 0 : rod.cost
+        guard coins >= cost else { return .insufficientCoins(cost: cost) }
+        _ = registerTransaction(transactionID)
+        coins -= cost
+        if !owned { ownedRodIDs.append(rod.rawValue) }
+        equippedRodID = rod.rawValue
+        normalize()
+        return .purchased(name: rod.title, cost: cost)
+    }
 
     init(
         version: Int = FishingProfile.currentVersion,
@@ -140,6 +157,8 @@ struct FishingProfile: Codable, Equatable {
             FishingShopInventory.self,
             forKey: .shopInventory
         ) ?? FishingShopInventory()
+        ownedRodIDs = try container.decodeIfPresent([String].self, forKey: .ownedRodIDs) ?? ["willow"]
+        equippedRodID = try container.decodeIfPresent(String.self, forKey: .equippedRodID) ?? "willow"
         normalize()
     }
 
@@ -343,7 +362,9 @@ struct FishingProfile: Codable, Equatable {
     }
 
     mutating func normalize() {
-        version = max(1, min(Self.currentVersion, version))
+        version = max(1, version)
+        ownedRodIDs = Array(Set(ownedRodIDs.filter { FishingRodModel(rawValue: $0) != nil } + ["willow"])).sorted()
+        if !ownedRodIDs.contains(equippedRodID) { equippedRodID = "willow" }
         coins = max(0, coins)
         equipment.normalize()
         shopInventory.normalize()

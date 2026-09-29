@@ -2,9 +2,9 @@ import AppKit
 import SpriteKit
 
 final class SwordDummyHUD: SKNode {
-    private let comboLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
-    private let challengeLabel = SKLabelNode(fontNamed: "AvenirNext-Medium")
-    private let settingsLabel = SKLabelNode(fontNamed: "AvenirNext-Medium")
+    private let comboLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-Bold")
+    private let challengeLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-Medium")
+    private let settingsLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-Medium")
     private var dummyPosition = CGPoint.zero
     private var sceneSize = CGSize.zero
 
@@ -70,7 +70,7 @@ final class SwordDummyHUD: SKNode {
 
 private extension SKLabelNode {
     func addDropShadow() {
-        let shadow = SKLabelNode(fontNamed: fontName)
+        let shadow = WhyWaitLabelNode(fontNamed: fontName)
         shadow.text = text
         shadow.fontSize = fontSize
         shadow.fontColor = NSColor.black.withAlphaComponent(0.65)

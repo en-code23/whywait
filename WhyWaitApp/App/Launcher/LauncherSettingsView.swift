@@ -128,6 +128,11 @@ final class LauncherSettingsView: NSView {
     private let accentLine = NSView()
     private var rows: [WhyWaitSettingKey: SettingsToggleRow] = [:]
     private let objectScaleRow = SettingsScaleRow(title: "Game object size")
+    private let languagePicker = NSPopUpButton(frame: .zero, pullsDown: false)
+
+    @objc private func languageChanged() {
+        WhyWaitLanguage.current = languagePicker.indexOfSelectedItem == 1 ? .german : .english
+    }
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -151,6 +156,7 @@ final class LauncherSettingsView: NSView {
         rows[.reduceVisualEffects]?.setEnabled(settings.reduceVisualEffects)
         rows[.cursorTrailEffects]?.setEnabled(settings.cursorTrailEffects)
         objectScaleRow.setScale(settings.gameObjectScale)
+        languagePicker.selectItem(at: WhyWaitLanguage.current == .german ? 1 : 0)
         rows[.escapeReturnsToLauncher]?.setEnabled(settings.escapeReturnsToLauncher)
         rows[.automaticallyReopenLauncher]?.setEnabled(settings.automaticallyReopenLauncher)
         statusLabel.stringValue = message ?? launchAtLogin.message ?? ""
@@ -194,6 +200,21 @@ final class LauncherSettingsView: NSView {
         contentStack.orientation = .vertical
         contentStack.alignment = .leading
         contentStack.spacing = 0
+
+        // A native bilingual selector, placed before the compact existing sections.
+        let languageLabel = NSTextField(labelWithString: "Language / Sprache")
+        languageLabel.font = NSFont.systemFont(ofSize: 11, weight: .medium)
+        languagePicker.addItems(withTitles: ["English", "Deutsch"])
+        languagePicker.controlSize = .small
+        languagePicker.target = self
+        languagePicker.action = #selector(languageChanged)
+        languagePicker.setAccessibilityLabel("Language / Sprache")
+        let languageRow = NSStackView(views: [languageLabel, languagePicker])
+        languageRow.distribution = .fillEqually
+        languageRow.spacing = 8
+        contentStack.addArrangedSubview(languageRow)
+        languageRow.widthAnchor.constraint(equalTo: contentStack.widthAnchor).isActive = true
+        languageRow.heightAnchor.constraint(equalToConstant: 38).isActive = true
 
         addSection("GENERAL", rows: [
             (.launchAtLogin, "Launch WhyWait at login"),

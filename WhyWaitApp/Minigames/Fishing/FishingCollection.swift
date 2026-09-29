@@ -219,8 +219,40 @@ enum FishingShopPurchaseStatus: Equatable {
 }
 
 enum FishingShopAction: Equatable {
+    case selectRod(FishingRodModel)
     case upgrade(FishingEquipmentCategory)
     case buyLure(FishingLure)
     case equipLure(FishingLure)
     case expandVault
+}
+
+/// Permanent rods complement equipment levels; no consumable purchase or hidden gates.
+enum FishingRodModel: String, Codable, CaseIterable {
+    case willow, tideglass, carbon, abyss
+
+    var title: String {
+        switch self {
+        case .willow: return "WILLOW / 01"
+        case .tideglass: return "TIDEGLASS / 02"
+        case .carbon: return "CARBON / 03"
+        case .abyss: return "ABYSS / 04"
+        }
+    }
+    var cost: Int {
+        switch self { case .willow: return 0; case .tideglass: return 650; case .carbon: return 1800; case .abyss: return 4200 }
+    }
+    var rangeBonus: CGFloat {
+        switch self { case .willow: return 0; case .tideglass: return 0.07; case .carbon: return 0.14; case .abyss: return 0.2 }
+    }
+    var controlBonus: CGFloat { self == .carbon ? 0.1 : self == .tideglass ? 0.05 : 0 }
+    var tensionBonus: CGFloat { self == .abyss ? 0.08 : 0 }
+    var stiffness: CGFloat { self == .willow ? 70 : self == .tideglass ? 85 : self == .carbon ? 125 : 95 }
+    var detail: String {
+        switch self {
+        case .willow: return "Supple starter · easy, forgiving flex"
+        case .tideglass: return "+7% reach · smoother cast control"
+        case .carbon: return "+14% reach · precise, fast recovery"
+        case .abyss: return "+20% reach · +8% safe tension"
+        }
+    }
 }

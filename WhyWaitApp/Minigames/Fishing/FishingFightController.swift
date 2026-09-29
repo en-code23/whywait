@@ -151,6 +151,17 @@ final class FishingFightController {
                 * FishingTuning.maximumLineDistanceMultiplier)
         )
 
+        // Remaining line is a physical leash, not a disconnected progress bar.
+        // Reeling shortens the radius and visibly brings the fish to the rod.
+        let fromRod = FishingGeometry.vector(from: rodPosition, to: fishPosition)
+        let actualDistance = FishingGeometry.distance(from: rodPosition, to: fishPosition)
+        if actualDistance > lineRemaining {
+            let radial = FishingGeometry.normalized(fromRod)
+            fishPosition = FishingGeometry.point(rodPosition, adding: FishingGeometry.scaled(radial, by: lineRemaining))
+            let outward = max(0, FishingGeometry.dot(fishVelocity, radial))
+            fishVelocity = FishingGeometry.adding(fishVelocity, FishingGeometry.scaled(radial, by: -outward))
+        }
+
         let staminaDrain = FishingTuning.staminaNaturalDrain
             + (isReeling
                 ? FishingTuning.staminaDrainWhileReeling * (0.42 + (control * 0.8))
@@ -182,7 +193,9 @@ final class FishingFightController {
         case .lineBroke: outcome = .lineBroke
         case .hookLost: outcome = .hookLost
         case .none:
-            outcome = lineRemaining <= FishingTuning.catchDistance ? .landed : .none
+            outcome = lineRemaining <= FishingTuning.catchDistance
+                && FishingGeometry.distance(from: rodPosition, to: fishPosition) <= FishingTuning.catchDistance + 0.5
+                ? .landed : .none
         }
 
         return FishingFightSnapshot(
@@ -242,4 +255,3 @@ final class FishingFightController {
         }
     }
 }
-

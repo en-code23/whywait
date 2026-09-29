@@ -2,15 +2,15 @@ import SpriteKit
 
 final class PongHUD: SKNode {
     private let scoreContainer = SKNode()
-    private let scoreLabel = SKLabelNode()
-    private let scoreShadow = SKLabelNode()
-    private let scoreCaption = SKLabelNode()
+    private let scoreLabel = WhyWaitLabelNode()
+    private let scoreShadow = WhyWaitLabelNode()
+    private let scoreCaption = WhyWaitLabelNode()
     private let rallyContainer = SKNode()
-    private let rallyLabel = SKLabelNode()
-    private let rallyShadow = SKLabelNode()
+    private let rallyLabel = WhyWaitLabelNode()
+    private let rallyShadow = WhyWaitLabelNode()
     private let feedbackContainer = SKNode()
-    private let feedbackLabel = SKLabelNode()
-    private let feedbackShadow = SKLabelNode()
+    private let feedbackLabel = WhyWaitLabelNode()
+    private let feedbackShadow = WhyWaitLabelNode()
     private let visualEffectsReduced = WhyWaitPresentationPreferences.reduceVisualEffects
 
     override init() {

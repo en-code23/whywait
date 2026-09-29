@@ -23,7 +23,7 @@ enum FishingTuning {
     static let minimumFightDeltaTime: TimeInterval = 1.0 / 240.0
     static let maximumFightDeltaTime: TimeInterval = 1.0 / 30.0
     static let updateInterruptionThreshold: TimeInterval = 0.28
-    static let catchDistance: CGFloat = 48
+    static let catchDistance: CGFloat = 18
     static let fishVisualMaximumSpeed: CGFloat = 460
     static let tensionResponse: CGFloat = 5.8
     static let tensionReelGain: CGFloat = 0.31

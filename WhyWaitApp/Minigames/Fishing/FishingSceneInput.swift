@@ -140,7 +140,7 @@ extension FishingScene {
     func purchaseUpgrade(_ category: FishingEquipmentCategory) {
         let result = profile.purchaseUpgrade(category, transactionID: UUID())
         if case .purchased = result {
-            saveProfile()
+            guard saveProfile() else { return }
             hud.updateProfile(profile)
             fishDexPanel.refresh(profile: profile)
         }
@@ -150,21 +150,27 @@ extension FishingScene {
 
     func handleShopAction(_ action: FishingShopAction) {
         switch action {
+        case let .selectRod(model):
+            let result = profile.selectRod(model, transactionID: UUID())
+            if case .purchased = result { guard persistPanelChanges() else { return } }
+            rod.equip(profile.equippedRod)
+            upgradePanel.refresh(profile: profile)
+            upgradePanel.showPurchaseResult(result)
         case let .upgrade(category):
             purchaseUpgrade(category)
         case let .buyLure(lure):
             let result = profile.purchaseLure(lure, transactionID: UUID())
-            if case .purchased = result { persistPanelChanges() }
+            if case .purchased = result { guard persistPanelChanges() else { return } }
             upgradePanel.refresh(profile: profile)
             upgradePanel.showPurchaseResult(result)
         case let .equipLure(lure):
             guard profile.equipLure(lure) else { return }
-            persistPanelChanges()
+            guard persistPanelChanges() else { return }
             upgradePanel.refresh(profile: profile)
             upgradePanel.showEquipped(lure)
         case .expandVault:
             let result = profile.purchaseVaultExpansion(transactionID: UUID())
-            if case .purchased = result { persistPanelChanges() }
+            if case .purchased = result { guard persistPanelChanges() else { return } }
             upgradePanel.refresh(profile: profile)
             tidevaultPanel.refresh(profile: profile)
             upgradePanel.showPurchaseResult(result)
@@ -186,10 +192,12 @@ extension FishingScene {
         tidevaultPanel.refresh(profile: profile)
     }
 
-    private func persistPanelChanges() {
-        saveProfile()
+    @discardableResult
+    private func persistPanelChanges() -> Bool {
+        guard saveProfile() else { return false }
         hud.updateProfile(profile)
         fishDexPanel.refresh(profile: profile)
+        return true
     }
 
     func sceneLocation(fromScreenLocation screenLocation: CGPoint) -> CGPoint? {

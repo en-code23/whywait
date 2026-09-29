@@ -25,7 +25,21 @@ enum AppShellDiagnostics {
     }
 
     static func runAll() throws -> [String] {
+        let originalLanguage = UserDefaults.standard.string(forKey: "whywait.language")
+        defer {
+            if let originalLanguage { UserDefaults.standard.set(originalLanguage, forKey: "whywait.language") }
+            else { UserDefaults.standard.removeObject(forKey: "whywait.language") }
+        }
+        WhyWaitLanguage.current = .german
+        try require(WWText.text("Preferences") == "Einstellungen", "German settings translation missing")
+        try require(WWText.text("Launch Fishing") == "Fishing starten", "Language placeholder failed")
+        try require(WWText.text("Launch WhyWait at login") == "Beim Anmelden starten", "A template shadowed an exact translation")
+        let localizedLabel = WhyWaitLabelNode(text: "YOU WIN")
+        try require(localizedLabel.text == "GEWONNEN", "Game labels do not localize")
+        WhyWaitLanguage.current = .english
+        try require(WWText.text("Fishing starten") == "Launch Fishing", "English switch-back failed")
         var reports: [String] = []
+        reports.append("language: English/German settings, placeholders and game labels")
         try verifyRegistry()
         reports.append("registry: 7 metadata-rich games and CLI routes")
 
@@ -53,7 +67,81 @@ enum AppShellDiagnostics {
 
         try verifyCoordinator()
         reports.append("coordinator: switching, sessions, random/last play, settings, CLI")
+        if let directory = ProcessInfo.processInfo.environment["WHYWAIT_VISUAL_EXPORT_DIRECTORY"] {
+            try exportFishingVisuals(to: URL(fileURLWithPath: directory, isDirectory: true))
+            reports.append("visual QA: 36-species atlas and rod-shop renders exported")
+        }
         return reports
+    }
+
+    private static func exportFishingVisuals(to directory: URL) throws {
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        let view = SKView(frame: CGRect(x: 0, y: 0, width: 1200, height: 880))
+        func export(_ scene: SKScene, filename: String) throws {
+            scene.backgroundColor = SKColor(calibratedWhite: 0.09, alpha: 1)
+            view.presentScene(scene)
+            guard let texture = view.texture(from: scene),
+                  let data = NSBitmapImageRep(cgImage: texture.cgImage()).representation(using: .png, properties: [:]) else {
+                throw Failure(description: "Could not render visual QA")
+            }
+            try data.write(to: directory.appendingPathComponent(filename), options: .atomic)
+        }
+        let atlas = SKScene(size: view.bounds.size)
+        for (index, species) in FishCatalog.all.enumerated() {
+            let origin = CGPoint(x: CGFloat(index % 6) * 200 + 100, y: 800 - CGFloat(index / 6) * 140)
+            let fish = FishNode(definition: species)
+            fish.position = origin
+            fish.setScale(1.45)
+            atlas.addChild(fish)
+            let label = WhyWaitLabelNode(text: species.name)
+            label.position = CGPoint(x: origin.x, y: origin.y - 55)
+            label.fontSize = 12
+            atlas.addChild(label)
+        }
+        try export(atlas, filename: "fish-atlas.png")
+        let shopScene = SKScene(size: view.bounds.size)
+        let panel = UpgradePanel()
+        shopScene.addChild(panel)
+        panel.present(profile: FishingProfile(coins: 2500), in: shopScene.size)
+        panel.removeAllActions(); panel.alpha = 1; panel.setScale(1)
+        _ = panel.action(at: CGPoint(x: 550, y: 627))
+        try export(shopScene, filename: "rod-shop.png")
+        view.presentScene(nil)
+    }
+
+    static func runLiveChecks(completion: @escaping (Result<String, Error>) -> Void) {
+        let window = NSWindow(contentRect: CGRect(x: 50, y: 100, width: 1000, height: 800),
+                              styleMask: [.borderless], backing: .buffered, defer: false)
+        window.isReleasedWhenClosed = false
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        let view = SKView(frame: CGRect(x: 0, y: 0, width: 1000, height: 800))
+        view.allowsTransparency = true
+        let scene = GrappleScene(size: view.bounds.size)
+        window.contentView = view
+        window.makeKeyAndOrderFront(nil)
+        view.presentScene(scene)
+        scene.startGame()
+        let start = scene.diagnosticPlayerPosition
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            do {
+                try require(abs(scene.diagnosticPlayerPosition.y - start.y) < 25, "Player falls through launch support")
+            } catch {
+                scene.stopGame(); view.presentScene(nil); window.close()
+                completion(.failure(error)); return
+            }
+            scene.diagnosticPrepareFall()
+            let fallStart = scene.diagnosticPlayerPosition
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                defer { scene.stopGame(); view.presentScene(nil); window.close() }
+                do {
+                    let fall = fallStart.y - scene.diagnosticPlayerPosition.y
+                    try require(fall > 10 && fall < 105, "Rendered gravity still wrong: fell \(fall) points in 0.3s")
+                    try require(abs(scene.diagnosticPlayerVelocity.dy) < 500, "Live falling speed runs away")
+                    completion(.success("live Grapple: supported start, then \(Int(fall))pt fall in 0.3s with bounded speed"))
+                } catch { completion(.failure(error)) }
+            }
+        }
     }
 
     private static func verifyRegistry() throws {
@@ -122,8 +210,12 @@ enum AppShellDiagnostics {
         let rod = FishingRod()
         rod.layout(in: CGSize(width: 1_280, height: 800))
         rod.setAim(toward: CGPoint(x: 860, y: 620), power: 0.75)
+        for _ in 0..<120 { rod.simulate(deltaTime: 1.0 / 120) }
         let relaxedTip = rod.tipPosition
-        rod.updateFightVisual(tension: 1, isReeling: true)
+        for _ in 0..<120 {
+            rod.updateFightVisual(tension: 1, isReeling: true)
+            rod.simulate(deltaTime: 1.0 / 120)
+        }
         let loadedTip = rod.tipPosition
         try requireVisualFrame(rod, named: "Fishing rod")
         try require(

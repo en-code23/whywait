@@ -45,7 +45,7 @@ final class FishingScene: SKScene {
     }
 
     var equipmentStats: FishingEquipmentStats {
-        profile.equipment.stats(worldMaximumCastDistance: worldMaximumCastDistance)
+        FishingEquipmentStats(levels: profile.equipment, worldMaximumCastDistance: worldMaximumCastDistance, rod: profile.equippedRod)
     }
 
     init(
@@ -103,6 +103,7 @@ final class FishingScene: SKScene {
             FishingTuning.maximumFightDeltaTime,
             max(0, rawDelta)
         )
+        rod.simulate(deltaTime: rawDelta > FishingTuning.updateInterruptionThreshold ? 0 : delta)
 
         switch gameState {
         case .chargingCast:
@@ -127,6 +128,7 @@ final class FishingScene: SKScene {
         isGameActive = true
         profile = saveStore.load()
         tutorialSession = !profile.hasShownBasicTutorial
+        rod.equip(profile.equippedRod)
         if tutorialSession {
             profile.hasShownBasicTutorial = true
             saveProfile()
@@ -150,7 +152,6 @@ final class FishingScene: SKScene {
         isMouseHeld = false
         lastUpdateTime = nil
         gameState = .resetting
-        saveProfile()
     }
 
     func resetCurrentInteraction(showHint: Bool = true) {
@@ -223,8 +224,17 @@ final class FishingScene: SKScene {
         hud.hideFightTension()
     }
 
-    func saveProfile() {
-        _ = saveStore.save(profile)
+    @discardableResult
+    func saveProfile() -> Bool {
+        guard !saveStore.save(profile) else { return true }
+        // Never keep displaying an uncommitted purchase/catch as if it persisted.
+        profile = saveStore.load()
+        hud.updateProfile(profile)
+        hud.showSmallFeedback("SAVE CHANGED OR UNAVAILABLE · TRY AGAIN")
+        upgradePanel.refresh(profile: profile)
+        fishDexPanel.refresh(profile: profile)
+        tidevaultPanel.refresh(profile: profile)
+        return false
     }
 
     func cancelScheduledActions() {

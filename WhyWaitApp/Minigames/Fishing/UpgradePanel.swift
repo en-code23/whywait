@@ -4,6 +4,7 @@ import SpriteKit
 private enum TackleShopTab {
     case gear
     case supplies
+    case rods
 }
 
 final class UpgradePanel: SKNode {
@@ -15,8 +16,9 @@ final class UpgradePanel: SKNode {
     private var actionFrames: [(FishingShopAction, CGRect)] = []
     private var gearTabFrame = CGRect.zero
     private var suppliesTabFrame = CGRect.zero
+    private var rodsTabFrame = CGRect.zero
     private var tab: TackleShopTab = .gear
-    private let feedbackLabel = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+    private let feedbackLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-DemiBold")
 
     override init() {
         super.init()
@@ -82,6 +84,11 @@ final class UpgradePanel: SKNode {
     func action(at scenePoint: CGPoint) -> FishingShopAction? {
         guard !isHidden, let parent else { return nil }
         let local = convert(scenePoint, from: parent)
+        if rodsTabFrame.contains(local) {
+            tab = .rods
+            rebuild()
+            return nil
+        }
         if gearTabFrame.contains(local) {
             tab = .gear
             rebuild()
@@ -126,7 +133,7 @@ final class UpgradePanel: SKNode {
 
     private func showFeedback(_ text: String, success: Bool = false, neutral: Bool = false) {
         feedbackLabel.removeAllActions()
-        feedbackLabel.text = text
+        feedbackLabel.text = WWText.text(text)
         if neutral {
             feedbackLabel.fontColor = SKColor.white.withAlphaComponent(0.7)
         } else if success {
@@ -150,11 +157,37 @@ final class UpgradePanel: SKNode {
 
         gearTabFrame = CGRect(x: left + 27, y: top - 89, width: 92, height: 28)
         suppliesTabFrame = CGRect(x: left + 125, y: top - 89, width: 112, height: 28)
+        rodsTabFrame = CGRect(x: left + 243, y: top - 89, width: 100, height: 28)
         addTab("EQUIPMENT", frame: gearTabFrame, active: tab == .gear)
         addTab("LURES + VAULT", frame: suppliesTabFrame, active: tab == .supplies)
+        addTab("ROD SHOP", frame: rodsTabFrame, active: tab == .rods)
         switch tab {
         case .gear: buildGearRows()
         case .supplies: buildSupplyRows()
+        case .rods: buildRodRows()
+        }
+    }
+
+    private func buildRodRows() {
+        for (index, rod) in FishingRodModel.allCases.enumerated() {
+            let frame = CGRect(x: -panelSize.width / 2 + 27, y: panelSize.height / 2 - 181 - CGFloat(index) * 74,
+                               width: panelSize.width - 54, height: 67)
+            addRow(frame)
+            let owned = profile.ownedRodIDs.contains(rod.rawValue)
+            let equipped = profile.equippedRod == rod
+            let preview = FishingRod()
+            preview.equip(rod)
+            preview.setAim(toward: CGPoint(x: 120, y: 40), power: 0)
+            for _ in 0..<90 { preview.simulate(deltaTime: 1.0 / 120) }
+            preview.position = CGPoint(x: frame.minX + 15, y: frame.midY - 9)
+            preview.setScale(0.31)
+            content.addChild(preview)
+            addLabel(rod.title, at: CGPoint(x: frame.minX + 77, y: frame.midY + 13), size: 12, color: .white, alignment: .left)
+            addLabel(rod.detail, at: CGPoint(x: frame.minX + 77, y: frame.midY - 11), size: 8.5, color: .lightGray, alignment: .left)
+            let button = CGRect(x: frame.maxX - 112, y: frame.midY - 17, width: 96, height: 34)
+            if !equipped { actionFrames.append((.selectRod(rod), button)) }
+            addActionButton(equipped ? "EQUIPPED" : owned ? "EQUIP" : "BUY  \(rod.cost)", frame: button,
+                            enabled: !equipped && (owned || profile.coins >= rod.cost), accent: equipped)
         }
     }
 
@@ -241,8 +274,8 @@ final class UpgradePanel: SKNode {
     }
 
     private func addLabel(_ text: String, at position: CGPoint, size: CGFloat, color: SKColor, alignment: SKLabelHorizontalAlignmentMode = .center) {
-        let label = SKLabelNode(fontNamed: "AvenirNext-Medium")
-        label.text = text
+        let label = WhyWaitLabelNode(fontNamed: "AvenirNext-Medium")
+        label.text = WWText.text(text)
         label.fontSize = size
         label.fontColor = color
         label.horizontalAlignmentMode = alignment

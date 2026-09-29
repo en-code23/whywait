@@ -2,31 +2,31 @@ import Foundation
 import SpriteKit
 
 final class FishingHUD: SKNode {
-    private let coinsShadow = SKLabelNode(fontNamed: "Menlo-Bold")
-    private let coinsLabel = SKLabelNode(fontNamed: "Menlo-Bold")
-    private let dexShadow = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
-    private let dexLabel = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
-    private let vaultLabel = SKLabelNode(fontNamed: "AvenirNext-Medium")
-    private let zoneLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-    private let hintLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let coinsShadow = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
+    private let coinsLabel = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
+    private let dexShadow = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let dexLabel = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let vaultLabel = WhyWaitLabelNode(fontNamed: "AvenirNext-Medium")
+    private let zoneLabel = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let hintLabel = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
 
     private let feedbackContainer = SKNode()
-    private let feedbackTitle = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-    private let feedbackSubtitle = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let feedbackTitle = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let feedbackSubtitle = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Medium")
 
     private let catchContainer = SKNode()
     private let catchHalo = SKShapeNode(ellipseOf: CGSize(width: 166, height: 82))
     private let catchRule = SKShapeNode(rectOf: CGSize(width: 82, height: 1), cornerRadius: 0.5)
-    private let catchEyebrow = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-    private let catchName = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-    private let catchRarity = SKLabelNode(fontNamed: "HelveticaNeue-Medium")
-    private let catchMeasurement = SKLabelNode(fontNamed: "Menlo-Bold")
-    private let catchValue = SKLabelNode(fontNamed: "Menlo-Bold")
-    private let catchRecord = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let catchEyebrow = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let catchName = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let catchRarity = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Medium")
+    private let catchMeasurement = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
+    private let catchValue = WhyWaitLabelNode(fontNamed: "Menlo-Bold")
+    private let catchRecord = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
     private var catchPreview: SKNode?
 
     private let tensionContainer = SKNode()
-    private let tensionLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+    private let tensionLabel = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Bold")
     private var tensionDots: [SKShapeNode] = []
 
     override init() {
@@ -55,7 +55,7 @@ final class FishingHUD: SKNode {
 
     func showZone(_ zone: FishingZone) {
         zoneLabel.removeAllActions()
-        zoneLabel.text = zone.displayName
+        zoneLabel.text = WWText.text(zone.displayName)
         zoneLabel.alpha = 0
         zoneLabel.run(
             .sequence([
@@ -68,7 +68,7 @@ final class FishingHUD: SKNode {
 
     func showHint(_ text: String, duration: TimeInterval = 2.3) {
         hintLabel.removeAllActions()
-        hintLabel.text = text
+        hintLabel.text = WWText.text(text)
         hintLabel.alpha = 0
         hintLabel.isHidden = false
         hintLabel.run(
@@ -91,7 +91,7 @@ final class FishingHUD: SKNode {
     func showFailure(_ reason: FishingFailureReason) {
         feedbackContainer.position = CGPoint(x: layoutSize.width / 2, y: layoutSize.height * 0.6)
         feedbackTitle.fontSize = 22
-        feedbackTitle.text = reason.rawValue
+        feedbackTitle.text = WWText.text(reason.rawValue)
         feedbackSubtitle.text = nil
         revealFeedback(autoHide: FishingTuning.failurePresentationDuration)
     }
@@ -99,8 +99,8 @@ final class FishingHUD: SKNode {
     func showSmallFeedback(_ title: String, subtitle: String? = nil) {
         feedbackContainer.position = CGPoint(x: layoutSize.width / 2, y: layoutSize.height * 0.6)
         feedbackTitle.fontSize = 18
-        feedbackTitle.text = title
-        feedbackSubtitle.text = subtitle
+        feedbackTitle.text = WWText.text(title)
+        feedbackSubtitle.text = subtitle.map(WWText.text)
         revealFeedback(autoHide: 0.9)
     }
 
@@ -168,7 +168,7 @@ final class FishingHUD: SKNode {
             catchPreview = preview
         case let .treasure(treasure):
             catchMeasurement.text = treasure.definition.symbol
-            let preview = SKLabelNode(fontNamed: "HelveticaNeue-Light")
+            let preview = WhyWaitLabelNode(fontNamed: "HelveticaNeue-Light")
             preview.text = treasure.definition.symbol
             preview.fontSize = 48
             preview.fontColor = rarityColor(treasure.definition.rarity)
@@ -184,6 +184,7 @@ final class FishingHUD: SKNode {
         catchHalo.glowWidth = catchItem.isLegendary ? 5 : 1.5
         catchRule.fillColor = rarityAccent.withAlphaComponent(0.74)
         catchContainer.removeAllActions()
+        WWText.localizeLabels(in: catchContainer)
         catchContainer.isHidden = false
         catchContainer.alpha = 0
         catchContainer.setScale(0.86)
@@ -227,7 +228,7 @@ final class FishingHUD: SKNode {
 
     func setFightTension(_ tension: CGFloat, level: FishingTensionVisualLevel) {
         tensionContainer.isHidden = false
-        tensionLabel.text = level == .critical ? "LINE!" : "LINE"
+        tensionLabel.text = WWText.text(level == .critical ? "LINE!" : "LINE")
         let activeCount = min(
             tensionDots.count,
             max(0, Int(ceil(min(1, tension) * CGFloat(tensionDots.count))))

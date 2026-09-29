@@ -87,6 +87,7 @@ final class MenuBarController: NSObject {
         quitItem.target = self
         menu.addItem(quitItem)
         statusItem.menu = menu
+        WWText.localize(menu)
     }
 
     @objc private func openWhyWait() { onOpenWhyWait?() }

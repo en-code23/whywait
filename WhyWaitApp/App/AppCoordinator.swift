@@ -190,6 +190,7 @@ final class AppCoordinator {
     }
 
     private func connectControllers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: WhyWaitLanguage.changed, object: nil)
         launcherController.onPlayGame = { [weak self] id in self?.playGame(id: id) }
         launcherController.onPlayLastGame = { [weak self] in self?.playLastGame() }
         launcherController.onRandomGame = { [weak self] in self?.playRandomGame() }
@@ -218,6 +219,12 @@ final class AppCoordinator {
             print("WhyWait update check skipped: \(error.localizedDescription)")
         }
 #endif
+    }
+
+    @objc private func languageChanged() {
+        refreshLauncher()
+        updateMenuBar()
+        if let menu = NSApplication.shared.mainMenu { WWText.localize(menu) }
     }
 
     private func applyUtilitySettings() {
